@@ -160,14 +160,15 @@ fixResultNames <- function(nms){
 #'   functions.
 #' @export
 #'
-#' @seealso \code{\link{"print_text.circGLM"}},
-#'   \code{\link{"print_mcmc.circGLM"}}, \code{\link{"print_coef.circGLM"}},
-#'   \code{\link{"print_all.circGLM"}}, \code{\link{"print.circGLM"}},
-#'   \code{\link{"plot_trace.circGLM"}},
-#'   \code{\link{"plot_tracestack.circGLM"}},
-#'   \code{\link{"plot_predict.circGLM"}},
-#'   \code{\link{"plot_meancompare.circGLM"}},
-#'   \code{\link{"plot_meanboxplot.circGLM"}}, \code{\link{"plot.circGLM"}}..
+#' @seealso \code{\link{"print.circGLM"}},
+#'   \code{\link{"plot.circGLM"}},
+#'   \code{\link{"coef.circGLM"}},
+#'   \code{\link{"BF.circGLM"}},
+#'   \code{\link{"residuals.circGLM"}},
+#'   \code{\link{"predict.circGLM"}},
+#'   \code{\link{"predict_function.circGLM"}},
+#'   \code{\link{"mcmc_summary.circGLM"}},
+#'   \code{\link{"IC_compare.circGLM"}}.
 #'
 #' @examples
 #' dat <- generateCircGLMData()
@@ -271,9 +272,11 @@ circGLM <- function(th,
 
   # Set names for beta only if there are beta's.
   if (length(res$bt_mean) > 0) {
-    colnames(res$bt_propacc) <- colnames(res$bt_CCI) <- colnames(res$bt_chain) <-
+    colnames(res$bt_propacc) <- colnames(res$bt_CCI) <-
       colnames(res$bt_mean) <- bt_names
     rownames(res$bt_CCI) <- rownames(res$zt_CCI) <- c("LB", "UB")
+
+    if (returnPostSample) colnames(res$bt_chain) <- bt_names
 
     colnames(res$zt_CCI) <- colnames(res$zt_mdir) <- colnames(res$zt_mean) <- zt_names
 
@@ -290,13 +293,16 @@ circGLM <- function(th,
   if (length(res$dt_meandir) > 0) {
 
     # Fix names for delta estimates
-    colnames(res$dt_meandir) <- colnames(res$dt_chain) <- rownames(res$DeltaIneqBayesFactors) <-
-      colnames(res$dt_propacc) <- colnames(res$dt_CCI) <-  dt_names
+    colnames(res$dt_meandir) <- rownames(res$DeltaIneqBayesFactors) <-
+      colnames(res$dt_propacc) <- colnames(res$dt_CCI) <- dt_names
+
+    if (returnPostSample) colnames(res$dt_chain) <- dt_names
+
     rownames(res$dt_meandir) <- "MeanDir"
     rownames(res$dt_CCI)  <- c("LB", "UB")
     rownames(res$dt_propacc) <- "ProportionAccepted"
 
-    colnames(res$mu_chain) <- mu_names
+    if (returnPostSample) colnames(res$mu_chain) <- mu_names
 
     # Fix names for Delta Ineq Bayes Factors
     colnames(res$DeltaIneqBayesFactors) <- "BF(dt>0:dt<0)"

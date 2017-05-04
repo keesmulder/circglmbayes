@@ -90,6 +90,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// estimateModeCirc
+double estimateModeCirc(NumericVector x, double cip);
+RcppExport SEXP CircGLMBayes_estimateModeCirc(SEXP xSEXP, SEXP cipSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type cip(cipSEXP);
+    rcpp_result_gen = Rcpp::wrap(estimateModeCirc(x, cip));
+    return rcpp_result_gen;
+END_RCPP
+}
+// computeHDICirc
+NumericVector computeHDICirc(NumericVector x, double cip);
+RcppExport SEXP CircGLMBayes_computeHDICirc(SEXP xSEXP, SEXP cipSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type cip(cipSEXP);
+    rcpp_result_gen = Rcpp::wrap(computeHDICirc(x, cip));
+    return rcpp_result_gen;
+END_RCPP
+}
 // estimateMode
 double estimateMode(vec x, double cip);
 RcppExport SEXP CircGLMBayes_estimateMode(SEXP xSEXP, SEXP cipSEXP) {

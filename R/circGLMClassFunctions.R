@@ -177,3 +177,145 @@ IC_compare.circGLM <- function(...,
   comtab
 }
 
+
+#' Compute the median direction
+#'
+#' @param th A vector of angles in radians.
+#' @param fastMethod Logical; If \code{TRUE}, the data is rotated so that the
+#'   mean is \code{pi} and linear methods are applied. If \code{FALSE}, the arcs
+#'   between each set of data points must be computed, which is much slower. For
+#'   data that is very strongly spread out, the fast method might not give the
+#'   correct value.
+#'
+#' @return An angle in radians.
+#' @export
+#'
+#' @examples
+#' medianDirection(rvmc(30, 0, 2))
+#'
+medianDirection <- function(th, fastMethod = TRUE) {
+
+  if (fastMethod) {
+
+    # The fast method uses the C++ method circQuantile.
+    return(as.numeric(circQuantile(th, .5)))
+  } else {
+
+    # The slower method computes the mean arc distance between all angles th.
+    meandiffs <- sapply(th, function(x) {
+      pi - mean(abs(pi - abs(x - th)))
+    })
+    return(th[which.min(meandiffs)])
+  }
+}
+
+
+
+#' Estimate the modal direction
+#'
+#' Estimates the mode as the midpoint of the highest density interval.
+#'
+#' The highest density interval is computed as the shortest interval containing
+#' \code{modebw} of the values in \code{th}. For circular data however, this
+#' definition is not useful, and we should instead look for the shortest arc
+#' that contains \code{modebw} of the data. This is done by rotating the data
+#' such that the mean direction is \code{pi}, and then applying the usual linear
+#' methods.
+#'
+#' @param th A vector of angles in radians.
+#' @param modebw Numeric between 0 and 1. The modes are estimated by taking the
+#'   midpoint of a highest density interval. Specifically, the mode is the
+#'   midpoint of the interval that contains \code{modebw} of the values of
+#'   \code{th}. Reasonable values are roughly between .005 and .2, although
+#'   lower values may be reasonable there are a lot of observations in
+#'   \code{th}.
+#'
+#' @return An angle in radians.
+#' @export
+#'
+#' @examples
+#' modalDirection(rvmc(30, 0, 2))
+#'
+modalDirection <- function(th, modebw = .1) {
+
+  mdir <- computeMeanDirection(th)
+
+  mdir - pi + estimateMode(th - mdir + pi , cip = modebw)
+}
+
+
+
+#' Comute the Circular Standard Deviation
+#'
+#' Returns the circular standard deviation of a vector of circular data which is
+#' defined as the square root of minus 2 times the log of the mean resultant
+#' length.
+#'
+#' @param x
+#'
+#' @return A numeric, the circular standard deviation.
+#' @export
+#'
+circSD <- function(x) {
+  sqrt(-2 * log(sqrt(sum(cos(x))^2 + sum(sin(x))^2) / length(x)))
+}
+
+
+#' Obtain different central tendencies and CIs from a circGLM object
+#'
+#' Computes the mean (arithmetic or mean direction), median, and mode estimate
+#' for the MCMC chains of a circGLM object, as well as a credible interval.
+#'
+#' The summary statistics computed have to be computed differently for linear
+#' and circular variables.
+#'
+#' @param m A circGLM object.
+#' @param modebw Numeric between 0 and 1. The modes are estimated by taking the
+#'   midpoint of a highest density interval. Specifically, the mode is the
+#'   midpoint of the interval that contains \code{modebw} of the density of the
+#'   posterior. Reasonable values are roughly between .005 and .2, although
+#'   lower values may be reasonable if the number of iteration, Q, is large.
+#' @param ciperc The confidence interval percentage.
+#'
+#' @return A matrix with the parameters as rows, and on the columns central
+#'   tendencies and appropriate credible intervals (circular quantiles and
+#'   Highest Density Intervals).
+#' @export
+#'
+#' @examples
+#' dat <- generateCircGLMData()
+#' m   <- circGLM(dat[, 1], X = dat[, -1])
+#' mcmc_summary.circGLM(m)
+#'
+mcmc_summary.circGLM <- function(m, modebw = .1, ciperc = .95) {
+
+  nms <- colnames(m$all_chains)
+
+  # Obtain circular central tendencies.
+  circVars   <- grep("dt|b0|mu", nms)
+  circChains <- m$all_chains[, circVars, drop = FALSE]
+  circCTs    <- t(apply(circChains, 2, function(x) {
+    c(mean   = computeMeanDirection(x),
+      median = medianDirection(x),
+      mode   = estimateModeCirc(x, modebw),
+      SD     = circSD(x),
+      computeHDICirc(x, ciperc))
+  }))
+
+  lineVars <- grep("kp|bt", nms)
+  lineChains <- m$all_chains[, lineVars, drop = FALSE]
+  lineCTs    <- t(apply(lineChains, 2, function(x) {
+    c(mean   = mean(x),
+      median = median(x),
+      mode   = estimateMode(x, modebw),
+      SD     = sd(x),
+      computeHDI(x, cip = ciperc))
+  }))
+
+  out <- rbind(circCTs, lineCTs)
+  colnames(out)[5:6] <- c("LB", "UB")
+  out
+}
+
+
+

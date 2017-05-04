@@ -13,7 +13,7 @@
   \item{theta}{Angle on the Basic Human Values scale in radians from -pi to pi.}
   \item{thetapos}{theta plus pi. }
   \item{thetagrades}{thetapos converted to degrees.}
-  }.}
+  }}
 \source{
 \href{http://www.europeansocialsurvey.org/data/}{ESS Data Portal}
 }

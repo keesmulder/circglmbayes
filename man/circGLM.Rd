@@ -135,12 +135,12 @@ print(m, type = "all")
 plot(m, type = "tracestack")
 }
 \seealso{
-\code{\link{"print_text.circGLM"}},
-  \code{\link{"print_mcmc.circGLM"}}, \code{\link{"print_coef.circGLM"}},
-  \code{\link{"print_all.circGLM"}}, \code{\link{"print.circGLM"}},
-  \code{\link{"plot_trace.circGLM"}},
-  \code{\link{"plot_tracestack.circGLM"}},
-  \code{\link{"plot_predict.circGLM"}},
-  \code{\link{"plot_meancompare.circGLM"}},
-  \code{\link{"plot_meanboxplot.circGLM"}}, \code{\link{"plot.circGLM"}}..
+\code{\link{"print.circGLM"}},
+  \code{\link{"plot.circGLM"}},
+  \code{\link{"coef.circGLM"}},
+  \code{\link{"BF.circGLM"}},
+  \code{\link{"residuals.circGLM"}},
+  \code{\link{"predict.circGLM"}},
+  \code{\link{"predict_function.circGLM"}},
+  \code{\link{"IC_compare.circGLM"}}.
 }

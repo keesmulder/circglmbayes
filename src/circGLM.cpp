@@ -5,8 +5,6 @@
 #
 # Kees Tim Mulder
 #
-#
-#
 # This work was supported by a Vidi grant awarded to I. Klugkist from the
 # Dutch Organization for Scientific research (NWO 452-12-010).
 # ----------------------------------------------------------
@@ -43,7 +41,7 @@ double atanLFdouble(double x, double r)    {return r * atan(x);}
 double invAtanLFdouble(double x, double r) {return tan(x/r);}
 
 
-
+//' @export
 // [[Rcpp::export]]
 NumericVector rvmc(int n, double mu, double kp) {
   /* FUNCTION rvmc -------------------------------------------
@@ -241,6 +239,113 @@ vec circQuantile(arma::vec th, vec q) {
 }
 
 
+
+
+//' @export
+// [[Rcpp::export]]
+double estimateModeCirc(NumericVector x, double cip) {
+  /* FUNCTION hmode -------------------------------------------
+  Estimate the mode by finding the highest posterior density interval.
+
+  x:      Sample from which to estimate the mode.
+  cip:    Bandwith for the algorithm, ranging from 0 to 1.
+
+  Returns: An scalar containing the estimate of the mode.
+  ------------------------------------------------------------ */
+
+  int n, cil, chiv;
+  double ln, M;
+
+  n = x.size();
+  NumericVector sx = clone(x);
+  NumericVector sx2 = clone(x)+(2*pi);
+  std::vector<double> SX;
+  SX.reserve( x.size() + x.size() ); // preallocate memory
+  SX.insert( SX.end(), sx.begin(), sx.end() );
+  SX.insert( SX.end(), sx2.begin(), sx2.end() );
+  std::sort(SX.begin(), SX.end());
+  // The number of values within the
+  // (cip*100)% Confidence Interval
+  cil = trunc(cip*n);
+
+  // Will be the minimal value of the smallest interval.
+  chiv = 0;
+
+  // Size of the currently smallest interval.
+  ln = SX[cil]-SX[0];
+
+  for (int i=0; i < (n); i++) {
+
+    // If the smallest interval so far is larger than the
+    // current, set the current as the new smallest interval.
+    if (ln > (SX[i+cil]-SX[i])) {
+      ln = (SX[i+cil]-SX[i]);
+      chiv = i;
+    }
+  }
+
+  M = (fmod(SX[chiv+cil],(2*pi))+SX[chiv])/2;
+
+  return M;
+}
+
+
+
+//' Find the highest density interval.
+//'
+//' @export
+// [[Rcpp::export]]
+NumericVector computeHDICirc(NumericVector x, double cip) {
+  /* FUNCTION hmodeci -----------------------------------------
+  Find the highest posterior density interval.
+
+  x:      Sample from which to estimate the interval.
+  cip:    Bandwith for the algorithm, ranging from 0 to 1.
+
+  Returns: An vector of length 2 containing
+  lower and upper bound of the interval.
+  ------------------------------------------------------------ */
+
+  int n, cil, chiv;
+  double ln;
+
+  n = x.size();
+  NumericVector sx = clone(x);
+  NumericVector sx2 = clone(x)+(2*pi);
+  std::vector<double> SX;
+  SX.reserve( x.size() + x.size() ); // preallocate memory
+  SX.insert( SX.end(), sx.begin(), sx.end() );
+  SX.insert( SX.end(), sx2.begin(), sx2.end() );
+  std::sort(SX.begin(), SX.end());
+  // The number of values within the
+  // (cip*100)% Confidence Interval
+  cil = trunc(cip*n);
+
+  // Will be the minimal value of the smallest interval.
+  chiv = 0;
+
+  // Length of the currently smallest interval.
+  ln = SX[cil]-SX[0];
+
+  for (int i=0; i < (n); i++) {
+
+    // If the smallest interval so far is larger than the
+    // current, set the current as the new smallest interval.
+    if (ln > (SX[i+cil]-SX[i])) {
+      ln = (SX[i+cil]-SX[i]);
+      chiv = i;
+    }
+  }
+
+  NumericVector M(2);
+  M[0] = SX[chiv];
+  M[1] = fmod(SX[chiv+cil],(2*pi));
+
+  return M;
+}
+
+
+//' @export
 // [[Rcpp::export]]
 double estimateMode(vec x, double cip) {
   // Compute the mode using interval cip%.
@@ -278,7 +383,7 @@ double estimateMode(vec x, double cip) {
 }
 
 
-
+//' @export
 // [[Rcpp::export]]
 vec computeHDI(vec x, double cip) {
   // Compute the cip% Highest Density Interval for some vector x.

@@ -9,6 +9,7 @@ invAtanLF <- function(x, r) {
     .Call('CircGLMBayes_invAtanLF', PACKAGE = 'CircGLMBayes', x, r)
 }
 
+#' @export
 rvmc <- function(n, mu, kp) {
     .Call('CircGLMBayes_rvmc', PACKAGE = 'CircGLMBayes', n, mu, kp)
 }
@@ -29,10 +30,24 @@ circQuantile <- function(th, q) {
     .Call('CircGLMBayes_circQuantile', PACKAGE = 'CircGLMBayes', th, q)
 }
 
+#' @export
+estimateModeCirc <- function(x, cip) {
+    .Call('CircGLMBayes_estimateModeCirc', PACKAGE = 'CircGLMBayes', x, cip)
+}
+
+#' Find the highest density interval.
+#'
+#' @export
+computeHDICirc <- function(x, cip) {
+    .Call('CircGLMBayes_computeHDICirc', PACKAGE = 'CircGLMBayes', x, cip)
+}
+
+#' @export
 estimateMode <- function(x, cip) {
     .Call('CircGLMBayes_estimateMode', PACKAGE = 'CircGLMBayes', x, cip)
 }
 
+#' @export
 computeHDI <- function(x, cip) {
     .Call('CircGLMBayes_computeHDI', PACKAGE = 'CircGLMBayes', x, cip)
 }

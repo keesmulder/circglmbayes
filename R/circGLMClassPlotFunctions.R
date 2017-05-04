@@ -20,7 +20,7 @@
 #' @examples
 #' plot(circGLM(rvmc(10, 1, 1)))
 #'
-#' dat <- generateCircGLMData(nconpred = 1, ncatpred = 1)
+#' dat <- generateCircGLMData(n = 100, nconpred = 1, ncatpred = 1)
 #' m   <- circGLM(th = dat[, 1], X = dat[, -1])
 #'
 #' # Traceplot by default
@@ -115,8 +115,8 @@ plot_predict.circGLM <- function(m, x, d, th,
       btx <- m$bt_mean[,1]
     } else {
       warning(paste("Predict plot can not be drawn without continuous",
-                    "predictors. Returning a mean posterior plot instead."))
-      plot_meancompare.circGLM(m)
+                    "predictors. Returning a mean posterior plot instead."), call. = FALSE)
+      return(plot_meancompare.circGLM(m))
     }
     # Find the correct column x if it is given as a string.
   } else if (is.character(x)) {
@@ -125,6 +125,7 @@ plot_predict.circGLM <- function(m, x, d, th,
   } else {
     btx <- m$bt_mean[, colnames(x)[1]]
   }
+
 
   if (missing(d)) {
     # If we don't have a given d, just use the first one if there one.
@@ -135,6 +136,7 @@ plot_predict.circGLM <- function(m, x, d, th,
     } else {
       # In this case there is no grouping.
       pdat <- data.frame(th = th, x =  x)
+      d <- NA
     }
     # Find the correct column d if it is given as a string.
   } else if (is.character(d)) {
@@ -145,14 +147,16 @@ plot_predict.circGLM <- function(m, x, d, th,
     # In this case there is no grouping.
     pdat <- data.frame(th = th, x =  x)
   } else {
+    # In the final alternative d has been provided.
     dtd <- m$dt_meandir[, colnames(d)[1]]
   }
 
   # The base prediction function.
   predfun <- function(x) m$b0_meandir + linkfun(x * btx)
 
+
   # Check if there is a grouping, then return the appropriate plot.
-  if ((is.na(d) | missing(d)) & ncol(m$data_d) != 0) {
+  if ((is.na(d) | missing(d)) || ncol(d) == 0) {
     p <- ggplot2::ggplot(data = pdat, ggplot2::aes(y = th, x = x)) +
       ggplot2::geom_point() +
       ggplot2::stat_function(fun = predfun,
