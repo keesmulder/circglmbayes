@@ -5,7 +5,7 @@
 \title{Create a prediction plot from circGLM objects}
 \usage{
 plot_predict.circGLM(m, x, d, th, linkfun = function(x) atanLF(x, 2),
-  xlab = "x", ylab = expression(theta), colorPalette = c("#E69F00",
+  xlab = NA, ylab = expression(theta), colorPalette = c("#E69F00",
   "#56B4E9"))
 }
 \arguments{

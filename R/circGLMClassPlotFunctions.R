@@ -99,20 +99,21 @@ plot.circGLM <- function(m, type = "trace", ...) {
 #'
 plot_predict.circGLM <- function(m, x, d, th,
                                  linkfun = function(x) atanLF(x, 2),
-                                 xlab = "x", ylab = expression(theta),
+                                 xlab = NA, ylab = expression(theta),
                                  colorPalette = c("#E69F00", "#56B4E9")) {
 
+  # Try to get a label for x.
+  if (is.na(xlab) && is.character(x)) xlab <- x else xlab <- "x"
+
   # Usually, we have no th given, so we use the outcome from the model m.
-  if (missing(th)) {
-    th <- m$data_th
-  }
+  if (missing(th)) th <- m$data_th
 
   # First, try to find x and d where possible.
   if (missing(x)) {
     # If we don't have a given x, just use the first one if there is one.
     if (ncol(m$data_stX) != 0) {
-      x   <- m$data_stX[, 1, drop = FALSE]
       btx <- m$bt_mean[,1]
+      x   <- m$data_stX[, 1, drop = FALSE]
     } else {
       warning(paste("Predict plot can not be drawn without continuous",
                     "predictors. Returning a mean posterior plot instead."), call. = FALSE)
@@ -120,12 +121,11 @@ plot_predict.circGLM <- function(m, x, d, th,
     }
     # Find the correct column x if it is given as a string.
   } else if (is.character(x)) {
-    x   <- m$data_stX[, x, drop = FALSE]
     btx <- m$bt_mean[, x]
+    x   <- m$data_stX[, x, drop = FALSE]
   } else {
     btx <- m$bt_mean[, colnames(x)[1]]
   }
-
 
   if (missing(d)) {
     # If we don't have a given d, just use the first one if there one.
@@ -155,6 +155,7 @@ plot_predict.circGLM <- function(m, x, d, th,
   predfun <- function(x) m$b0_meandir + linkfun(x * btx)
 
 
+
   # Check if there is a grouping, then return the appropriate plot.
   if ((is.na(d) | missing(d)) || ncol(d) == 0) {
     p <- ggplot2::ggplot(data = pdat, ggplot2::aes(y = th, x = x)) +
@@ -163,7 +164,8 @@ plot_predict.circGLM <- function(m, x, d, th,
                              col = colorPalette[1]) +
       ggplot2::theme_bw() +
       ggplot2::scale_colour_manual(values = colorPalette) +
-      ggplot2::ylab(ylab)
+      ggplot2::ylab(ylab) +
+      ggplot2::xlab(xlab)
   } else {
     p <- ggplot2::ggplot(data = pdat, ggplot2::aes(y = th, x = x, col = factor(d))) +
       ggplot2::geom_point() +
@@ -173,7 +175,8 @@ plot_predict.circGLM <- function(m, x, d, th,
                              col = colorPalette[2]) +
       ggplot2::theme_bw() +
       ggplot2::scale_colour_manual(values = colorPalette) +
-      ggplot2::ylab(ylab)
+      ggplot2::ylab(ylab) +
+      ggplot2::xlab(xlab)
   }
   p
 }
@@ -291,15 +294,19 @@ plot_trace.circGLM <- function(m, params, ...) {
 #' An alternative option to plot traceplots from circGLM objects.
 #'
 #' @param m A circGLM object.
-#' @param coef A character string, either "Beta" or "Zeta", determining whether the continuous
-#'   regression predictors are shown in reparametrized form or not.
-#' @param labelFormat A character vector, either "default" or "latex". The "latex" labels are useful
-#'   if \code{knitr} is used with a Tikz device.
+#' @param coef A character string, either "Beta" or "Zeta", determining whether
+#'   the continuous regression predictors are shown in reparametrized form or
+#'   not.
+#' @param labelFormat A character vector, either "default", numbered" or
+#'   "latex". By default, we find the names of the variables in the circGLM
+#'   object. If \code{"numbered"}, the parameter names are numberd. The "latex"
+#'   labels are useful if \code{knitr} is used with a Tikz device.
 #' @param ggTheme The ggplot theme to use if
-#' @param res The maximum number iterations to print. If \code{res} is larger than the number of
-#'   iterations in the circGLM object, a subset of size \code{res} is selected, and it is attempted
-#'   to equally space the selected iterations from the full set. This is useful if there is a very
-#'   large posterior sample due to having very little thinning.
+#' @param res The maximum number iterations to print. If \code{res} is larger
+#'   than the number of iterations in the circGLM object, a subset of size
+#'   \code{res} is selected, and it is attempted to equally space the selected
+#'   iterations from the full set. This is useful if there is a very large
+#'   posterior sample due to having very little thinning.
 #'
 #' @return A ggplot2 plot.
 #' @export
@@ -308,8 +315,7 @@ plot_trace.circGLM <- function(m, params, ...) {
 #' @seealso \code{\link{"plot_trace.circGLM"}},
 #'   \code{\link{"plot_predict.circGLM"}},
 #'   \code{\link{"plot_meancompare.circGLM"}},
-#'   \code{\link{"plot_meanboxplot.circGLM"}},
-#'   \code{\link{"plot.circGLM"}}.
+#'   \code{\link{"plot_meanboxplot.circGLM"}}, \code{\link{"plot.circGLM"}}.
 #'
 #'
 #'
@@ -341,6 +347,11 @@ plot_tracestack.circGLM <- function(m,
 
   # Create labels
   if (labelFormat == "default") {
+    yLabB0    <- "Intercept"
+    yLabKp    <- "Kappa"
+    yLabDt    <- if (ndt > 0) {colnames(m$dt_meandir)} else {NULL}
+    yLabPd    <- if (npd > 0) {colnames(m$bt_mean)   } else {NULL}
+  } else if (labelFormat == "numbered") {
     yLabB0    <- "Beta_0"
     yLabKp    <- "Kappa"
     yLabDt    <- if (ndt > 0) {paste("Delta", 1:ndt)} else {NULL}

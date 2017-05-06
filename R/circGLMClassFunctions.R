@@ -295,9 +295,9 @@ mcmc_summary.circGLM <- function(m, modebw = .1, ciperc = .95) {
   circVars   <- grep("dt|b0|mu", nms)
   circChains <- m$all_chains[, circVars, drop = FALSE]
   circCTs    <- t(apply(circChains, 2, function(x) {
-    c(mean   = computeMeanDirection(x),
-      median = medianDirection(x),
-      mode   = estimateModeCirc(x, modebw),
+    c(Mean   = computeMeanDirection(x),
+      Median = medianDirection(x),
+      Mode   = estimateModeCirc(x, modebw),
       SD     = circSD(x),
       computeHDICirc(x, ciperc))
   }))
@@ -305,9 +305,9 @@ mcmc_summary.circGLM <- function(m, modebw = .1, ciperc = .95) {
   lineVars <- grep("kp|bt", nms)
   lineChains <- m$all_chains[, lineVars, drop = FALSE]
   lineCTs    <- t(apply(lineChains, 2, function(x) {
-    c(mean   = mean(x),
-      median = median(x),
-      mode   = estimateMode(x, modebw),
+    c(Mean   = mean(x),
+      Median = median(x),
+      Mode   = estimateMode(x, modebw),
       SD     = sd(x),
       computeHDI(x, cip = ciperc))
   }))

@@ -18,14 +18,17 @@ sampleKappa <- function(etag, eta) {
     .Call('CircGLMBayes_sampleKappa', PACKAGE = 'CircGLMBayes', etag, eta)
 }
 
+#' @export
 computeMeanDirection <- function(th) {
     .Call('CircGLMBayes_computeMeanDirection', PACKAGE = 'CircGLMBayes', th)
 }
 
+#' @export
 computeResultantLength <- function(th) {
     .Call('CircGLMBayes_computeResultantLength', PACKAGE = 'CircGLMBayes', th)
 }
 
+#' @export
 circQuantile <- function(th, q) {
     .Call('CircGLMBayes_circQuantile', PACKAGE = 'CircGLMBayes', th, q)
 }

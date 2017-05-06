@@ -191,7 +191,7 @@ vec sampleKappa(double etag, int eta) {
 }
 
 
-
+//' @export
 // [[Rcpp::export]]
 double computeMeanDirection (vec th) {
   // Compute the mean direction for some dataset th.
@@ -201,7 +201,7 @@ double computeMeanDirection (vec th) {
   return atan2(S, C);
 }
 
-
+//' @export
 // [[Rcpp::export]]
 double computeResultantLength (vec th) {
   // Compute the resultant length for some dataset th.
@@ -229,6 +229,7 @@ vec quantile(vec x, vec q) {
   return out;
 }
 
+//' @export
 // [[Rcpp::export]]
 vec circQuantile(arma::vec th, vec q) {
   // Compute a circular quantile.

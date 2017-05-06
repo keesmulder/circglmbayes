@@ -10,18 +10,22 @@ plot_tracestack.circGLM(m, coef = "Beta", labelFormat = "default",
 \arguments{
 \item{m}{A circGLM object.}
 
-\item{coef}{A character string, either "Beta" or "Zeta", determining whether the continuous
-regression predictors are shown in reparametrized form or not.}
+\item{coef}{A character string, either "Beta" or "Zeta", determining whether
+the continuous regression predictors are shown in reparametrized form or
+not.}
 
-\item{labelFormat}{A character vector, either "default" or "latex". The "latex" labels are useful
-if \code{knitr} is used with a Tikz device.}
+\item{labelFormat}{A character vector, either "default", numbered" or
+"latex". By default, we find the names of the variables in the circGLM
+object. If \code{"numbered"}, the parameter names are numberd. The "latex"
+labels are useful if \code{knitr} is used with a Tikz device.}
 
 \item{ggTheme}{The ggplot theme to use if}
 
-\item{res}{The maximum number iterations to print. If \code{res} is larger than the number of
-iterations in the circGLM object, a subset of size \code{res} is selected, and it is attempted
-to equally space the selected iterations from the full set. This is useful if there is a very
-large posterior sample due to having very little thinning.}
+\item{res}{The maximum number iterations to print. If \code{res} is larger
+than the number of iterations in the circGLM object, a subset of size
+\code{res} is selected, and it is attempted to equally space the selected
+iterations from the full set. This is useful if there is a very large
+posterior sample due to having very little thinning.}
 }
 \value{
 A ggplot2 plot.
@@ -40,6 +44,5 @@ plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "tracestack")
 \code{\link{"plot_trace.circGLM"}},
   \code{\link{"plot_predict.circGLM"}},
   \code{\link{"plot_meancompare.circGLM"}},
-  \code{\link{"plot_meanboxplot.circGLM"}},
-  \code{\link{"plot.circGLM"}}.
+  \code{\link{"plot_meanboxplot.circGLM"}}, \code{\link{"plot.circGLM"}}.
 }

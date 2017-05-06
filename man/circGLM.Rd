@@ -63,14 +63,16 @@ parameters, whether they use highest density intervals, circular quantiles
 or regular quantiles.}
 
 \item{r}{A numeric. \code{r} is the parameter used in the link function
-\eqn{g(x, r) = r atan(x)}. If \code{r = 2}, the link function maps the
-real line to the full circle. If \code{r < 2} the link functions maps to a
+\eqn{g(x, r) = r atan(x)}. If \code{r = 2}, the link function maps the real
+line to the full circle. If \code{r < 2} the link functions maps to a
 proportion \code{r / 2} of the circle. If \code{r > 2}, the link functions
 can reach the same are of the circle multiple times, which is unlikely to
 be useful, and should be used with caution.}
 
 \item{returnPostSample}{Logical indicating whether the mcmc sample itself
-should be returned.}
+should be returned. Should only be set to FALSE if there are memory
+constraints, as many subsequent analyses rely on the posterior sample
+directly.}
 
 \item{output}{A character string, either \code{"list"} or \code{"vector"}. In
 most situations, \code{"list"} should be used, which returns a circGLM
@@ -135,12 +137,9 @@ print(m, type = "all")
 plot(m, type = "tracestack")
 }
 \seealso{
-\code{\link{"print.circGLM"}},
-  \code{\link{"plot.circGLM"}},
-  \code{\link{"coef.circGLM"}},
-  \code{\link{"BF.circGLM"}},
-  \code{\link{"residuals.circGLM"}},
-  \code{\link{"predict.circGLM"}},
+\code{\link{"print.circGLM"}}, \code{\link{"plot.circGLM"}},
+  \code{\link{"coef.circGLM"}}, \code{\link{"BF.circGLM"}},
+  \code{\link{"residuals.circGLM"}}, \code{\link{"predict.circGLM"}},
   \code{\link{"predict_function.circGLM"}},
-  \code{\link{"IC_compare.circGLM"}}.
+  \code{\link{"mcmc_summary.circGLM"}}, \code{\link{"IC_compare.circGLM"}}.
 }
