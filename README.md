@@ -8,6 +8,6 @@ In order to use this package from `R`, it can be installed from GitHub using the
     install.packages("devtools")
     devtools::install_github("keesmulder/CircGLMBayes")
     
-For further help on this package, install it as above, load it and run `help("CircGLMBayes")` or `?circGLM`.
+For further help on this package, install it as above, attach it with `library(CircGLMBayes)` and run `help("CircGLMBayes")` or `?circGLM`.
     
       
