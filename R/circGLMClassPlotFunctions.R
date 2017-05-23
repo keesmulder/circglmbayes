@@ -307,6 +307,9 @@ plot_trace.circGLM <- function(m, params, ...) {
 #'   \code{res} is selected, and it is attempted to equally space the selected
 #'   iterations from the full set. This is useful if there is a very large
 #'   posterior sample due to having very little thinning.
+#' @param burnThinLabel Logical; if TRUE, the x-label will reflect the fact that
+#'   a burn-in and a thinning factor were used. If FALSE, the x-labels will run
+#'   from 1 to Q.
 #'
 #' @return A ggplot2 plot.
 #' @export
@@ -330,7 +333,8 @@ plot_tracestack.circGLM <- function(m,
                                     coef="Beta",
                                     labelFormat = "default",
                                     ggTheme = ggplot2::theme_bw(),
-                                    res = 5000) {
+                                    res = 10000,
+                                    burnThinLabel = TRUE) {
 
   if (is.null(m$b0_chain)) stop("No posterior sample saved for this result.")
 
@@ -382,6 +386,12 @@ plot_tracestack.circGLM <- function(m,
     idx <- 1:Q
   }
 
+  # Reflect the burnin and thinning in the x-label if required.
+  if (burnThinLabel) {
+    scaleGeom <- ggplot2::scale_x_continuous(labels = function(x) m$burnin + x*m$thin)
+  } else {
+    scaleGeom <- NULL
+  }
 
   # Stack chains on top of each other.
   longChains <- reshape2::melt(allChains, varnames = c("idx", "iPar"))
@@ -395,6 +405,7 @@ plot_tracestack.circGLM <- function(m,
     ggplot2::xlab("Iteration") +
     ggplot2::ylab("") +
     ggTheme +
+    scaleGeom +
     ggplot2::coord_cartesian(xlim = c(0, Q), expand = FALSE) +
     ggplot2::facet_grid(iPar ~ ., scales = "free")
 

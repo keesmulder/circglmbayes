@@ -5,7 +5,7 @@
 \title{An alternative option to plot traceplots from circGLM objects.}
 \usage{
 plot_tracestack.circGLM(m, coef = "Beta", labelFormat = "default",
-  ggTheme = ggplot2::theme_bw(), res = 5000)
+  ggTheme = ggplot2::theme_bw(), res = 10000, burnThinLabel = TRUE)
 }
 \arguments{
 \item{m}{A circGLM object.}
@@ -26,6 +26,10 @@ than the number of iterations in the circGLM object, a subset of size
 \code{res} is selected, and it is attempted to equally space the selected
 iterations from the full set. This is useful if there is a very large
 posterior sample due to having very little thinning.}
+
+\item{burnThinLabel}{Logical; if TRUE, the x-label will reflect the fact that
+a burn-in and a thinning factor were used. If FALSE, the x-labels will run
+from 1 to Q.}
 }
 \value{
 A ggplot2 plot.

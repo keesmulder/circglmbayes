@@ -287,6 +287,7 @@ circGLM <- function(th,
   }
 
 
+
   # Set names for delta only if there are delta's.
   if (length(res$dt_meandir) > 0) {
 
@@ -325,7 +326,7 @@ circGLM <- function(th,
   rownames(res$TimeTaken) <- c("Initialization", "Loop", "Post-processing", "Total")
   colnames(res$TimeTaken) <- "Time (sec)"
 
-  # Define a coda mcmc object containing all
+  # Define a coda mcmc object containing all chains.
   res$all_chains <- coda::mcmc(as.data.frame(res[grep("chain", names(res))]),
                          start = burnin, thin = thin)
 
@@ -335,7 +336,11 @@ circGLM <- function(th,
     # Add a class 'circGLM', so that we can use print and plot methods for this class.
     class(res) <- c("circGLM", class(res))
 
-    res$Call <- match.call()
+
+    # Save some of the inputs in the output for easy access.
+    res$Call      <- match.call()
+    res$thin      <- thin
+    res$burnin    <- burnin
     res$data_th   <- th
     res$data_X    <- X
     res$data_d    <- d
