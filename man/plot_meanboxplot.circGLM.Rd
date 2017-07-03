@@ -7,7 +7,7 @@
 plot_meanboxplot.circGLM(m, xlab = "Mean direction")
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{m}{A \code{circGLM} object.}
 
 \item{xlab}{The label of the x-axis.}
 }
@@ -29,9 +29,9 @@ m   <- circGLM(th = dat[, 1], X = dat[, -1])
 plot_meancompare.circGLM(m)
 }
 \seealso{
-\code{\link{"plot_trace.circGLM"}},
-  \code{\link{"plot_tracestack.circGLM"}},
-  \code{\link{"plot_predict.circGLM"}},
-  \code{\link{"plot_meancompare.circGLM"}},
-  \code{\link{"plot.circGLM"}}.
+\code{\link{plot_trace.circGLM}},
+  \code{\link{plot_tracestack.circGLM}},
+  \code{\link{plot_predict.circGLM}},
+  \code{\link{plot_meancompare.circGLM}},
+  \code{\link{plot.circGLM}}.
 }

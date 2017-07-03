@@ -22,8 +22,8 @@ cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
 print(cglmmod, type = "text")
 }
 \seealso{
-\code{\link{"print_mcmc.circGLM"}},
-  \code{\link{"print_all.circGLM"}},
-  \code{\link{"print_coef.circGLM"}},
-  \code{\link{"print.circGLM"}}.
+\code{\link{print_mcmc.circGLM}},
+  \code{\link{print_all.circGLM}},
+  \code{\link{print_coef.circGLM}},
+  \code{\link{print.circGLM}}.
 }

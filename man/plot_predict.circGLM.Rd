@@ -2,28 +2,28 @@
 % Please edit documentation in R/circGLMClassPlotFunctions.R
 \name{plot_predict.circGLM}
 \alias{plot_predict.circGLM}
-\title{Create a prediction plot from circGLM objects}
+\title{Create a prediction plot from a circGLM object}
 \usage{
 plot_predict.circGLM(m, x, d, th, linkfun = function(x) atanLF(x, 2),
   xlab = NA, ylab = expression(theta), colorPalette = c("#E69F00",
   "#56B4E9"))
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{m}{A \code{circGLM} object.}
 
 \item{x}{Optional; Either a numeric vector with a continuous predictor or
 string naming the desired variable to plot on the x-axis. If missing, we
-just use the first continuous predictor in the circGLM object.}
+just use the first continuous predictor in the \code{circGLM} object.}
 
 \item{d}{Optional; Either a numeric vector with a categorical predictor or
 string naming the desired variable to plot on the x-axis. If missing, we
-just use the first categorical predictor in the circGLM object.}
+just use the first categorical predictor in the \code{circGLM} object.}
 
 \item{th}{Optional; Can be a new numeric vector containing outcome angles
 corresponding to predictors \code{x} and potentially \code{d}.}
 
 \item{linkfun}{The link function to be used. Should be the same as was used
-for the creation of the circGLM object.}
+for the creation of the \code{circGLM} object.}
 
 \item{xlab}{A character string with the x-label.}
 
@@ -45,7 +45,7 @@ regression lines show the predicted values for different values of the linear
 and categorical predictors.
 
 Predictors \code{x} and \code{d} and outcome \code{th} can be provided as
-numeric vectors of the same length as the outcome in the circGLM object
+numeric vectors of the same length as the outcome in the \code{circGLM} object
 \code{m}. This allows plotting the regression line from an earlier dataset on
 a new dataset.
 
@@ -65,9 +65,9 @@ plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "predict")
 
 }
 \seealso{
-\code{\link{"plot_trace.circGLM"}},
-  \code{\link{"plot_tracestack.circGLM"}},
-  \code{\link{"plot_meancompare.circGLM"}},
-  \code{\link{"plot_meanboxplot.circGLM"}},
-  \code{\link{"plot.circGLM"}}.
+\code{\link{plot_trace.circGLM}},
+  \code{\link{plot_tracestack.circGLM}},
+  \code{\link{plot_meancompare.circGLM}},
+  \code{\link{plot_meanboxplot.circGLM}},
+  \code{\link{plot.circGLM}}.
 }

@@ -1,19 +1,19 @@
 #' Print circGLM Object
 #'
-#' General print function for circGLM objects, which dispatches the chosen type
+#' General print function for \code{circGLM} objects, which dispatches the chosen type
 #' of printing to the corresponding function.
 #'
-#' @param m A circGLM object to be printed.
+#' @param m A \code{circGLM} object to be printed.
 #' @param type Character string giving the type of printing, such as
 #'   \code{"text"}, \code{"mcmc"}, \code{"all"}, \code{"coef"}.
 #' @param ... Additional arguments to be passed to print functions.
 #'
 #' @export
 #'
-#' @seealso \code{\link{"print_text.circGLM"}},
-#'   \code{\link{"print_mcmc.circGLM"}},
-#'   \code{\link{"print_all.circGLM"}},
-#'   \code{\link{"print_coef.circGLM"}}.
+#' @seealso \code{\link{print_text.circGLM}},
+#'   \code{\link{print_mcmc.circGLM}},
+#'   \code{\link{print_all.circGLM}},
+#'   \code{\link{print_coef.circGLM}}.
 #'
 #'
 #' @examples
@@ -36,17 +36,17 @@ print.circGLM <- function(m, type = "text", ...) {
 }
 
 
-#' Print the main results from a circGLM object.
+#' Print the main results from a \code{circGLM} object.
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param digits Number of digits to display.
 #'
 #' @export
 #'
-#' @seealso \code{\link{"print_mcmc.circGLM"}},
-#'   \code{\link{"print_all.circGLM"}},
-#'   \code{\link{"print_coef.circGLM"}},
-#'   \code{\link{"print.circGLM"}}.
+#' @seealso \code{\link{print_mcmc.circGLM}},
+#'   \code{\link{print_all.circGLM}},
+#'   \code{\link{print_coef.circGLM}},
+#'   \code{\link{print.circGLM}}.
 #'
 #' @examples
 #' print(circGLM(rvmc(10, 1, 1)), type = "text")
@@ -69,22 +69,22 @@ print_text.circGLM <- function(m, digits = 3) {
 
 #' Print the mcmc results from a circGLM object
 #'
-#' This prints a number of diagnostics about the results of a circGLM objects
+#' This prints a number of diagnostics about the results of a \code{circGLM} objects
 #' through  \code{\link[coda]{summary.mcmc}} from the \code{coda} package. In
 #' particular, the standard errors may be of interest.
 #'
 #' Note that the standard error and convergence diagnostics computed by
 #' \code{coda} are not necessarily trustworthy.
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param digits Number of digits to display.
 #'
 #' @export
 #'
-#' @seealso \code{\link{"print_text.circGLM"}},
-#'   \code{\link{"print_all.circGLM"}},
-#'   \code{\link{"print_coef.circGLM"}},
-#'   \code{\link{"print.circGLM"}}.
+#' @seealso \code{\link{print_text.circGLM}},
+#'   \code{\link{print_all.circGLM}},
+#'   \code{\link{print_coef.circGLM}},
+#'   \code{\link{print.circGLM}}.
 #'
 #' @examples
 #' print(circGLM(rvmc(10, 1, 1)), type = "mcmc", digits = 3)
@@ -99,15 +99,17 @@ print_mcmc.circGLM <- function(m, ...) {
 
 #' Print all results from a circGLM object
 #'
-#' @param m A circGLM object.
+#' This function prints the full list of results from a \code{circGLM} object. The function extracts all
+#' the scalar results and displays these together, then prints all further list elements. The full
+#' chains are not printed.
+#'
+#' @param m A \code{circGLM} object.
 #' @param digits Number of digits to display.
 #'
 #' @export
 #'
-#' @seealso \code{\link{"print_text.circGLM"}},
-#'   \code{\link{"print_mcmc.circGLM"}},
-#'   \code{\link{"print_coef.circGLM"}},
-#'   \code{\link{"print.circGLM"}}.
+#' @seealso \code{\link{print_text.circGLM}}, \code{\link{print_mcmc.circGLM}},
+#'   \code{\link{print_coef.circGLM}}, \code{\link{print.circGLM}}.
 #'
 #' @examples
 #' print(circGLM(rvmc(10, 1, 1)), type = "all")
@@ -141,15 +143,15 @@ print_all.circGLM <- function(m, digits = 3) {
 
 #' Print circGLM coefficients
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param digits Number of digits to display.
 #'
 #' @export
 #'
-#' @seealso \code{\link{"print_text.circGLM"}},
-#'   \code{\link{"print_mcmc.circGLM"}},
-#'   \code{\link{"print_all.circGLM"}},
-#'   \code{\link{"print.circGLM"}}.
+#' @seealso \code{\link{print_text.circGLM}},
+#'   \code{\link{print_mcmc.circGLM}},
+#'   \code{\link{print_all.circGLM}},
+#'   \code{\link{print.circGLM}}.
 #'
 #' @examples
 #' print(circGLM(rvmc(10, 0, 1)), type = "coef")

@@ -15,7 +15,7 @@
 #'   \code{\link{circGLM}}, which runs an MCMC sampler in \code{C++} through
 #'   \code{\link[Rcpp]{Rcpp}}. This sampler returns an S3 object of type
 #'   \code{circGLM}, which can be further analyzed through associated
-#'   \code{\link{print.circGLM}} and \code{\link{print.circGLM}} functions.
+#'   \code{\link{plot.circGLM}} and \code{\link{print.circGLM}} functions.
 #'
 #' @useDynLib CircGLMBayes
 #' @importFrom Rcpp sourceCpp

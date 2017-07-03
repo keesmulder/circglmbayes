@@ -12,7 +12,9 @@ print_all.circGLM(m, digits = 3)
 \item{digits}{Number of digits to display.}
 }
 \description{
-Print all results from a circGLM object
+This function prints the full list of results from a circGLM object. The function extracts all
+the scalar results and displays these together, then prints all further list elements. The full
+chains are not printed.
 }
 \examples{
 print(circGLM(rvmc(10, 1, 1)), type = "all")
@@ -22,8 +24,6 @@ cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
 print(cglmmod, type = "all")
 }
 \seealso{
-\code{\link{"print_text.circGLM"}},
-  \code{\link{"print_mcmc.circGLM"}},
-  \code{\link{"print_coef.circGLM"}},
-  \code{\link{"print.circGLM"}}.
+\code{\link{print_text.circGLM}}, \code{\link{print_mcmc.circGLM}},
+  \code{\link{print_coef.circGLM}}, \code{\link{print.circGLM}}.
 }

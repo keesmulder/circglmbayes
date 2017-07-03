@@ -34,8 +34,8 @@ print(cglmmod, type = "coef")
 
 }
 \seealso{
-\code{\link{"print_text.circGLM"}},
-  \code{\link{"print_mcmc.circGLM"}},
-  \code{\link{"print_all.circGLM"}},
-  \code{\link{"print_coef.circGLM"}}.
+\code{\link{print_text.circGLM}},
+  \code{\link{print_mcmc.circGLM}},
+  \code{\link{print_all.circGLM}},
+  \code{\link{print_coef.circGLM}}.
 }

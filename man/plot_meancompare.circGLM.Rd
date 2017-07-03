@@ -2,14 +2,14 @@
 % Please edit documentation in R/circGLMClassPlotFunctions.R
 \name{plot_meancompare.circGLM}
 \alias{plot_meancompare.circGLM}
-\title{Plot mean comparisons for circGLM objects}
+\title{Plot mean comparisons for a circGLM object}
 \usage{
 plot_meancompare.circGLM(m, alpha = 0.7, xlab = "Mean direction")
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{m}{A \code{circGLM} object.}
 
-\item{alpha}{The alpha level of the plotted densities.}
+\item{alpha}{The transparency (alpha) of the plotted densities.}
 
 \item{xlab}{The label of the x-axis.}
 }
@@ -28,9 +28,9 @@ m   <- circGLM(th = dat[, 1], X = dat[, -1])
 plot_meancompare.circGLM(m)
 }
 \seealso{
-\code{\link{"plot_trace.circGLM"}},
-  \code{\link{"plot_tracestack.circGLM"}},
-  \code{\link{"plot_predict.circGLM"}},
-  \code{\link{"plot_meanboxplot.circGLM"}},
-  \code{\link{"plot.circGLM"}}.
+\code{\link{plot_trace.circGLM}},
+  \code{\link{plot_tracestack.circGLM}},
+  \code{\link{plot_predict.circGLM}},
+  \code{\link{plot_meanboxplot.circGLM}},
+  \code{\link{plot.circGLM}}.
 }

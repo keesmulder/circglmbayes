@@ -1,9 +1,9 @@
-#' Plot circGLM Object
+#' Plot circGLM object
 #'
-#' General plot function for circGLM objects, which dispatches the chosen type
+#' General plot function for \code{circGLM} objects, which dispatches the chosen type
 #' of plotting to the corresponding function.
 #'
-#' @param m A circGLM object to be plotted.
+#' @param m A \code{circGLM} object to be plotted.
 #' @param type Character string giving the type of plotting. The options are
 #'   \code{"trace"}, \code{"tracestack"}, \code{"predict"}, \code{"meancompare"}
 #'   and \code{"meanboxplot"}.
@@ -11,11 +11,11 @@
 #'
 #' @export
 #'
-#' @seealso \code{\link{"plot_trace.circGLM"}},
-#'   \code{\link{"plot_tracestack.circGLM"}},
-#'   \code{\link{"plot_predict.circGLM"}},
-#'   \code{\link{"plot_meancompare.circGLM"}} and
-#'   \code{\link{"plot_meanboxplot.circGLM"}}.
+#' @seealso \code{\link{plot_trace.circGLM}},
+#'   \code{\link{plot_tracestack.circGLM}},
+#'   \code{\link{plot_predict.circGLM}},
+#'   \code{\link{plot_meancompare.circGLM}} and
+#'   \code{\link{plot_meanboxplot.circGLM}}.
 #'
 #' @examples
 #' plot(circGLM(rvmc(10, 1, 1)))
@@ -43,7 +43,7 @@ plot.circGLM <- function(m, type = "trace", ...) {
 
 
 
-#' Create a prediction plot from circGLM objects
+#' Create a prediction plot from a circGLM object
 #'
 #' Plot the predictions made by a circGLM analysis.
 #'
@@ -53,7 +53,7 @@ plot.circGLM <- function(m, type = "trace", ...) {
 #' and categorical predictors.
 #'
 #' Predictors \code{x} and \code{d} and outcome \code{th} can be provided as
-#' numeric vectors of the same length as the outcome in the circGLM object
+#' numeric vectors of the same length as the outcome in the \code{circGLM} object
 #' \code{m}. This allows plotting the regression line from an earlier dataset on
 #' a new dataset.
 #'
@@ -66,17 +66,17 @@ plot.circGLM <- function(m, type = "trace", ...) {
 #' without grouping is required, \code{d} can be set to \code{NA}.
 #'
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param x Optional; Either a numeric vector with a continuous predictor or
 #'   string naming the desired variable to plot on the x-axis. If missing, we
-#'   just use the first continuous predictor in the circGLM object.
+#'   just use the first continuous predictor in the \code{circGLM} object.
 #' @param d Optional; Either a numeric vector with a categorical predictor or
 #'   string naming the desired variable to plot on the x-axis. If missing, we
-#'   just use the first categorical predictor in the circGLM object.
+#'   just use the first categorical predictor in the \code{circGLM} object.
 #' @param th Optional; Can be a new numeric vector containing outcome angles
 #'   corresponding to predictors \code{x} and potentially \code{d}.
 #' @param linkfun The link function to be used. Should be the same as was used
-#'   for the creation of the circGLM object.
+#'   for the creation of the \code{circGLM} object.
 #' @param xlab A character string with the x-label.
 #' @param ylab A character string with the y-label.
 #' @param colorPalette The colors to use in plotting, max 2.
@@ -85,11 +85,11 @@ plot.circGLM <- function(m, type = "trace", ...) {
 #'   elements can be added.
 #' @export
 #'
-#' @seealso \code{\link{"plot_trace.circGLM"}},
-#'   \code{\link{"plot_tracestack.circGLM"}},
-#'   \code{\link{"plot_meancompare.circGLM"}},
-#'   \code{\link{"plot_meanboxplot.circGLM"}},
-#'   \code{\link{"plot.circGLM"}}.
+#' @seealso \code{\link{plot_trace.circGLM}},
+#'   \code{\link{plot_tracestack.circGLM}},
+#'   \code{\link{plot_meancompare.circGLM}},
+#'   \code{\link{plot_meanboxplot.circGLM}},
+#'   \code{\link{plot.circGLM}}.
 #'
 #' @examples
 #' plot(circGLM(rvmc(10, 1, 1)))
@@ -182,7 +182,7 @@ plot_predict.circGLM <- function(m, x, d, th,
 }
 
 
-#' Plot mean comparisons for circGLM objects
+#' Plot mean comparisons for a circGLM object
 #'
 #' If the main predictors of interest for the circGLM are categorical, it can be
 #' insightful to plot the posteriors of the group means side-by-side, which this
@@ -191,17 +191,17 @@ plot_predict.circGLM <- function(m, x, d, th,
 #' If there are linear predictors in the model as well, the posteriors displayed
 #' will correspond to the intercept parameter for each group.
 #'
-#' @param m A circGLM object.
-#' @param alpha The alpha level of the plotted densities.
+#' @param m A \code{circGLM} object.
+#' @param alpha The transparency (alpha) of the plotted densities.
 #' @param xlab The label of the x-axis.
 #'
 #' @export
 #'
-#' @seealso \code{\link{"plot_trace.circGLM"}},
-#'   \code{\link{"plot_tracestack.circGLM"}},
-#'   \code{\link{"plot_predict.circGLM"}},
-#'   \code{\link{"plot_meanboxplot.circGLM"}},
-#'   \code{\link{"plot.circGLM"}}.
+#' @seealso \code{\link{plot_trace.circGLM}},
+#'   \code{\link{plot_tracestack.circGLM}},
+#'   \code{\link{plot_predict.circGLM}},
+#'   \code{\link{plot_meanboxplot.circGLM}},
+#'   \code{\link{plot.circGLM}}.
 #'
 #' @examples
 #' dat <- generateCircGLMData(nconpred = 0)
@@ -230,16 +230,16 @@ plot_meancompare.circGLM <- function(m, alpha = .7, xlab = "Mean direction") {
 #' Some caution is needed, as a regular linear boxplot is printed, which may not
 #' always be meaningful for a circular variable.
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param xlab The label of the x-axis.
 #'
 #' @export
 #'
-#' @seealso \code{\link{"plot_trace.circGLM"}},
-#'   \code{\link{"plot_tracestack.circGLM"}},
-#'   \code{\link{"plot_predict.circGLM"}},
-#'   \code{\link{"plot_meancompare.circGLM"}},
-#'   \code{\link{"plot.circGLM"}}.
+#' @seealso \code{\link{plot_trace.circGLM}},
+#'   \code{\link{plot_tracestack.circGLM}},
+#'   \code{\link{plot_predict.circGLM}},
+#'   \code{\link{plot_meancompare.circGLM}},
+#'   \code{\link{plot.circGLM}}.
 #'
 #' @examples
 #' dat <- generateCircGLMData(nconpred = 0)
@@ -261,19 +261,19 @@ plot_meanboxplot.circGLM <- function(m, xlab = "Mean direction") {
 
 #' Make traceplots for circGLM
 #'
-#'  Plot traceplots from a circGLM object. This plotting method uses the standard \code{coda} traceplots.
+#'  Plot traceplots from a \code{circGLM} object. This plotting method uses the standard \code{\link{coda}} traceplots.
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param params An optional character vector containing the parameter chains to display. If left empty, all are plotted.
 #' @param ... Additional parameters passed to \code{\link[coda]{plot.mcmc}} from the coda package.
 #'
 #' @export
 #'
-#' @seealso \code{\link{"plot_tracestack.circGLM"}},
-#'   \code{\link{"plot_predict.circGLM"}},
-#'   \code{\link{"plot_meancompare.circGLM"}},
-#'   \code{\link{"plot_meanboxplot.circGLM"}},
-#'   \code{\link{"plot.circGLM"}}.
+#' @seealso \code{\link{plot_tracestack.circGLM}},
+#'   \code{\link{plot_predict.circGLM}},
+#'   \code{\link{plot_meancompare.circGLM}},
+#'   \code{\link{plot_meanboxplot.circGLM}},
+#'   \code{\link{plot.circGLM}}.
 #'
 #' @examples
 #' plot_trace.circGLM(circGLM(rvmc(10, 1, 1)))
@@ -291,19 +291,21 @@ plot_trace.circGLM <- function(m, params, ...) {
 }
 
 
-#' An alternative option to plot traceplots from circGLM objects.
+#' Plot a stack of traceplots for a circGLM object
 #'
-#' @param m A circGLM object.
+#' An alternative option to plot traceplots from \code{circGLM} objects.
+#'
+#' @param m A \code{circGLM} object.
 #' @param coef A character string, either "Beta" or "Zeta", determining whether
 #'   the continuous regression predictors are shown in reparametrized form or
 #'   not.
-#' @param labelFormat A character vector, either "default", numbered" or
-#'   "latex". By default, we find the names of the variables in the circGLM
+#' @param labelFormat A character vector, either \code{"default"}, \code{"numbered"} or
+#'   \code{"latex"}. By default, we find the names of the variables in the circGLM
 #'   object. If \code{"numbered"}, the parameter names are numberd. The "latex"
 #'   labels are useful if \code{knitr} is used with a Tikz device.
 #' @param ggTheme The ggplot theme to use if
 #' @param res The maximum number iterations to print. If \code{res} is larger
-#'   than the number of iterations in the circGLM object, a subset of size
+#'   than the number of iterations in the \code{circGLM} object, a subset of size
 #'   \code{res} is selected, and it is attempted to equally space the selected
 #'   iterations from the full set. This is useful if there is a very large
 #'   posterior sample due to having very little thinning.
@@ -315,10 +317,10 @@ plot_trace.circGLM <- function(m, params, ...) {
 #' @export
 #'
 #'
-#' @seealso \code{\link{"plot_trace.circGLM"}},
-#'   \code{\link{"plot_predict.circGLM"}},
-#'   \code{\link{"plot_meancompare.circGLM"}},
-#'   \code{\link{"plot_meanboxplot.circGLM"}}, \code{\link{"plot.circGLM"}}.
+#' @seealso \code{\link{plot_trace.circGLM}},
+#'   \code{\link{plot_predict.circGLM}},
+#'   \code{\link{plot_meancompare.circGLM}},
+#'   \code{\link{plot_meanboxplot.circGLM}}, \code{\link{plot.circGLM}}.
 #'
 #'
 #'

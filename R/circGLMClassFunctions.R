@@ -1,8 +1,8 @@
 #' Extract circGLM Coefficients
 #'
-#' Create a table of coefficient results from a circGLM object.
+#' Create a table of coefficient results from a \code{circGLM} object.
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #'
 #' @return A table of coefficients with their corresponding lower and upper bounds.
 #' @export
@@ -26,8 +26,10 @@ coef.circGLM <- coefficients.circGLM <- function(m) {
 
 #' Obtain Bayes Factors from circGLM objects
 #'
-#' @param m A circGLM object
-#' @param digits
+#' Extracts the Bayes Factors from a \code{circGLM} object..
+#'
+#' @param m A \code{circGLM} object.
+#' @param digits The number of digits to display.
 #'
 #' @return A list of tables of Bayes Factors, where applicable.
 #' @export
@@ -56,7 +58,7 @@ BF.circGLM <- function(m) {
 #' Computes the residuals either by taking the arc distance or the cosine
 #' distance between the predictions and the observed outcomes.
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param type Either \code{"arc"} or \code{"cosine"}, the type of distance to
 #'   take.
 #'
@@ -87,17 +89,22 @@ residuals.circGLM <- function(m, type = "arc") {
 
 #' Obtain a prediction function from a circGLM object
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #'
 #' @return A function that takes \code{newdata} as an argument, which must be a
 #'   data frame with predictors. The predictors must be the same as used in the
-#'   circGLM object and must have the same column names.
+#'   \code{circGLM} object and must have the same column names.
 #' @export
 #'
 #' @examples
 #' dat <- generateCircGLMData()
 #' m   <- circGLM(th = dat[, 1], X = dat[, -1])
-#' predict_function.circGLM(m)
+#' predfun <- predict_function.circGLM(m)
+#' newd <- generateCircGLMData()
+#'
+#' # Predicted values of the new data.
+#' predfun(newd)
+#'
 predict_function.circGLM <- function(m, linkfun = function(x) atanLF(x, 2) ) {
 
   function(newdata) {
@@ -115,16 +122,16 @@ predict_function.circGLM <- function(m, linkfun = function(x) atanLF(x, 2) ) {
       x <- newdata[, colnames(m$bt_mean)]
       xpart <- linkfun(x %*% t(m$bt_mean))
     }
-    m$b0_meandir + xpart + dpart
+    unname(m$b0_meandir + xpart + dpart)
   }
 }
 
 
 #' Obtain predictions for the circGLM model
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param newdata A data frame with predictors. The predictors must be the same
-#'   as used in the circGLM object and must have the same column names.
+#'   as used in the \code{circGLM} object and must have the same column names.
 #'
 #' @return A numeric vector with predictions.
 #' @export
@@ -151,7 +158,7 @@ predict.circGLM <- function(m, newdata) {
 
 #' Compare the information criteria of several circGLM models.
 #'
-#' @param ... The circGLM objects to be compared.
+#' @param ... The \code{circGLM} objects to be compared.
 #' @param ICs A character vector of ICs to display.
 #'
 #' @return A matrix with a column of information criteria for each model.
@@ -180,6 +187,8 @@ IC_compare.circGLM <- function(...,
 
 #' Compute the median direction
 #'
+#' This function computes the median direction, which is defined as the middle observation of the shortest arc containing all observations.
+#'
 #' @param th A vector of angles in radians.
 #' @param fastMethod Logical; If \code{TRUE}, the data is rotated so that the
 #'   mean is \code{pi} and linear methods are applied. If \code{FALSE}, the arcs
@@ -187,7 +196,7 @@ IC_compare.circGLM <- function(...,
 #'   data that is very strongly spread out, the fast method might not give the
 #'   correct value.
 #'
-#' @return An angle in radians.
+#' @return An angle in radians, the median direction.
 #' @export
 #'
 #' @examples
@@ -245,7 +254,7 @@ modalDirection <- function(th, modebw = .1) {
 
 
 
-#' Comute the Circular Standard Deviation
+#' Compute the Circular Standard Deviation
 #'
 #' Returns the circular standard deviation of a vector of circular data which is
 #' defined as the square root of minus 2 times the log of the mean resultant
@@ -264,12 +273,12 @@ circSD <- function(x) {
 #' Obtain different central tendencies and CIs from a circGLM object
 #'
 #' Computes the mean (arithmetic or mean direction), median, and mode estimate
-#' for the MCMC chains of a circGLM object, as well as a credible interval.
+#' for the MCMC chains of a \code{circGLM} object, as well as a credible interval.
 #'
 #' The summary statistics computed have to be computed differently for linear
 #' and circular variables.
 #'
-#' @param m A circGLM object.
+#' @param m A \code{circGLM} object.
 #' @param modebw Numeric between 0 and 1. The modes are estimated by taking the
 #'   midpoint of a highest density interval. Specifically, the mode is the
 #'   midpoint of the interval that contains \code{modebw} of the density of the

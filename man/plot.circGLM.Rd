@@ -2,12 +2,12 @@
 % Please edit documentation in R/circGLMClassPlotFunctions.R
 \name{plot.circGLM}
 \alias{plot.circGLM}
-\title{Plot circGLM Object}
+\title{Plot circGLM object}
 \usage{
 \method{plot}{circGLM}(m, type = "trace", ...)
 }
 \arguments{
-\item{m}{A circGLM object to be plotted.}
+\item{m}{A \code{circGLM} object to be plotted.}
 
 \item{type}{Character string giving the type of plotting. The options are
 \code{"trace"}, \code{"tracestack"}, \code{"predict"}, \code{"meancompare"}
@@ -16,7 +16,7 @@ and \code{"meanboxplot"}.}
 \item{...}{Additional arguments to be passed to print functions.}
 }
 \description{
-General plot function for circGLM objects, which dispatches the chosen type
+General plot function for \code{circGLM} objects, which dispatches the chosen type
 of plotting to the corresponding function.
 }
 \examples{
@@ -40,9 +40,9 @@ plot(m, type = "meanboxplot")
 
 }
 \seealso{
-\code{\link{"plot_trace.circGLM"}},
-  \code{\link{"plot_tracestack.circGLM"}},
-  \code{\link{"plot_predict.circGLM"}},
-  \code{\link{"plot_meancompare.circGLM"}} and
-  \code{\link{"plot_meanboxplot.circGLM"}}.
+\code{\link{plot_trace.circGLM}},
+  \code{\link{plot_tracestack.circGLM}},
+  \code{\link{plot_predict.circGLM}},
+  \code{\link{plot_meancompare.circGLM}} and
+  \code{\link{plot_meanboxplot.circGLM}}.
 }

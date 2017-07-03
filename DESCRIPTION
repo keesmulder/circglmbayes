@@ -1,7 +1,7 @@
 Package: CircGLMBayes
 Type: Package
 Title: A Bayesian analysis of a circular GLM
-Version: 1.0.3
+Version: 1.0.4
 Author@R: person("Kees", "Mulder", email = "keestimmulder@gmail.com", role = c("aut", "cre"))
 Maintainer: Kees Mulder <keestimmulder@gmail.com>
 Description: This package contains functions to perform a Bayesian circular GLM, which allows regressing a
