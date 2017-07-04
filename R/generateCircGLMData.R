@@ -1,7 +1,7 @@
-#' Generate data that follows the circular GLM model.
+#' Generate data that follows the circular GLM model
 #'
 #' This function samples data according to the circular GLM model. A set of true
-#' values for the parameters can be entered, and a dataset is return that is
+#' values for the parameters can be entered, and a dataset is returned that is
 #' drawn from the corresponding model. The link function can also be selected.
 #'
 #' This function can also be used as a wrapper for sampling von Mises data, if

@@ -129,6 +129,8 @@ predict_function.circGLM <- function(m, linkfun = function(x) atanLF(x, 2) ) {
 
 #' Obtain predictions for the circGLM model
 #'
+#' Obtain predictions from the original dataset, or the predictions from the fitted model on a new dataset \code{newdata}.
+#'
 #' @param m A \code{circGLM} object.
 #' @param newdata A data frame with predictors. The predictors must be the same
 #'   as used in the \code{circGLM} object and must have the same column names.
@@ -141,11 +143,11 @@ predict_function.circGLM <- function(m, linkfun = function(x) atanLF(x, 2) ) {
 #' m   <- circGLM(dat[, 1], X = dat[, -1])
 #'
 #' # Predictions for the original outcome angles.
-#' predict.circGLM(m)
+#' predict(m)
 #'
 #' # Predictions for new data
 #' dat2  <- generateCircGLMData()
-#' predict.circGLM(m, newdata = dat2)
+#' predict(m, newdata = dat2)
 predict.circGLM <- function(m, newdata) {
   if (missing(newdata)) {
     return(m$th_hat)
