@@ -2,21 +2,24 @@
 #'
 #' Create a table of coefficient results from a \code{circGLM} object.
 #'
-#' @param m A \code{circGLM} object.
+#' @param object A \code{circGLM} object.
+#' @param ... Further arguments passed to or from other methods.
 #'
 #' @return A table of coefficients with their corresponding lower and upper bounds.
 #' @export
 #'
+#' @method coef circGLM
+#'
 #' @examples
 #' coef(circGLM(rvmc(10, 0, 1)))
 #'
-coef.circGLM <- coefficients.circGLM <- function(m) {
-  mcmcSDs <- summary(m$all_chains)$statistics[, "SD"]
+coef.circGLM <- coefficients.circGLM <- function(object, ...) {
+  mcmcSDs <- summary(object$all_chains)$statistics[, "SD"]
 
-  b0 <- c(m$b0_meandir, mcmcSDs["b0_chain"], m$b0_CCI)
-  kp <- c(m$kp_mode, mcmcSDs["kp_chain"], m$kp_HDI)
-  bt <- cbind(t(m$bt_mean), mcmcSDs[grep("bt_chain", names(mcmcSDs))], t(m$bt_CCI))
-  dt <- cbind(t(m$dt_meandir), mcmcSDs[grep("dt_chain", names(mcmcSDs))], t(m$dt_CCI))
+  b0 <- c(object$b0_meandir, mcmcSDs["b0_chain"], object$b0_CCI)
+  kp <- c(object$kp_mode, mcmcSDs["kp_chain"], object$kp_HDI)
+  bt <- cbind(t(object$bt_mean), mcmcSDs[grep("bt_chain", names(mcmcSDs))], t(object$bt_CCI))
+  dt <- cbind(t(object$dt_meandir), mcmcSDs[grep("dt_chain", names(mcmcSDs))], t(object$dt_CCI))
 
   coefmat <- rbind(Intercept = b0, Kappa = kp, bt, dt)
   colnames(coefmat) <- c("Estimate", "SD", "LB", "UB")
@@ -29,7 +32,6 @@ coef.circGLM <- coefficients.circGLM <- function(m) {
 #' Extracts the Bayes Factors from a \code{circGLM} object..
 #'
 #' @param m A \code{circGLM} object.
-#' @param digits The number of digits to display.
 #'
 #' @return A list of tables of Bayes Factors, where applicable.
 #' @export
@@ -58,23 +60,28 @@ BF.circGLM <- function(m) {
 #' Computes the residuals either by taking the arc distance or the cosine
 #' distance between the predictions and the observed outcomes.
 #'
-#' @param m A \code{circGLM} object.
+#' @param object A \code{circGLM} object.
 #' @param type Either \code{"arc"} or \code{"cosine"}, the type of distance to
 #'   take.
+#' @param ... Further arguments passed to or from other methods.
 #'
 #' @return A numeric vector of residuals. If type is \code{"arc"}, these are
 #'   angles in radians. If type is \code{"cosine"}, these are numeric values
 #'   between 0 and 2.
 #' @export
 #'
+#' @method residuals circGLM
+#'
 #' @examples
 #' m <- circGLM(rvmc(10, 0, 1))
-#' residuals.circGLM(m)
-#' residuals.circGLM(m, type = "cosine")
+#' residuals(m)
 #'
-residuals.circGLM <- function(m, type = "arc") {
+#' # Cosine residuals
+#' residuals(m, type = "cosine")
+#'
+residuals.circGLM <- function(object, type = "arc", ...) {
 
-  diffs <- abs(m$data_th - m$th_hat)
+  diffs <- abs(object$data_th - object$th_hat)
 
   if (type == "arc") {
     return(pmin(diffs, 2*pi - diffs))
@@ -89,7 +96,8 @@ residuals.circGLM <- function(m, type = "arc") {
 
 #' Obtain a prediction function from a circGLM object
 #'
-#' @param m A \code{circGLM} object.
+#' @param object A \code{circGLM} object.
+#' @param linkfun A link function to use in the analysis. Should be the same as the link function
 #'
 #' @return A function that takes \code{newdata} as an argument, which must be a
 #'   data frame with predictors. The predictors must be the same as used in the
@@ -105,24 +113,24 @@ residuals.circGLM <- function(m, type = "arc") {
 #' # Predicted values of the new data.
 #' predfun(newd)
 #'
-predict_function.circGLM <- function(m, linkfun = function(x) atanLF(x, 2) ) {
+predict_function.circGLM <- function(object, linkfun = function(x) atanLF(x, 2) ) {
 
   function(newdata) {
 
     # Check whether there are categorical and continuous predictors.
-    if (length(m$dt_meandir) == 0) {
+    if (length(object$dt_meandir) == 0) {
       dpart <- 0
     } else {
-      d <- newdata[, colnames(m$dt_meandir)]
-      dpart <- d %*% t(m$dt_meandir)
+      d <- newdata[, colnames(object$dt_meandir)]
+      dpart <- d %*% t(object$dt_meandir)
     }
-    if (length(m$bt_mean) == 0) {
+    if (length(object$bt_mean) == 0) {
       xpart <- 0
     } else {
-      x <- newdata[, colnames(m$bt_mean)]
-      xpart <- linkfun(x %*% t(m$bt_mean))
+      x <- newdata[, colnames(object$bt_mean)]
+      xpart <- linkfun(x %*% t(object$bt_mean))
     }
-    unname(m$b0_meandir + xpart + dpart)
+    unname(object$b0_meandir + xpart + dpart)
   }
 }
 
@@ -131,12 +139,15 @@ predict_function.circGLM <- function(m, linkfun = function(x) atanLF(x, 2) ) {
 #'
 #' Obtain predictions from the original dataset, or the predictions from the fitted model on a new dataset \code{newdata}.
 #'
-#' @param m A \code{circGLM} object.
+#' @param object A \code{circGLM} object.
 #' @param newdata A data frame with predictors. The predictors must be the same
 #'   as used in the \code{circGLM} object and must have the same column names.
+#' @param ... Further arguments passed to or from other methods.
 #'
 #' @return A numeric vector with predictions.
 #' @export
+#'
+#' @method predict circGLM
 #'
 #' @examples
 #' dat <- generateCircGLMData()
@@ -148,11 +159,12 @@ predict_function.circGLM <- function(m, linkfun = function(x) atanLF(x, 2) ) {
 #' # Predictions for new data
 #' dat2  <- generateCircGLMData()
 #' predict(m, newdata = dat2)
-predict.circGLM <- function(m, newdata) {
+#'
+predict.circGLM <- function(object, newdata, ...) {
   if (missing(newdata)) {
-    return(m$th_hat)
+    return(object$th_hat)
   } else {
-    predfun <- predict_function.circGLM(m)
+    predfun <- predict_function.circGLM(object)
     predfun(newdata)
   }
 }
@@ -262,7 +274,7 @@ modalDirection <- function(th, modebw = .1) {
 #' defined as the square root of minus 2 times the log of the mean resultant
 #' length.
 #'
-#' @param x
+#' @param x A vector of angles.
 #'
 #' @return A numeric, the circular standard deviation.
 #' @export

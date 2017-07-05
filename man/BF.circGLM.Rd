@@ -7,15 +7,13 @@
 BF.circGLM(m)
 }
 \arguments{
-\item{m}{A circGLM object}
-
-\item{digits}{}
+\item{m}{A \code{circGLM} object.}
 }
 \value{
 A list of tables of Bayes Factors, where applicable.
 }
 \description{
-Obtain Bayes Factors from circGLM objects
+Extracts the Bayes Factors from a \code{circGLM} object..
 }
 \examples{
 dat <- generateCircGLMData(truebeta = c(0, .2), truedelta = c(.4, .01))

@@ -4,16 +4,18 @@
 \alias{coef.circGLM}
 \title{Extract circGLM Coefficients}
 \usage{
-\method{coef}{circGLM}(m)
+\method{coef}{circGLM}(object, ...)
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{object}{A \code{circGLM} object.}
+
+\item{...}{Further arguments passed to or from other methods.}
 }
 \value{
 A table of coefficients with their corresponding lower and upper bounds.
 }
 \description{
-Create a table of coefficient results from a circGLM object.
+Create a table of coefficient results from a \code{circGLM} object.
 }
 \examples{
 coef(circGLM(rvmc(10, 0, 1)))

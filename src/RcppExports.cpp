@@ -222,3 +222,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"CircGLMBayes_atanLF", (DL_FUNC) &CircGLMBayes_atanLF, 2},
+    {"CircGLMBayes_invAtanLF", (DL_FUNC) &CircGLMBayes_invAtanLF, 2},
+    {"CircGLMBayes_rvmc", (DL_FUNC) &CircGLMBayes_rvmc, 3},
+    {"CircGLMBayes_sampleKappa", (DL_FUNC) &CircGLMBayes_sampleKappa, 2},
+    {"CircGLMBayes_computeMeanDirection", (DL_FUNC) &CircGLMBayes_computeMeanDirection, 1},
+    {"CircGLMBayes_computeResultantLength", (DL_FUNC) &CircGLMBayes_computeResultantLength, 1},
+    {"CircGLMBayes_circQuantile", (DL_FUNC) &CircGLMBayes_circQuantile, 2},
+    {"CircGLMBayes_estimateModeCirc", (DL_FUNC) &CircGLMBayes_estimateModeCirc, 2},
+    {"CircGLMBayes_computeHDICirc", (DL_FUNC) &CircGLMBayes_computeHDICirc, 2},
+    {"CircGLMBayes_estimateMode", (DL_FUNC) &CircGLMBayes_estimateMode, 2},
+    {"CircGLMBayes_computeHDI", (DL_FUNC) &CircGLMBayes_computeHDI, 2},
+    {"CircGLMBayes_estimateDensity", (DL_FUNC) &CircGLMBayes_estimateDensity, 3},
+    {"CircGLMBayes_rhsll", (DL_FUNC) &CircGLMBayes_rhsll, 8},
+    {"CircGLMBayes_logProbNormal", (DL_FUNC) &CircGLMBayes_logProbNormal, 3},
+    {"CircGLMBayes_truncCauchyPdf", (DL_FUNC) &CircGLMBayes_truncCauchyPdf, 3},
+    {"CircGLMBayes_circGLMC", (DL_FUNC) &CircGLMBayes_circGLMC, 17},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_CircGLMBayes(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

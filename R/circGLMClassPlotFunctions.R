@@ -3,7 +3,7 @@
 #' General plot function for \code{circGLM} objects, which dispatches the chosen type
 #' of plotting to the corresponding function.
 #'
-#' @param m A \code{circGLM} object to be plotted.
+#' @param x A \code{circGLM} object to be plotted.
 #' @param type Character string giving the type of plotting. The options are
 #'   \code{"trace"}, \code{"tracestack"}, \code{"predict"}, \code{"meancompare"}
 #'   and \code{"meanboxplot"}.
@@ -36,9 +36,9 @@
 #' plot(m, type = "meancompare")
 #' plot(m, type = "meanboxplot")
 #'
-plot.circGLM <- function(m, type = "trace", ...) {
+plot.circGLM <- function(x, type = "trace", ...) {
   printFunName <- paste0("plot_", type, ".circGLM")
-  do.call(printFunName, args = c(list(m = m), list(...)))
+  do.call(printFunName, args = c(list(m = x), list(...)))
 }
 
 
@@ -92,18 +92,23 @@ plot.circGLM <- function(m, type = "trace", ...) {
 #'   \code{\link{plot.circGLM}}.
 #'
 #' @examples
-#' plot(circGLM(rvmc(10, 1, 1)))
-#'
 #' dat <- generateCircGLMData()
-#' plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "predict")
+#' m <- circGLM(th = dat[, 1], X = dat[, -1])
+#' plot(m, type = "predict")
 #'
 plot_predict.circGLM <- function(m, x, d, th,
-                                 linkfun = function(x) atanLF(x, 2),
+                                 linkfun = function(x) 2 * atan(x),
                                  xlab = NA, ylab = expression(theta),
                                  colorPalette = c("#E69F00", "#56B4E9")) {
 
-  # Try to get a label for x.
-  if (is.na(xlab) && is.character(x)) xlab <- x else xlab <- "x"
+  # Try to get a label for x if there is none.
+  if (is.na(xlab)) {
+    if (!missing(x) && is.character(x)) {
+      xlab <- x
+    } else {
+      xlab <- "x"
+    }
+  }
 
   # Usually, we have no th given, so we use the outcome from the model m.
   if (missing(th)) th <- m$data_th
@@ -132,20 +137,20 @@ plot_predict.circGLM <- function(m, x, d, th,
     if (ncol(m$data_d) != 0) {
       d   <- m$data_d[, 1, drop = FALSE]
       dtd <- m$dt_meandir[, 1]
-      pdat <- data.frame(th = th, x = x, d = d)
+      pdat <- data.frame(th = th, x = unname(x), d = unname(d))
     } else {
       # In this case there is no grouping.
-      pdat <- data.frame(th = th, x =  x)
+      pdat <- data.frame(th = th, x =  unname(x))
       d <- NA
     }
     # Find the correct column d if it is given as a string.
   } else if (is.character(d)) {
     d   <- m$data_d[, d]
     dtd <- m$dt_meandir[, d]
-    pdat <- data.frame(th = th, x =  x, d = d)
+    pdat <- data.frame(th = th, x =  unname(x), d = unname(d))
   } else if (is.na(d)) {
     # In this case there is no grouping.
-    pdat <- data.frame(th = th, x =  x)
+    pdat <- data.frame(th = th, x =  unname(x))
   } else {
     # In the final alternative d has been provided.
     dtd <- m$dt_meandir[, colnames(d)[1]]
@@ -158,7 +163,7 @@ plot_predict.circGLM <- function(m, x, d, th,
 
   # Check if there is a grouping, then return the appropriate plot.
   if ((is.na(d) | missing(d)) || ncol(d) == 0) {
-    p <- ggplot2::ggplot(data = pdat, ggplot2::aes(y = th, x = x)) +
+    p <- ggplot2::ggplot(data = pdat, ggplot2::aes_string(y = "th", x = "x")) +
       ggplot2::geom_point() +
       ggplot2::stat_function(fun = predfun,
                              col = colorPalette[1]) +
@@ -167,7 +172,8 @@ plot_predict.circGLM <- function(m, x, d, th,
       ggplot2::ylab(ylab) +
       ggplot2::xlab(xlab)
   } else {
-    p <- ggplot2::ggplot(data = pdat, ggplot2::aes(y = th, x = x, col = factor(d))) +
+    pdat[, "d"] <- factor(pdat[, "d"])
+    p <- ggplot2::ggplot(data = pdat, ggplot2::aes_string(y = "th", x = "x", col = "d")) +
       ggplot2::geom_point() +
       ggplot2::stat_function(fun = predfun,
                              col = colorPalette[1]) +
@@ -209,8 +215,13 @@ plot_predict.circGLM <- function(m, x, d, th,
 #' plot_meancompare.circGLM(m)
 plot_meancompare.circGLM <- function(m, alpha = .7, xlab = "Mean direction") {
 
-  ggplot2::ggplot(data = reshape2::melt(m$mu_chain, varnames = c("ID", "mu")),
-                  mapping = ggplot2::aes(x = value, fill = factor(mu))) +
+  # Create a dataset
+  mudat <- reshape2::melt(m$mu_chain, varnames = c("ID", "mu"))
+  mudat[, "mu"] <- factor(mudat[, "mu"])
+
+  # Plot using aes_string to appease CMD check notes
+  ggplot2::ggplot(data = mudat,
+                  mapping = ggplot2::aes_string(x = "value", fill = "mu")) +
     ggplot2::geom_density(alpha = alpha) +
     ggplot2::scale_fill_discrete(guide = ggplot2::guide_legend(title = "Group")) +
     ggplot2::theme_bw() + ggplot2::xlab(xlab) + ggplot2::ylab("Probability")
@@ -248,11 +259,12 @@ plot_meancompare.circGLM <- function(m, alpha = .7, xlab = "Mean direction") {
 plot_meanboxplot.circGLM <- function(m, xlab = "Mean direction") {
 
   df <- reshape2::melt(m$mu_chain, varnames = c("ID", "mu"))
+  df[, "mu"] <- factor(df[, "mu"])
 
   ggplot2::ggplot(data = df,
-                  mapping = ggplot2::aes(x     = factor(mu),
-                                         y     = value,
-                                         fill  = factor(mu))) +
+                  mapping = ggplot2::aes_string(x     = "mu",
+                                         y     = "value",
+                                         fill  = "mu")) +
     ggplot2::geom_boxplot(outlier.size = 0) + ggplot2::coord_flip() +
     ggplot2::scale_fill_discrete(guide = ggplot2::guide_legend(title = "Group")) +
     ggplot2::theme_bw() + ggplot2::xlab("") + ggplot2::ylab(xlab)
@@ -261,7 +273,7 @@ plot_meanboxplot.circGLM <- function(m, xlab = "Mean direction") {
 
 #' Make traceplots for circGLM
 #'
-#'  Plot traceplots from a \code{circGLM} object. This plotting method uses the standard \code{\link{coda}} traceplots.
+#'  Plot traceplots from a \code{circGLM} object. This plotting method uses the standard \code{coda} traceplots.
 #'
 #' @param m A \code{circGLM} object.
 #' @param params An optional character vector containing the parameter chains to display. If left empty, all are plotted.
@@ -400,9 +412,9 @@ plot_tracestack.circGLM <- function(m,
   longChains[, "idx"] <- idx
 
   p <- ggplot2::ggplot(data = longChains,
-                       mapping = ggplot2::aes(x = idx,
-                                              y = value,
-                                              group = iPar)) +
+                       mapping = ggplot2::aes_string(x = "idx",
+                                              y = "value",
+                                              group = "iPar")) +
     ggplot2::geom_line(col = rgb(0, 0, 0, .9)) +
     ggplot2::xlab("Iteration") +
     ggplot2::ylab("") +

@@ -16,10 +16,10 @@ data that is very strongly spread out, the fast method might not give the
 correct value.}
 }
 \value{
-An angle in radians.
+An angle in radians, the median direction.
 }
 \description{
-Compute the median direction
+This function computes the median direction, which is defined as the middle observation of the shortest arc containing all observations.
 }
 \examples{
 medianDirection(rvmc(30, 0, 2))

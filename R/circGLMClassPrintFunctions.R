@@ -3,7 +3,7 @@
 #' General print function for \code{circGLM} objects, which dispatches the chosen type
 #' of printing to the corresponding function.
 #'
-#' @param m A \code{circGLM} object to be printed.
+#' @param x A \code{circGLM} object to be printed.
 #' @param type Character string giving the type of printing, such as
 #'   \code{"text"}, \code{"mcmc"}, \code{"all"}, \code{"coef"}.
 #' @param ... Additional arguments to be passed to print functions.
@@ -30,9 +30,9 @@
 #'
 #' print(cglmmod, type = "coef")
 #'
-print.circGLM <- function(m, type = "text", ...) {
+print.circGLM <- function(x, type = "text", ...) {
   printFunName <- paste0("print_", type, ".circGLM")
-  do.call(printFunName, args = c(list(m = m), list(...)))
+  do.call(printFunName, args = c(list(m = x), list(...)))
 }
 
 
@@ -77,7 +77,7 @@ print_text.circGLM <- function(m, digits = 3) {
 #' \code{coda} are not necessarily trustworthy.
 #'
 #' @param m A \code{circGLM} object.
-#' @param digits Number of digits to display.
+#' @param ... Additional arguments to be passed to coda printing functions.
 #'
 #' @export
 #'

@@ -7,12 +7,12 @@
 print_mcmc.circGLM(m, ...)
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{m}{A \code{circGLM} object.}
 
-\item{digits}{Number of digits to display.}
+\item{...}{Additional arguments to be passed to coda printing functions.}
 }
 \description{
-This prints a number of diagnostics about the results of a circGLM objects
+This prints a number of diagnostics about the results of a \code{circGLM} objects
 through  \code{\link[coda]{summary.mcmc}} from the \code{coda} package. In
 particular, the standard errors may be of interest.
 }

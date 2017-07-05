@@ -2,12 +2,12 @@
 % Please edit documentation in R/circGLMClassFunctions.R
 \name{circSD}
 \alias{circSD}
-\title{Comute the Circular Standard Deviation}
+\title{Compute the Circular Standard Deviation}
 \usage{
 circSD(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{A vector of angles.}
 }
 \value{
 A numeric, the circular standard deviation.

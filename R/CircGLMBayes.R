@@ -19,6 +19,9 @@
 #'
 #' @useDynLib CircGLMBayes
 #' @importFrom Rcpp sourceCpp
+#' @importFrom grDevices rgb
+#' @importFrom graphics plot
+#' @importFrom stats coef median rchisq rnorm runif sd
 #' @docType package
 #' @name CircGLMBayes
 NULL

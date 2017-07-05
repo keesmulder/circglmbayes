@@ -9,6 +9,18 @@ invAtanLF <- function(x, r) {
     .Call('CircGLMBayes_invAtanLF', PACKAGE = 'CircGLMBayes', x, r)
 }
 
+#' Generate a random variate from the von Mises distribution
+#'
+#' This function generates a set of data from the von Mises distribution.
+#' If kappa is very small, return a circular uniform draw, as otherwise the
+#' algorithm will fail.
+#'
+#' @param n The number of random variates required.
+#' @param mu The required mean direction, mu.
+#' @param kp The required concentration, kappa.
+#'
+#' @return A vector of length n containing VM random variates.
+#'
 #' @export
 rvmc <- function(n, mu, kp) {
     .Call('CircGLMBayes_rvmc', PACKAGE = 'CircGLMBayes', n, mu, kp)
@@ -18,39 +30,30 @@ sampleKappa <- function(etag, eta) {
     .Call('CircGLMBayes_sampleKappa', PACKAGE = 'CircGLMBayes', etag, eta)
 }
 
-#' @export
 computeMeanDirection <- function(th) {
     .Call('CircGLMBayes_computeMeanDirection', PACKAGE = 'CircGLMBayes', th)
 }
 
-#' @export
 computeResultantLength <- function(th) {
     .Call('CircGLMBayes_computeResultantLength', PACKAGE = 'CircGLMBayes', th)
 }
 
-#' @export
 circQuantile <- function(th, q) {
     .Call('CircGLMBayes_circQuantile', PACKAGE = 'CircGLMBayes', th, q)
 }
 
-#' @export
 estimateModeCirc <- function(x, cip) {
     .Call('CircGLMBayes_estimateModeCirc', PACKAGE = 'CircGLMBayes', x, cip)
 }
 
-#' Find the highest density interval.
-#'
-#' @export
 computeHDICirc <- function(x, cip) {
     .Call('CircGLMBayes_computeHDICirc', PACKAGE = 'CircGLMBayes', x, cip)
 }
 
-#' @export
 estimateMode <- function(x, cip) {
     .Call('CircGLMBayes_estimateMode', PACKAGE = 'CircGLMBayes', x, cip)
 }
 
-#' @export
 computeHDI <- function(x, cip) {
     .Call('CircGLMBayes_computeHDI', PACKAGE = 'CircGLMBayes', x, cip)
 }

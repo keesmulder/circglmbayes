@@ -8,7 +8,7 @@ IC_compare.circGLM(..., ICs = c("n_par", "lppd", "AIC_Bayes", "DIC",
   "DIC_alt", "WAIC1", "WAIC2", "p_DIC", "p_DIC_alt", "p_WAIC1", "p_WAIC2"))
 }
 \arguments{
-\item{...}{The circGLM objects to be compared.}
+\item{...}{The \code{circGLM} objects to be compared.}
 
 \item{ICs}{A character vector of ICs to display.}
 }

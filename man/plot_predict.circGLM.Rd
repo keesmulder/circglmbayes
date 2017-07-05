@@ -4,7 +4,7 @@
 \alias{plot_predict.circGLM}
 \title{Create a prediction plot from a circGLM object}
 \usage{
-plot_predict.circGLM(m, x, d, th, linkfun = function(x) atanLF(x, 2),
+plot_predict.circGLM(m, x, d, th, linkfun = function(x) 2 * atan(x),
   xlab = NA, ylab = expression(theta), colorPalette = c("#E69F00",
   "#56B4E9"))
 }
@@ -58,10 +58,9 @@ where it will simply take the first predictor in the dataset. If a plot
 without grouping is required, \code{d} can be set to \code{NA}.
 }
 \examples{
-plot(circGLM(rvmc(10, 1, 1)))
-
 dat <- generateCircGLMData()
-plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "predict")
+m <- circGLM(th = dat[, 1], X = dat[, -1])
+plot(m, type = "predict")
 
 }
 \seealso{

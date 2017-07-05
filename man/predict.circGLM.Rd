@@ -4,28 +4,31 @@
 \alias{predict.circGLM}
 \title{Obtain predictions for the circGLM model}
 \usage{
-\method{predict}{circGLM}(m, newdata)
+\method{predict}{circGLM}(object, newdata, ...)
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{object}{A \code{circGLM} object.}
 
 \item{newdata}{A data frame with predictors. The predictors must be the same
-as used in the circGLM object and must have the same column names.}
+as used in the \code{circGLM} object and must have the same column names.}
+
+\item{...}{Further arguments passed to or from other methods.}
 }
 \value{
 A numeric vector with predictions.
 }
 \description{
-Obtain predictions for the circGLM model
+Obtain predictions from the original dataset, or the predictions from the fitted model on a new dataset \code{newdata}.
 }
 \examples{
 dat <- generateCircGLMData()
 m   <- circGLM(dat[, 1], X = dat[, -1])
 
 # Predictions for the original outcome angles.
-predict.circGLM(m)
+predict(m)
 
 # Predictions for new data
 dat2  <- generateCircGLMData()
-predict.circGLM(m, newdata = dat2)
+predict(m, newdata = dat2)
+
 }

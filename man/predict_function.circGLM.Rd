@@ -4,15 +4,17 @@
 \alias{predict_function.circGLM}
 \title{Obtain a prediction function from a circGLM object}
 \usage{
-predict_function.circGLM(m, linkfun = function(x) atanLF(x, 2))
+predict_function.circGLM(object, linkfun = function(x) atanLF(x, 2))
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{object}{A \code{circGLM} object.}
+
+\item{linkfun}{A link function to use in the analysis. Should be the same as the link function}
 }
 \value{
 A function that takes \code{newdata} as an argument, which must be a
   data frame with predictors. The predictors must be the same as used in the
-  circGLM object and must have the same column names.
+  \code{circGLM} object and must have the same column names.
 }
 \description{
 Obtain a prediction function from a circGLM object

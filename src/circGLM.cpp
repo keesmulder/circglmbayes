@@ -41,21 +41,22 @@ double atanLFdouble(double x, double r)    {return r * atan(x);}
 double invAtanLFdouble(double x, double r) {return tan(x/r);}
 
 
+//' Generate a random variate from the von Mises distribution
+//'
+//' This function generates a set of data from the von Mises distribution.
+//' If kappa is very small, return a circular uniform draw, as otherwise the
+//' algorithm will fail.
+//'
+//' @param n The number of random variates required.
+//' @param mu The required mean direction, mu.
+//' @param kp The required concentration, kappa.
+//'
+//' @return A vector of length n containing VM random variates.
+//'
 //' @export
 // [[Rcpp::export]]
 NumericVector rvmc(int n, double mu, double kp) {
-  /* FUNCTION rvmc -------------------------------------------
-   Generate random variates from the von Mises distribution.
 
-   n:      The number of random variates required.
-   mu:     The required mean direction, mu.
-   kp:     The required concentration, kappa.
-
-   Returns: A vector of length n containing VM random variates.
-   ------------------------------------------------------------ */
-
-  // If kappa is very small, return a circular uniform draw, as otherwise the
-  // algorithm will fail.
   if (kp < .0000001) {
     return runif(n, 0, 2*pi);
   }
@@ -191,7 +192,6 @@ vec sampleKappa(double etag, int eta) {
 }
 
 
-//' @export
 // [[Rcpp::export]]
 double computeMeanDirection (vec th) {
   // Compute the mean direction for some dataset th.
@@ -201,7 +201,6 @@ double computeMeanDirection (vec th) {
   return atan2(S, C);
 }
 
-//' @export
 // [[Rcpp::export]]
 double computeResultantLength (vec th) {
   // Compute the resultant length for some dataset th.
@@ -229,7 +228,6 @@ vec quantile(vec x, vec q) {
   return out;
 }
 
-//' @export
 // [[Rcpp::export]]
 vec circQuantile(arma::vec th, vec q) {
   // Compute a circular quantile.
@@ -242,7 +240,6 @@ vec circQuantile(arma::vec th, vec q) {
 
 
 
-//' @export
 // [[Rcpp::export]]
 double estimateModeCirc(NumericVector x, double cip) {
   /* FUNCTION hmode -------------------------------------------
@@ -292,12 +289,9 @@ double estimateModeCirc(NumericVector x, double cip) {
 
 
 
-//' Find the highest density interval.
-//'
-//' @export
 // [[Rcpp::export]]
 NumericVector computeHDICirc(NumericVector x, double cip) {
-  /* FUNCTION hmodeci -----------------------------------------
+  /* FUNCTION computeHDICirc -----------------------------------------
   Find the highest posterior density interval.
 
   x:      Sample from which to estimate the interval.
@@ -346,7 +340,6 @@ NumericVector computeHDICirc(NumericVector x, double cip) {
 }
 
 
-//' @export
 // [[Rcpp::export]]
 double estimateMode(vec x, double cip) {
   // Compute the mode using interval cip%.
@@ -384,7 +377,6 @@ double estimateMode(vec x, double cip) {
 }
 
 
-//' @export
 // [[Rcpp::export]]
 vec computeHDI(vec x, double cip) {
   // Compute the cip% Highest Density Interval for some vector x.

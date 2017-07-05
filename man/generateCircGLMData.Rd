@@ -2,7 +2,7 @@
 % Please edit documentation in R/generateCircGLMData.R
 \name{generateCircGLMData}
 \alias{generateCircGLMData}
-\title{Generate data that follows the circular GLM model.}
+\title{Generate data that follows the circular GLM model}
 \usage{
 generateCircGLMData(n = 30, residkappa = 5, nconpred = 2, ncatpred = 2,
   truebeta0 = pi/2, truebeta = rep(0.25, nconpred), truedelta = rep(1,
@@ -45,7 +45,7 @@ A numeric matrix containing a dataset sampled according to the
 }
 \description{
 This function samples data according to the circular GLM model. A set of true
-values for the parameters can be entered, and a dataset is return that is
+values for the parameters can be entered, and a dataset is returned that is
 drawn from the corresponding model. The link function can also be selected.
 }
 \details{

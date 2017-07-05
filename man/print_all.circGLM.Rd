@@ -7,12 +7,12 @@
 print_all.circGLM(m, digits = 3)
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{m}{A \code{circGLM} object.}
 
 \item{digits}{Number of digits to display.}
 }
 \description{
-This function prints the full list of results from a circGLM object. The function extracts all
+This function prints the full list of results from a \code{circGLM} object. The function extracts all
 the scalar results and displays these together, then prints all further list elements. The full
 chains are not printed.
 }

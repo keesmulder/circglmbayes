@@ -14,7 +14,7 @@ plot_trace.circGLM(m, params, ...)
 \item{...}{Additional parameters passed to \code{\link[coda]{plot.mcmc}} from the coda package.}
 }
 \description{
-Plot traceplots from a \code{circGLM} object. This plotting method uses the standard \code{\link{coda}} traceplots.
+Plot traceplots from a \code{circGLM} object. This plotting method uses the standard \code{coda} traceplots.
 }
 \examples{
 plot_trace.circGLM(circGLM(rvmc(10, 1, 1)))

@@ -7,7 +7,7 @@
 print_coef.circGLM(m, digits = 3)
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{m}{A \code{circGLM} object.}
 
 \item{digits}{Number of digits to display.}
 }

@@ -64,7 +64,7 @@ fixResultNames <- function(nms){
 #'
 #' The main function for running Bayesian circular GLMs. The model predicts some circular outcome
 #' \eqn{\theta} and has the form
-#' \eqn{\theta_i = \beta_0 + \delta^t d_i  + g(\beta^t x_i) + \epsilon_i},
+#' \deqn{\theta_i = \beta_0 + \delta^t d_i  + g(\beta^t x_i) + \epsilon_i},
 #' where \eqn{\beta_0} is an circular intercept, \eqn{\delta} are group difference
 #' parameters, \eqn{d_i} is a vector of dummy variables indicating group membership, \eqn{g(.)} is a
 #' link function given by \eqn{g(x) = r atan(x)} where \code{r} can be chosen, \eqn{\beta} is a

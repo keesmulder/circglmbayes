@@ -4,10 +4,10 @@
 \alias{plot.circGLM}
 \title{Plot circGLM object}
 \usage{
-\method{plot}{circGLM}(m, type = "trace", ...)
+\method{plot}{circGLM}(x, type = "trace", ...)
 }
 \arguments{
-\item{m}{A \code{circGLM} object to be plotted.}
+\item{x}{A \code{circGLM} object to be plotted.}
 
 \item{type}{Character string giving the type of plotting. The options are
 \code{"trace"}, \code{"tracestack"}, \code{"predict"}, \code{"meancompare"}

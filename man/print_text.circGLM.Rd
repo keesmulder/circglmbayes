@@ -2,17 +2,17 @@
 % Please edit documentation in R/circGLMClassPrintFunctions.R
 \name{print_text.circGLM}
 \alias{print_text.circGLM}
-\title{Print the main results from a circGLM object.}
+\title{Print the main results from a \code{circGLM} object.}
 \usage{
 print_text.circGLM(m, digits = 3)
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{m}{A \code{circGLM} object.}
 
 \item{digits}{Number of digits to display.}
 }
 \description{
-Print the main results from a circGLM object.
+Print the main results from a \code{circGLM} object.
 }
 \examples{
 print(circGLM(rvmc(10, 1, 1)), type = "text")

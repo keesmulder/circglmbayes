@@ -2,13 +2,15 @@ Package: CircGLMBayes
 Type: Package
 Title: A Bayesian analysis of a circular GLM
 Version: 1.0.4
-Author@R: person("Kees", "Mulder", email = "keestimmulder@gmail.com", role = c("aut", "cre"))
+Authors@R: person("Kees", "Mulder", email = "keestimmulder@gmail.com", role = c("aut", "cre"))
 Maintainer: Kees Mulder <keestimmulder@gmail.com>
 Description: This package contains functions to perform a Bayesian circular GLM, which allows regressing a
   circular outcome on linear and categorical predictors. 
 License: GPL-3
 Encoding: UTF-8
+ByteCompile: true
 LazyData: true
+Depends: R (>= 2.10)
 LinkingTo: Rcpp, BH, RcppArmadillo
-Imports: ggplot2, reshape2, dplyr, coda
+Imports: Rcpp, stats, graphics, grDevices, ggplot2, reshape2, dplyr, coda
 RoxygenNote: 6.0.1

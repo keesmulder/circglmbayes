@@ -4,13 +4,15 @@
 \alias{residuals.circGLM}
 \title{Obtain residuals from a circGLM object}
 \usage{
-\method{residuals}{circGLM}(m, type = "arc")
+\method{residuals}{circGLM}(object, type = "arc", ...)
 }
 \arguments{
-\item{m}{A circGLM object.}
+\item{object}{A \code{circGLM} object.}
 
 \item{type}{Either \code{"arc"} or \code{"cosine"}, the type of distance to
 take.}
+
+\item{...}{Further arguments passed to or from other methods.}
 }
 \value{
 A numeric vector of residuals. If type is \code{"arc"}, these are
@@ -23,7 +25,9 @@ distance between the predictions and the observed outcomes.
 }
 \examples{
 m <- circGLM(rvmc(10, 0, 1))
-residuals.circGLM(m)
-residuals.circGLM(m, type = "cosine")
+residuals(m)
+
+# Cosine residuals
+residuals(m, type = "cosine")
 
 }

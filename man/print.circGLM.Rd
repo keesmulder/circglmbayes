@@ -4,10 +4,10 @@
 \alias{print.circGLM}
 \title{Print circGLM Object}
 \usage{
-\method{print}{circGLM}(m, type = "text", ...)
+\method{print}{circGLM}(x, type = "text", ...)
 }
 \arguments{
-\item{m}{A circGLM object to be printed.}
+\item{x}{A \code{circGLM} object to be printed.}
 
 \item{type}{Character string giving the type of printing, such as
 \code{"text"}, \code{"mcmc"}, \code{"all"}, \code{"coef"}.}
@@ -15,7 +15,7 @@
 \item{...}{Additional arguments to be passed to print functions.}
 }
 \description{
-General print function for circGLM objects, which dispatches the chosen type
+General print function for \code{circGLM} objects, which dispatches the chosen type
 of printing to the corresponding function.
 }
 \examples{
