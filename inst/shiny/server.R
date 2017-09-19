@@ -55,7 +55,7 @@ shinyServer(function(input, output) {
 
     # Check if we should load the example
     if (input$datasource == 'example') {
-      return(essbhv)
+      return(essbhv[1:100, ])
 
     # Check if user has not uploaded a file yet
     } else if (is.null(input$file)) {
