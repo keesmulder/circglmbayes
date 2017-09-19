@@ -8,8 +8,13 @@
 #
 
 library(shiny)
+library(CircGLMBayes)
+library(shinyjs)
 
 shinyServer(function(input, output) {
+
+
+
 
   ### Argument names:
   ArgNames <- reactive({
@@ -17,6 +22,8 @@ shinyServer(function(input, output) {
     Names <- Names[Names!="..."]
     return(Names)
   })
+
+
 
   # Argument selector:
   output$ArgSelect <- renderUI({
@@ -44,8 +51,13 @@ shinyServer(function(input, output) {
 
   ### Data import:
   Dataset <- reactive({
-    if (is.null(input$file)) {
-      # User has not uploaded a file yet
+
+    # Check if we should load the example
+    if (input$datasource == 'example') {
+      return(essbhv)
+
+    # Check if user has not uploaded a file yet
+    } else if (is.null(input$file)) {
       return(data.frame())
     }
 
@@ -73,6 +85,17 @@ shinyServer(function(input, output) {
     selectInput("vars", "Variables to use:",
                 names(Dataset()), names(Dataset()), multiple =TRUE)
   })
+
+  # Select Outcome:
+  output$outcomeselect <- renderUI({
+
+    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
+
+    # Variable selection:
+    selectInput("outcome", "Select the outcome:",
+                names(Dataset()), names(Dataset()), multiple = FALSE)
+  })
+
 
   # Show table:
   output$table <- renderTable({

@@ -12,64 +12,97 @@ library(shiny)
 shinyUI(pageWithSidebar(
 
   # Header:
-  headerPanel("R data reader"),
+  headerPanel("Circular GLM"),
 
   # Input in sidepanel:
   sidebarPanel(
-    tags$style(type='text/css', ".well { max-width: 20em; }"),
-    # Tags:
-    tags$head(
-      tags$style(type="text/css", "select[multiple] { width: 100%; height:10em}"),
-      tags$style(type="text/css", "select { width: 100%}"),
-      tags$style(type="text/css", "input { width: 19em; max-width:100%}")
-    ),
 
-    # Select filetype:
-    selectInput("readFunction", "Function to read data:", c(
-      # Base R:
-      "read.table",
-      "read.csv",
-      "read.csv2",
-      "read.delim",
-      "read.delim2",
+    tabsetPanel(
 
-      # foreign functions:
-      "read.spss",
-      "read.arff",
-      "read.dbf",
-      "read.dta",
-      "read.epiiinfo",
-      "read.mtp",
-      "read.octave",
-      "read.ssd",
-      "read.systat",
-      "read.xport",
+      tabPanel(
+        "Load data",
 
-      # Advanced functions:
-      "scan",
-      "readLines"
-    )),
+        tags$style(type='text/css', ".well { max-width: 20em; }"),
+        # Tags:
+        tags$head(
+          tags$style(type="text/css", "select[multiple] { width: 100%; height:10em}"),
+          tags$style(type="text/css", "select { width: 100%}"),
+          tags$style(type="text/css", "input { width: 19em; max-width:100%}")
+        ), br(),
 
-    # Argument selecter:
-    htmlOutput("ArgSelect"),
 
-    # Argument field:
-    htmlOutput("ArgText"),
+        radioButtons("datasource", "Choose data source",
+                     choices = c("Load your own data" = "user", "Use the example" = "example")),
+        # checkboxInput("useexample", "Use example dataset instead.", value = FALSE),
 
-    # Upload data:
-    fileInput("file", "Upload data-file:"),
 
-    # Variable selection:
-    htmlOutput("varselect"),
+        conditionalPanel(
+          "input.datasource == 'user'",
+          # Select filetype:
+          selectInput("readFunction", "Function to read data:", c(
+            # Base R:
+            "read.table",
+            "read.csv",
+            "read.csv2",
+            "read.delim",
+            "read.delim2",
 
-    br(),
+            # foreign functions:
+            "read.spss",
+            "read.arff",
+            "read.dbf",
+            "read.dta",
+            "read.epiiinfo",
+            "read.mtp",
+            "read.octave",
+            "read.ssd",
+            "read.systat",
+            "read.xport",
 
-    textInput("name","Dataset name:","Data"),
+            # Advanced functions:
+            "scan",
+            "readLines"
+          ), selected = "read.csv"),
 
-    downloadLink('downloadDump', 'Download source'),
-    downloadLink('downloadSave', 'Download binary')
+          # Upload data:
+          fileInput("file", "Upload data-file:"),
 
+          # Select whether to show all the advanced options.
+          checkboxInput("advOptions", "Show advanced options", value = FALSE),
+
+          conditionalPanel(
+            "input.advOptions",
+
+            # Argument selecter:
+            htmlOutput("ArgSelect"),
+
+            # Argument field:
+            htmlOutput("ArgText"),
+
+            # Variable selection:
+            htmlOutput("varselect")
+            #
+            #       br(),
+            #
+            #       textInput("name","Dataset name:","Data")
+            #
+            #       downloadLink('downloadDump', 'Download source'),
+            #       downloadLink('downloadSave', 'Download binary')
+          )
+        ), br()
+
+
+      ),
+
+      tabPanel(
+        "Analysis",
+
+        # Outcome selection:
+        htmlOutput("outcomeselect")
+      )
+    )
   ),
+
 
   # Main:
   mainPanel(
