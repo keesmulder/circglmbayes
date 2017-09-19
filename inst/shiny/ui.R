@@ -103,7 +103,9 @@ shinyUI(pageWithSidebar(
         htmlOutput("outcomeselect"),
 
         # Predictor selection:
-        htmlOutput("predictorselect")
+        htmlOutput("predictorselect"),
+
+        actionButton("run", "Run analysis")
 
 
       )
@@ -118,10 +120,10 @@ shinyUI(pageWithSidebar(
       tabPanel("Full data",
         tableOutput("showdata")
       )
-      # ,
-      # tabPanel("Main results",
-      #          tableOutput("showdata")
-      # )
+      ,
+      tabPanel("Main results",
+               verbatimTextOutput("textout")
+      )
     )
   )
 ))

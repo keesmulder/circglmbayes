@@ -79,15 +79,6 @@ shinyServer(function(input, output) {
   })
 
 
-
-  # Model run:
-  # getModel <- reactive({
-  #
-  #
-  # })
-
-
-
   # Select Outcome:
   output$outcomeselect <- renderUI({
 
@@ -107,7 +98,7 @@ shinyServer(function(input, output) {
     predOpts <- names(Dataset())[names(Dataset()) != input$outcome]
 
     selectInput("predictors", "Select the predictors:",
-                predOpts, predOpts, multiple = TRUE)
+                choices = predOpts, multiple = TRUE)
   })
 
 
@@ -118,6 +109,37 @@ shinyServer(function(input, output) {
 
     return(Dataset())
   })
+
+
+
+
+
+
+
+  ########### ANALYSIS ####################
+  # Model run:
+  getModel <- reactive({
+
+    dat <- Dataset()
+
+    if (length(input$predictors) == 0) return(NULL)
+
+    mod <- circGLM(th = dat[, input$outcome], X = dat[, input$predictors])
+
+    return(mod)
+  })
+
+
+  output$textout <- renderPrint({
+    input$run
+    isolate({
+      getModel()
+    })
+  })
+
+
+
+
 
 
   ### Download dump:
