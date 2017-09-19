@@ -10,6 +10,7 @@
 library(shiny)
 library(CircGLMBayes)
 library(shinyjs)
+library(dplyr)
 
 shinyServer(function(input, output) {
 
@@ -73,18 +74,19 @@ shinyServer(function(input, output) {
     argList <- argList[names(argList) %in% ArgNames()]
 
     Dataset <- as.data.frame(do.call(input$readFunction,c(list(input$file$datapath),argList)))
+
     return(Dataset)
   })
 
-  # Select variables:
-  output$varselect <- renderUI({
 
-    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
 
-    # Variable selection:
-    selectInput("vars", "Variables to use:",
-                names(Dataset()), names(Dataset()), multiple =TRUE)
-  })
+  # Model run:
+  # getModel <- reactive({
+  #
+  #
+  # })
+
+
 
   # Select Outcome:
   output$outcomeselect <- renderUI({
@@ -96,38 +98,50 @@ shinyServer(function(input, output) {
                 names(Dataset()), names(Dataset()), multiple = FALSE)
   })
 
+  # Select predictors:
+  output$predictorselect <- renderUI({
 
-  # Show table:
-  output$table <- renderTable({
+    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
 
-    if (is.null(input$vars) || length(input$vars)==0) return(NULL)
+    # Predictors can be any variable that is not the outcome.
+    predOpts <- names(Dataset())[names(Dataset()) != input$outcome]
 
-    return(Dataset()[,input$vars,drop=FALSE])
+    selectInput("predictors", "Select the predictors:",
+                predOpts, predOpts, multiple = TRUE)
+  })
+
+
+  # Show full data:
+  output$showdata <- renderTable({
+
+    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
+
+    return(Dataset())
   })
 
 
   ### Download dump:
-
-  output$downloadDump <- downloadHandler(
-    filename = "Rdata.R",
-    content = function(con) {
-
-      assign(input$name, Dataset()[,input$vars,drop=FALSE])
-
-      dump(input$name, con)
-    }
-  )
-
-  ### Download save:
-
-  output$downloadSave <- downloadHandler(
-    filename = "Rdata.RData",
-    content = function(con) {
-
-      assign(input$name, Dataset()[,input$vars,drop=FALSE])
-
-      save(list=input$name, file=con)
-    }
-  )
+#
+#   output$downloadDump <- downloadHandler(
+#     filename = "Rdata.R",
+#     content = function(con) {
+#
+#       assign(input$name, Dataset()[,input$vars,drop=FALSE])
+#
+#       dump(input$name, con)
+#     }
+#   )
+#
+#   ### Download save:
+#
+#   output$downloadSave <- downloadHandler(
+#     filename = "Rdata.RData",
+#     content = function(con) {
+#
+#       assign(input$name, Dataset()[,input$vars,drop=FALSE])
+#
+#       save(list=input$name, file=con)
+#     }
+  # )
 
 })

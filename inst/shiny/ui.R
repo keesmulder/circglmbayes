@@ -32,7 +32,7 @@ shinyUI(pageWithSidebar(
 
 
         radioButtons("datasource", "Choose data source",
-                     choices = c("Load your own data" = "user", "Use the example" = "example")),
+                     choices = c("Use the example" = "example", "Load your own data" = "user")),
         # checkboxInput("useexample", "Use example dataset instead.", value = FALSE),
 
 
@@ -97,8 +97,15 @@ shinyUI(pageWithSidebar(
       tabPanel(
         "Analysis",
 
+        br(),
+
         # Outcome selection:
-        htmlOutput("outcomeselect")
+        htmlOutput("outcomeselect"),
+
+        # Predictor selection:
+        htmlOutput("predictorselect")
+
+
       )
     )
   ),
@@ -107,7 +114,14 @@ shinyUI(pageWithSidebar(
   # Main:
   mainPanel(
 
-    tableOutput("table")
-
+    tabsetPanel(
+      tabPanel("Full data",
+        tableOutput("showdata")
+      )
+      # ,
+      # tabPanel("Main results",
+      #          tableOutput("showdata")
+      # )
+    )
   )
 ))
