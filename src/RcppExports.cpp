@@ -9,7 +9,7 @@ using namespace Rcpp;
 
 // atanLF
 vec atanLF(vec x, double r);
-RcppExport SEXP CircGLMBayes_atanLF(SEXP xSEXP, SEXP rSEXP) {
+RcppExport SEXP _CircGLMBayes_atanLF(SEXP xSEXP, SEXP rSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,7 +21,7 @@ END_RCPP
 }
 // invAtanLF
 vec invAtanLF(vec x, double r);
-RcppExport SEXP CircGLMBayes_invAtanLF(SEXP xSEXP, SEXP rSEXP) {
+RcppExport SEXP _CircGLMBayes_invAtanLF(SEXP xSEXP, SEXP rSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -33,7 +33,7 @@ END_RCPP
 }
 // rvmc
 NumericVector rvmc(int n, double mu, double kp);
-RcppExport SEXP CircGLMBayes_rvmc(SEXP nSEXP, SEXP muSEXP, SEXP kpSEXP) {
+RcppExport SEXP _CircGLMBayes_rvmc(SEXP nSEXP, SEXP muSEXP, SEXP kpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -46,7 +46,7 @@ END_RCPP
 }
 // sampleKappa
 vec sampleKappa(double etag, int eta);
-RcppExport SEXP CircGLMBayes_sampleKappa(SEXP etagSEXP, SEXP etaSEXP) {
+RcppExport SEXP _CircGLMBayes_sampleKappa(SEXP etagSEXP, SEXP etaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -58,7 +58,7 @@ END_RCPP
 }
 // computeMeanDirection
 double computeMeanDirection(vec th);
-RcppExport SEXP CircGLMBayes_computeMeanDirection(SEXP thSEXP) {
+RcppExport SEXP _CircGLMBayes_computeMeanDirection(SEXP thSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -69,7 +69,7 @@ END_RCPP
 }
 // computeResultantLength
 double computeResultantLength(vec th);
-RcppExport SEXP CircGLMBayes_computeResultantLength(SEXP thSEXP) {
+RcppExport SEXP _CircGLMBayes_computeResultantLength(SEXP thSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -80,7 +80,7 @@ END_RCPP
 }
 // circQuantile
 vec circQuantile(arma::vec th, vec q);
-RcppExport SEXP CircGLMBayes_circQuantile(SEXP thSEXP, SEXP qSEXP) {
+RcppExport SEXP _CircGLMBayes_circQuantile(SEXP thSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -92,7 +92,7 @@ END_RCPP
 }
 // estimateModeCirc
 double estimateModeCirc(NumericVector x, double cip);
-RcppExport SEXP CircGLMBayes_estimateModeCirc(SEXP xSEXP, SEXP cipSEXP) {
+RcppExport SEXP _CircGLMBayes_estimateModeCirc(SEXP xSEXP, SEXP cipSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -104,7 +104,7 @@ END_RCPP
 }
 // computeHDICirc
 NumericVector computeHDICirc(NumericVector x, double cip);
-RcppExport SEXP CircGLMBayes_computeHDICirc(SEXP xSEXP, SEXP cipSEXP) {
+RcppExport SEXP _CircGLMBayes_computeHDICirc(SEXP xSEXP, SEXP cipSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -116,7 +116,7 @@ END_RCPP
 }
 // estimateMode
 double estimateMode(vec x, double cip);
-RcppExport SEXP CircGLMBayes_estimateMode(SEXP xSEXP, SEXP cipSEXP) {
+RcppExport SEXP _CircGLMBayes_estimateMode(SEXP xSEXP, SEXP cipSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -128,7 +128,7 @@ END_RCPP
 }
 // computeHDI
 vec computeHDI(vec x, double cip);
-RcppExport SEXP CircGLMBayes_computeHDI(SEXP xSEXP, SEXP cipSEXP) {
+RcppExport SEXP _CircGLMBayes_computeHDI(SEXP xSEXP, SEXP cipSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -140,7 +140,7 @@ END_RCPP
 }
 // estimateDensity
 double estimateDensity(vec x, double x_0, double cip);
-RcppExport SEXP CircGLMBayes_estimateDensity(SEXP xSEXP, SEXP x_0SEXP, SEXP cipSEXP) {
+RcppExport SEXP _CircGLMBayes_estimateDensity(SEXP xSEXP, SEXP x_0SEXP, SEXP cipSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -153,7 +153,7 @@ END_RCPP
 }
 // rhsll
 double rhsll(double b0, double kp, vec bt, vec dt, vec th, mat X, mat D, double r);
-RcppExport SEXP CircGLMBayes_rhsll(SEXP b0SEXP, SEXP kpSEXP, SEXP btSEXP, SEXP dtSEXP, SEXP thSEXP, SEXP XSEXP, SEXP DSEXP, SEXP rSEXP) {
+RcppExport SEXP _CircGLMBayes_rhsll(SEXP b0SEXP, SEXP kpSEXP, SEXP btSEXP, SEXP dtSEXP, SEXP thSEXP, SEXP XSEXP, SEXP DSEXP, SEXP rSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -171,7 +171,7 @@ END_RCPP
 }
 // logProbNormal
 vec logProbNormal(vec x, vec mu, vec sd);
-RcppExport SEXP CircGLMBayes_logProbNormal(SEXP xSEXP, SEXP muSEXP, SEXP sdSEXP) {
+RcppExport SEXP _CircGLMBayes_logProbNormal(SEXP xSEXP, SEXP muSEXP, SEXP sdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -184,7 +184,7 @@ END_RCPP
 }
 // truncCauchyPdf
 double truncCauchyPdf(double x, double m, double w);
-RcppExport SEXP CircGLMBayes_truncCauchyPdf(SEXP xSEXP, SEXP mSEXP, SEXP wSEXP) {
+RcppExport SEXP _CircGLMBayes_truncCauchyPdf(SEXP xSEXP, SEXP mSEXP, SEXP wSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -197,7 +197,7 @@ END_RCPP
 }
 // circGLMC
 Rcpp::List circGLMC(vec th, mat X, mat D, vec conj_prior, mat bt_prior, vec starting_values, int burnin, int thin, vec bwb, double kappaModeEstBandwith, double CIsize, int Q, double r, bool returnPostSample, int bt_prior_type, bool reparametrize, bool groupMeanComparisons);
-RcppExport SEXP CircGLMBayes_circGLMC(SEXP thSEXP, SEXP XSEXP, SEXP DSEXP, SEXP conj_priorSEXP, SEXP bt_priorSEXP, SEXP starting_valuesSEXP, SEXP burninSEXP, SEXP thinSEXP, SEXP bwbSEXP, SEXP kappaModeEstBandwithSEXP, SEXP CIsizeSEXP, SEXP QSEXP, SEXP rSEXP, SEXP returnPostSampleSEXP, SEXP bt_prior_typeSEXP, SEXP reparametrizeSEXP, SEXP groupMeanComparisonsSEXP) {
+RcppExport SEXP _CircGLMBayes_circGLMC(SEXP thSEXP, SEXP XSEXP, SEXP DSEXP, SEXP conj_priorSEXP, SEXP bt_priorSEXP, SEXP starting_valuesSEXP, SEXP burninSEXP, SEXP thinSEXP, SEXP bwbSEXP, SEXP kappaModeEstBandwithSEXP, SEXP CIsizeSEXP, SEXP QSEXP, SEXP rSEXP, SEXP returnPostSampleSEXP, SEXP bt_prior_typeSEXP, SEXP reparametrizeSEXP, SEXP groupMeanComparisonsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -224,22 +224,22 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"CircGLMBayes_atanLF", (DL_FUNC) &CircGLMBayes_atanLF, 2},
-    {"CircGLMBayes_invAtanLF", (DL_FUNC) &CircGLMBayes_invAtanLF, 2},
-    {"CircGLMBayes_rvmc", (DL_FUNC) &CircGLMBayes_rvmc, 3},
-    {"CircGLMBayes_sampleKappa", (DL_FUNC) &CircGLMBayes_sampleKappa, 2},
-    {"CircGLMBayes_computeMeanDirection", (DL_FUNC) &CircGLMBayes_computeMeanDirection, 1},
-    {"CircGLMBayes_computeResultantLength", (DL_FUNC) &CircGLMBayes_computeResultantLength, 1},
-    {"CircGLMBayes_circQuantile", (DL_FUNC) &CircGLMBayes_circQuantile, 2},
-    {"CircGLMBayes_estimateModeCirc", (DL_FUNC) &CircGLMBayes_estimateModeCirc, 2},
-    {"CircGLMBayes_computeHDICirc", (DL_FUNC) &CircGLMBayes_computeHDICirc, 2},
-    {"CircGLMBayes_estimateMode", (DL_FUNC) &CircGLMBayes_estimateMode, 2},
-    {"CircGLMBayes_computeHDI", (DL_FUNC) &CircGLMBayes_computeHDI, 2},
-    {"CircGLMBayes_estimateDensity", (DL_FUNC) &CircGLMBayes_estimateDensity, 3},
-    {"CircGLMBayes_rhsll", (DL_FUNC) &CircGLMBayes_rhsll, 8},
-    {"CircGLMBayes_logProbNormal", (DL_FUNC) &CircGLMBayes_logProbNormal, 3},
-    {"CircGLMBayes_truncCauchyPdf", (DL_FUNC) &CircGLMBayes_truncCauchyPdf, 3},
-    {"CircGLMBayes_circGLMC", (DL_FUNC) &CircGLMBayes_circGLMC, 17},
+    {"_CircGLMBayes_atanLF", (DL_FUNC) &_CircGLMBayes_atanLF, 2},
+    {"_CircGLMBayes_invAtanLF", (DL_FUNC) &_CircGLMBayes_invAtanLF, 2},
+    {"_CircGLMBayes_rvmc", (DL_FUNC) &_CircGLMBayes_rvmc, 3},
+    {"_CircGLMBayes_sampleKappa", (DL_FUNC) &_CircGLMBayes_sampleKappa, 2},
+    {"_CircGLMBayes_computeMeanDirection", (DL_FUNC) &_CircGLMBayes_computeMeanDirection, 1},
+    {"_CircGLMBayes_computeResultantLength", (DL_FUNC) &_CircGLMBayes_computeResultantLength, 1},
+    {"_CircGLMBayes_circQuantile", (DL_FUNC) &_CircGLMBayes_circQuantile, 2},
+    {"_CircGLMBayes_estimateModeCirc", (DL_FUNC) &_CircGLMBayes_estimateModeCirc, 2},
+    {"_CircGLMBayes_computeHDICirc", (DL_FUNC) &_CircGLMBayes_computeHDICirc, 2},
+    {"_CircGLMBayes_estimateMode", (DL_FUNC) &_CircGLMBayes_estimateMode, 2},
+    {"_CircGLMBayes_computeHDI", (DL_FUNC) &_CircGLMBayes_computeHDI, 2},
+    {"_CircGLMBayes_estimateDensity", (DL_FUNC) &_CircGLMBayes_estimateDensity, 3},
+    {"_CircGLMBayes_rhsll", (DL_FUNC) &_CircGLMBayes_rhsll, 8},
+    {"_CircGLMBayes_logProbNormal", (DL_FUNC) &_CircGLMBayes_logProbNormal, 3},
+    {"_CircGLMBayes_truncCauchyPdf", (DL_FUNC) &_CircGLMBayes_truncCauchyPdf, 3},
+    {"_CircGLMBayes_circGLMC", (DL_FUNC) &_CircGLMBayes_circGLMC, 17},
     {NULL, NULL, 0}
 };
 

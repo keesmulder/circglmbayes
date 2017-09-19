@@ -2,11 +2,11 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 atanLF <- function(x, r) {
-    .Call('CircGLMBayes_atanLF', PACKAGE = 'CircGLMBayes', x, r)
+    .Call('_CircGLMBayes_atanLF', PACKAGE = 'CircGLMBayes', x, r)
 }
 
 invAtanLF <- function(x, r) {
-    .Call('CircGLMBayes_invAtanLF', PACKAGE = 'CircGLMBayes', x, r)
+    .Call('_CircGLMBayes_invAtanLF', PACKAGE = 'CircGLMBayes', x, r)
 }
 
 #' Generate a random variate from the von Mises distribution
@@ -23,58 +23,58 @@ invAtanLF <- function(x, r) {
 #'
 #' @export
 rvmc <- function(n, mu, kp) {
-    .Call('CircGLMBayes_rvmc', PACKAGE = 'CircGLMBayes', n, mu, kp)
+    .Call('_CircGLMBayes_rvmc', PACKAGE = 'CircGLMBayes', n, mu, kp)
 }
 
 sampleKappa <- function(etag, eta) {
-    .Call('CircGLMBayes_sampleKappa', PACKAGE = 'CircGLMBayes', etag, eta)
+    .Call('_CircGLMBayes_sampleKappa', PACKAGE = 'CircGLMBayes', etag, eta)
 }
 
 computeMeanDirection <- function(th) {
-    .Call('CircGLMBayes_computeMeanDirection', PACKAGE = 'CircGLMBayes', th)
+    .Call('_CircGLMBayes_computeMeanDirection', PACKAGE = 'CircGLMBayes', th)
 }
 
 computeResultantLength <- function(th) {
-    .Call('CircGLMBayes_computeResultantLength', PACKAGE = 'CircGLMBayes', th)
+    .Call('_CircGLMBayes_computeResultantLength', PACKAGE = 'CircGLMBayes', th)
 }
 
 circQuantile <- function(th, q) {
-    .Call('CircGLMBayes_circQuantile', PACKAGE = 'CircGLMBayes', th, q)
+    .Call('_CircGLMBayes_circQuantile', PACKAGE = 'CircGLMBayes', th, q)
 }
 
 estimateModeCirc <- function(x, cip) {
-    .Call('CircGLMBayes_estimateModeCirc', PACKAGE = 'CircGLMBayes', x, cip)
+    .Call('_CircGLMBayes_estimateModeCirc', PACKAGE = 'CircGLMBayes', x, cip)
 }
 
 computeHDICirc <- function(x, cip) {
-    .Call('CircGLMBayes_computeHDICirc', PACKAGE = 'CircGLMBayes', x, cip)
+    .Call('_CircGLMBayes_computeHDICirc', PACKAGE = 'CircGLMBayes', x, cip)
 }
 
 estimateMode <- function(x, cip) {
-    .Call('CircGLMBayes_estimateMode', PACKAGE = 'CircGLMBayes', x, cip)
+    .Call('_CircGLMBayes_estimateMode', PACKAGE = 'CircGLMBayes', x, cip)
 }
 
 computeHDI <- function(x, cip) {
-    .Call('CircGLMBayes_computeHDI', PACKAGE = 'CircGLMBayes', x, cip)
+    .Call('_CircGLMBayes_computeHDI', PACKAGE = 'CircGLMBayes', x, cip)
 }
 
 estimateDensity <- function(x, x_0, cip) {
-    .Call('CircGLMBayes_estimateDensity', PACKAGE = 'CircGLMBayes', x, x_0, cip)
+    .Call('_CircGLMBayes_estimateDensity', PACKAGE = 'CircGLMBayes', x, x_0, cip)
 }
 
 rhsll <- function(b0, kp, bt, dt, th, X, D, r) {
-    .Call('CircGLMBayes_rhsll', PACKAGE = 'CircGLMBayes', b0, kp, bt, dt, th, X, D, r)
+    .Call('_CircGLMBayes_rhsll', PACKAGE = 'CircGLMBayes', b0, kp, bt, dt, th, X, D, r)
 }
 
 logProbNormal <- function(x, mu, sd) {
-    .Call('CircGLMBayes_logProbNormal', PACKAGE = 'CircGLMBayes', x, mu, sd)
+    .Call('_CircGLMBayes_logProbNormal', PACKAGE = 'CircGLMBayes', x, mu, sd)
 }
 
 truncCauchyPdf <- function(x, m, w) {
-    .Call('CircGLMBayes_truncCauchyPdf', PACKAGE = 'CircGLMBayes', x, m, w)
+    .Call('_CircGLMBayes_truncCauchyPdf', PACKAGE = 'CircGLMBayes', x, m, w)
 }
 
 circGLMC <- function(th, X, D, conj_prior, bt_prior, starting_values, burnin, thin, bwb, kappaModeEstBandwith, CIsize, Q, r, returnPostSample, bt_prior_type, reparametrize, groupMeanComparisons) {
-    .Call('CircGLMBayes_circGLMC', PACKAGE = 'CircGLMBayes', th, X, D, conj_prior, bt_prior, starting_values, burnin, thin, bwb, kappaModeEstBandwith, CIsize, Q, r, returnPostSample, bt_prior_type, reparametrize, groupMeanComparisons)
+    .Call('_CircGLMBayes_circGLMC', PACKAGE = 'CircGLMBayes', th, X, D, conj_prior, bt_prior, starting_values, burnin, thin, bwb, kappaModeEstBandwith, CIsize, Q, r, returnPostSample, bt_prior_type, reparametrize, groupMeanComparisons)
 }
 
