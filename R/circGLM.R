@@ -260,7 +260,7 @@ circGLM <- function(th,
       colnames(res$bt_mean) <- bt_names
     rownames(res$bt_CCI) <- rownames(res$zt_CCI) <- c("LB", "UB")
 
-    if (returnPostSample) colnames(res$bt_chain) <- bt_names
+    if (returnPostSample) colnames(res$bt_chain) <- paste0("bt_chain.", bt_names)
 
     colnames(res$zt_CCI) <- colnames(res$zt_mdir) <- colnames(res$zt_mean) <- zt_names
 
@@ -279,7 +279,7 @@ circGLM <- function(th,
 
     # Fix names for delta estimates
     colnames(res$dt_meandir) <- rownames(res$DeltaIneqBayesFactors) <-
-      colnames(res$dt_propacc) <- colnames(res$dt_CCI) <- dt_names
+      colnames(res$dt_propacc) <- colnames(res$dt_CCI) <- paste0("dt_chain.", dt_names)
 
     if (returnPostSample) colnames(res$dt_chain) <- dt_names
 
@@ -313,8 +313,10 @@ circGLM <- function(th,
   colnames(res$TimeTaken) <- "Time (sec)"
 
   # Define a coda mcmc object containing all chains.
-  res$all_chains <- coda::mcmc(as.data.frame(res[grep("chain", names(res))]),
+  chainPos <- grep("chain", names(res))
+  res$all_chains <- coda::mcmc(as.data.frame(res[chainPos]),
                          start = burnin, thin = thin)
+
 
   # Choose how to return the output.
   if (output == "list") {
