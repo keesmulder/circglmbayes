@@ -124,7 +124,7 @@ shinyServer(function(input, output) {
 
     if (length(input$predictors) == 0) return(NULL)
 
-    mod <- circGLM(th = dat[, input$outcome], X = dat[, input$predictors])
+    mod <- circGLM(th = dat[, input$outcome], X = dat[, input$predictors, drop = FALSE])
 
     return(mod)
   })
