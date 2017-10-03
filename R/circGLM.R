@@ -160,7 +160,9 @@ fixResultNames <- function(nms){
 #' print(m)
 #' print(m, type = "all")
 #' plot(m, type = "tracestack")
-circGLM <- function(th,
+circGLM <- function(formula,
+                    data,
+                    th,
                     X = matrix(nrow = length(th), ncol = 0),
                     conj_prior = rep(0, 3),
                     bt_prior_musd = c("mu" = 0, "sd" = 1),
@@ -179,9 +181,28 @@ circGLM <- function(th,
                     skipDichSplit = FALSE,
                     centerOnly = FALSE) {
 
-  # Check if the inputs are matrices.
-  if (!is.matrix(th)) th <- as.matrix(th)
-  if (!is.matrix(X))  X <- as.matrix(X)
+  # Check the form of the input.
+  if ( (missing(formula) | missing(data) ) && missing(th)) {
+    stop("Either the outcome angles must be specified as 'th', or formula and data should be given.")
+
+  # Formula syntax is used.
+  } else if (missing(th)) {
+
+    # Force input data to be a data frame.
+    if (!is.data.frame(data)) data <- as.data.frame(data)
+
+    # Get predictors and outcome.
+    X  <- model.matrix(formula, data)[, -1, drop = FALSE]
+    th <- as.matrix(data[, all.vars(formula)[1], drop = FALSE])
+
+  # If the inputs are directly given, check if they are matrices.
+  } else if (missing(formula) && missing(data)) {
+    # Check if the inputs are matrices.
+    if (!is.matrix(th)) th <- as.matrix(th)
+    if (!is.matrix(X))  X  <- as.matrix(X)
+  } else {
+    stop("Either the outcome angles must be specified as 'th', or formula and data should be given, but not both.")
+  }
 
   # Check if theta is in radians
   if (any(th > 2*pi)) {
