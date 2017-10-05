@@ -104,7 +104,7 @@ shinyServer(function(input, output) {
 
 
   # Show full data:
-  output$showdata <- renderTable({
+  output$showdata <- renderDataTable({
 
     if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
 
@@ -129,18 +129,18 @@ shinyServer(function(input, output) {
 
       dat <- Dataset()
 
-      if (length(input$predictors) == 0) return("No predictors were selected.")
-
       mod <- circGLM(th = dat[, input$outcome], X = dat[, input$predictors, drop = FALSE])
     })
 
     return(mod)
   })
 
+  output$textoverview <- renderText(paste("MCMC run for", m$TotalIts, "iterations, of which", m$SavedIts, "were used."))
 
-
-  output$coeftable <- renderTable(coef(getModel()))
+  output$coeftable <- renderTable(coef(getModel()), rownames = TRUE, digits = reactive(input$digits))
   output$bftables  <- renderTable(BF.circGLM(getModel()))
+  output$ICtable  <- renderTable(IC_compare.circGLM(getModel()))
+
 
 
   # R Verbatim text output.

@@ -114,14 +114,18 @@ shinyUI(pageWithSidebar(
 
     tabsetPanel(
       tabPanel("Full data",
-        tableOutput("showdata")
+               br(), br(),
+        dataTableOutput("showdata")
       )
       ,
 
       tabPanel("Results",
-               h3("Overview"),
+               # h3("Overview"),
+               textOutput("textoverview"),
                h3("Coefficients"),
-               tableOutput("coeftable")
+               tableOutput("coeftable"),
+               h3("Model fit (Information Criteria)"),
+               tableOutput("ICtable")
                # h3("Hypothesis tests"),
                # tableOutput("bftables")
 
