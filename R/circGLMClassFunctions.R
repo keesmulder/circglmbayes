@@ -27,31 +27,66 @@ coef.circGLM <- coefficients.circGLM <- function(object, ...) {
 }
 
 
+#' Obtain posterior model probabilities
+#'
+#' Compute posterior model probabilities from odds \code{x} and a prior odds.
+#'
+#' @param x An vector of odds for which to obtain the posterior model probabilities.
+#' @param prior_odds The prior odds.
+#'
+#' @return A matrix with two columns, giving the relative probabilities of the first hypothesis versus the second.
+#' @export
+#'
+#' @examples
+#' getPMP(3)
+#'
+getPMP <- function(x, prior_odds = 1) {
+  posterior_odds <- prior_odds * x
+  cbind(posterior_odds/(1 + posterior_odds), 1/(1 + posterior_odds))
+}
+
+
 #' Obtain Bayes Factors from circGLM objects
 #'
 #' Extracts the Bayes Factors from a \code{circGLM} object..
 #'
 #' @param m A \code{circGLM} object.
 #'
-#' @return A list of tables of Bayes Factors, where applicable.
+#' @return A list of tables of Bayes Factors and posterior model probabilies, where applicable.
 #' @export
 #'
 #' @examples
 #' dat <- generateCircGLMData(truebeta = c(0, .2), truedelta = c(.4, .01))
-#' m   <- circGLM(dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
 #' BF.circGLM(m)
 #'
 #' dat <- generateCircGLMData(nconpred = 0)
-#' m   <- circGLM(dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
 #' BF.circGLM(m)
 #'
 #' dat <- generateCircGLMData(ncatpred = 0)
-#' m   <- circGLM(dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
 #' BF.circGLM(m)
 #'
-BF.circGLM <- function(m) {
-  list(Beta = m$BetaBayesFactors,
-       Mean = m$MuBayesFactors)
+BF.circGLM <- function(m, prior_odds = 1) {
+
+  # Compute posterior model probabilities
+  PMP_Beta_Ineq           <- getPMP(m$BetaBayesFactors[, 1], prior_odds = prior_odds)
+  PMP_Beta_Eq             <- getPMP(m$BetaBayesFactors[, 2], prior_odds = prior_odds)
+  colnames(PMP_Beta_Ineq) <- c("P(bt>0)", "P(bt<0)")
+  colnames(PMP_Beta_Eq)   <- c("P(bt==0)", "P(bt=/=0)")
+
+  PMP_Mean_Ineq           <- getPMP(m$MuBayesFactors[, 1], prior_odds = prior_odds)
+  PMP_Mean_Eq             <- getPMP(m$MuBayesFactors[, 2], prior_odds = prior_odds)
+  colnames(PMP_Mean_Ineq) <- c("P(mu_a>mu_b)", "P(mu_a<mu_b)")
+  colnames(PMP_Mean_Eq)   <- c("P(mu_a==mu_b)", "P(mu_a, mu_b)")
+
+  list(BF_Beta       = m$BetaBayesFactors,
+       PMP_Beta_Ineq = PMP_Beta_Ineq,
+       PMP_Beta_Eq   = PMP_Beta_Eq,
+       BF_Mean       = m$MuBayesFactors,
+       PMP_Mean_Ineq = PMP_Mean_Ineq,
+       PMP_Mean_Eq   = PMP_Mean_Eq)
 }
 
 
