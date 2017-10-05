@@ -1,13 +1,17 @@
 
 library(shiny)
+library(shinydashboard)
 
-shinyUI(pageWithSidebar(
+
+
+
+shinyUI(dashboardPage(
 
   # Header:
-  headerPanel("Circular GLM"),
+  dashboardHeader(title = "Circular GLM"),
 
   # Input in sidepanel:
-  sidebarPanel(
+  dashboardSidebar(
 
     tabsetPanel(
 
@@ -110,7 +114,7 @@ shinyUI(pageWithSidebar(
 
 
   # Main:
-  mainPanel(
+  dashboardBody(
 
     tabsetPanel(
       tabPanel("Full data",
