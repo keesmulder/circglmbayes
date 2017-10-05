@@ -138,13 +138,10 @@ shinyServer(function(input, output) {
   })
 
 
-  output$alltextprints <- renderPrint({
-    print(getModel(), digits = input$digits)
-    print(getModel(), 'coef', digits = input$digits)
-    print(BF(getModel()), digits = input$digits)
-    print(getModel(), digits = input$digits)
-  })
-
+  output$basetextprint <- renderPrint(print(getModel(),                       digits = input$digits))
+  output$mcmctextprint <- renderPrint(print(mcmc_summary.circGLM(getModel()), digits = input$digits))
+  output$bftextprint   <- renderPrint(print(BF.circGLM(getModel()),           digits = input$digits))
+  output$alltextprint  <- renderPrint(print(getModel(), type = 'all',         digits = input$digits))
 
 
 

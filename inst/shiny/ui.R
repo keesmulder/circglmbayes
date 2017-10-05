@@ -1,11 +1,3 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
 
 library(shiny)
 
@@ -107,6 +99,8 @@ shinyUI(pageWithSidebar(
 
         actionButton("run", "Run analysis"),
 
+        br(), br(),
+
         numericInput("digits", "Digits in outputs", 2, 0, 8)
 
 
@@ -127,7 +121,17 @@ shinyUI(pageWithSidebar(
       tabPanel("Results"
       ),
       tabPanel("R text output",
-               verbatimTextOutput("basictextout")
+               headerPanel("Overview"),
+               verbatimTextOutput("basetextprint"),
+
+               headerPanel("MCMC Summary"),
+               verbatimTextOutput("mcmctextprint"),
+
+               headerPanel("Bayes Factors"),
+               verbatimTextOutput("bftextprint"),
+
+               headerPanel("Full results object"),
+               verbatimTextOutput("alltextprint")
       )
     )
   )
