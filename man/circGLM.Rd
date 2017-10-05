@@ -13,20 +13,23 @@ circGLM(formula, data, th, X = matrix(nrow = length(th), ncol = 0),
   skipDichSplit = FALSE, centerOnly = FALSE)
 }
 \arguments{
-\item{formula}{an object of class "formula" (or one that can be coerced to that class): a symbolic description of the model to be fitted.}
+\item{formula}{an optional object of class "formula" (or one that can be
+coerced to that class): a symbolic description of the model to be fitted.}
 
-\item{data}{an optional data frame or object coercible by \code{\link{as.data.frame}} to a data frame, containing the variables in the model.}
+\item{data}{an optional data frame or object coercible by
+\code{\link{as.data.frame}} to a data frame, containing the variables in
+the model.}
 
-\item{th}{A vector of angles in radians or degrees, representing the circular
-outcome we want to predict. If any value is larger than \code{2 * pi}, the
-input is transformed to radians. Otherwise, \code{th} is treated as
-radians.}
+\item{th}{An optional vector of angles in radians or degrees, representing
+the circular outcome we want to predict. If any value is larger than
+\code{2 * pi}, the input is transformed to radians. Otherwise, \code{th} is
+treated as radians.}
 
-\item{X}{A matrix of predictors, both continuous (linear) and categorical.
-Categorical predictors must be in (0, 1), because this is checked to be
-able to seperate them from the continuous predictors, so that they are
-treated differently. If not, or if \cite{skipDichSplit = TRUE}, they will
-be treated as linear predictors. continuous.}
+\item{X}{An optional matrix of predictors, both continuous (linear) and
+categorical. Categorical predictors must be in (0, 1), because this is
+checked to be able to seperate them from the continuous predictors, so that
+they are treated differently. If not, or if \cite{skipDichSplit = TRUE},
+they will be treated as linear predictors. continuous.}
 
 \item{conj_prior}{A numeric vector of length 3, containing, in that order,
 prior mean direction, prior resultant length, and prior sample size. Used
