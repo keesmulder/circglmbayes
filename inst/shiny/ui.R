@@ -99,7 +99,7 @@ shinyUI(pageWithSidebar(
 
         actionButton("run", "Run analysis"),
 
-        br(), br(),
+        br(), br(), br(),
 
         numericInput("digits", "Digits in outputs", 2, 0, 8)
 
@@ -118,19 +118,30 @@ shinyUI(pageWithSidebar(
       )
       ,
 
-      tabPanel("Results"
+      tabPanel("Results",
+               h3("Overview"),
+               h3("Coefficients"),
+               tableOutput("coeftable")
+               # h3("Hypothesis tests"),
+               # tableOutput("bftables")
+
+      ),
+      tabPanel("Plots",
+               h3("MCMC Chain")
+
+
       ),
       tabPanel("R text output",
-               headerPanel("Overview"),
+               h3("Overview"),
                verbatimTextOutput("basetextprint"),
 
-               headerPanel("MCMC Summary"),
+               h3("MCMC Summary"),
                verbatimTextOutput("mcmctextprint"),
 
-               headerPanel("Bayes Factors"),
+               h3("Bayes Factors and posterior model probabilities"),
                verbatimTextOutput("bftextprint"),
 
-               headerPanel("Full results object"),
+               h3("Full results object"),
                verbatimTextOutput("alltextprint")
       )
     )

@@ -138,6 +138,12 @@ shinyServer(function(input, output) {
   })
 
 
+
+  output$coeftable <- renderTable(coef(getModel()))
+  output$bftables  <- renderTable(BF.circGLM(getModel()))
+
+
+  # R Verbatim text output.
   output$basetextprint <- renderPrint(print(getModel(),                       digits = input$digits))
   output$mcmctextprint <- renderPrint(print(mcmc_summary.circGLM(getModel()), digits = input$digits))
   output$bftextprint   <- renderPrint(print(BF.circGLM(getModel()),           digits = input$digits))
