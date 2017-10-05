@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(foreign)
 library(CircGLMBayes)
 library(shinyjs)
 library(dplyr)
@@ -120,21 +121,28 @@ shinyServer(function(input, output) {
   # Model run:
   getModel <- reactive({
 
-    dat <- Dataset()
+    # If the run button is pressed, invalidate the model and run this again.
+    input$run
 
-    if (length(input$predictors) == 0) return(NULL)
+    # However, isolate so that the model is not re-run when anything else changes.
+    isolate({
 
-    mod <- circGLM(th = dat[, input$outcome], X = dat[, input$predictors, drop = FALSE])
+      dat <- Dataset()
+
+      if (length(input$predictors) == 0) return("No predictors were selected.")
+
+      mod <- circGLM(th = dat[, input$outcome], X = dat[, input$predictors, drop = FALSE])
+    })
 
     return(mod)
   })
 
 
-  output$textout <- renderPrint({
-    input$run
-    isolate({
-      getModel()
-    })
+  output$alltextprints <- renderPrint({
+    print(getModel(), digits = input$digits)
+    print(getModel(), 'coef', digits = input$digits)
+    print(BF(getModel()), digits = input$digits)
+    print(getModel(), digits = input$digits)
   })
 
 
