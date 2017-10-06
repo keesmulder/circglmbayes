@@ -137,6 +137,11 @@ shinyUI(dashboardPage(
               width = NULL,
               title = "Coefficients",
               tableOutput("coeftable")
+            ),
+            box(
+              width = NULL,
+              title = "Hypothesis tests",
+              uiOutput("hyptest")
             )
           ),
           column(

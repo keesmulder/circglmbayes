@@ -111,8 +111,6 @@ shinyServer(function(input, output, session) {
     return(Dataset())
   })
 
-
-
   output$outputmenu <- renderMenu({
     if (rvs$modelWasRun) {
 
@@ -170,8 +168,24 @@ shinyServer(function(input, output, session) {
   output$textoverview <- renderText(paste("MCMC run for", getModel()$TotalIts, "iterations, of which", getModel()$SavedIts, "were used."))
 
   output$coeftable <- renderTable(coef(getModel()), rownames = TRUE, digits = reactive(input$digits))
-  output$bftables  <- renderTable(BF.circGLM(getModel()), rownames = TRUE, digits = reactive(input$digits))
-  output$ICtable  <- renderTable(IC_compare.circGLM(getModel()), rownames = TRUE, digits = reactive(input$digits))
+  output$ICtable  <- renderTable(IC_compare.circGLM(getModel()), rownames = TRUE, colnames = FALSE, digits = reactive(input$digits))
+
+  output$hyptest  <- renderUI({
+    hyplist <- BF.circGLM(getModel())
+
+    # Generate a list of tables, but only the ones that have data.
+    tagList(
+      lapply(hyplist, function(x) {
+        if (length(x) != 0) {
+          renderTable(x, rownames = TRUE, digits = reactive(input$digits))
+        } else {
+          NULL
+        }
+      }
+      )
+    )
+
+  })
 
 
 

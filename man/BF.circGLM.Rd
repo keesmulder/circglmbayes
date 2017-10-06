@@ -4,28 +4,28 @@
 \alias{BF.circGLM}
 \title{Obtain Bayes Factors from circGLM objects}
 \usage{
-BF.circGLM(m)
+BF.circGLM(m, prior_odds = 1)
 }
 \arguments{
 \item{m}{A \code{circGLM} object.}
 }
 \value{
-A list of tables of Bayes Factors, where applicable.
+A list of tables of Bayes Factors and posterior model probabilies, where applicable.
 }
 \description{
 Extracts the Bayes Factors from a \code{circGLM} object..
 }
 \examples{
 dat <- generateCircGLMData(truebeta = c(0, .2), truedelta = c(.4, .01))
-m   <- circGLM(dat[, 1], X = dat[, -1])
+m   <- circGLM(th = dat[, 1], X = dat[, -1])
 BF.circGLM(m)
 
 dat <- generateCircGLMData(nconpred = 0)
-m   <- circGLM(dat[, 1], X = dat[, -1])
+m   <- circGLM(th = dat[, 1], X = dat[, -1])
 BF.circGLM(m)
 
 dat <- generateCircGLMData(ncatpred = 0)
-m   <- circGLM(dat[, 1], X = dat[, -1])
+m   <- circGLM(th = dat[, 1], X = dat[, -1])
 BF.circGLM(m)
 
 }
