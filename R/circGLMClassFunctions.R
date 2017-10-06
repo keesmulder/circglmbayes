@@ -71,13 +71,13 @@ getPMP <- function(x, prior_odds = 1) {
 BF.circGLM <- function(m, prior_odds = 1) {
 
   # Compute posterior model probabilities
-  PMP_Beta_Ineq           <- getPMP(m$BetaBayesFactors[, 1], prior_odds = prior_odds)
-  PMP_Beta_Eq             <- getPMP(m$BetaBayesFactors[, 2], prior_odds = prior_odds)
+  PMP_Beta_Ineq           <- getPMP(m$BetaBayesFactors[, 1, drop = FALSE], prior_odds = prior_odds)
+  PMP_Beta_Eq             <- getPMP(m$BetaBayesFactors[, 2, drop = FALSE], prior_odds = prior_odds)
   colnames(PMP_Beta_Ineq) <- c("P(bt>0)", "P(bt<0)")
   colnames(PMP_Beta_Eq)   <- c("P(bt==0)", "P(bt=/=0)")
 
-  PMP_Mean_Ineq           <- getPMP(m$MuBayesFactors[, 1], prior_odds = prior_odds)
-  PMP_Mean_Eq             <- getPMP(m$MuBayesFactors[, 2], prior_odds = prior_odds)
+  PMP_Mean_Ineq           <- getPMP(m$MuBayesFactors[, 1, drop = FALSE], prior_odds = prior_odds)
+  PMP_Mean_Eq             <- getPMP(m$MuBayesFactors[, 2, drop = FALSE], prior_odds = prior_odds)
   colnames(PMP_Mean_Ineq) <- c("P(mu_a>mu_b)", "P(mu_a<mu_b)")
   colnames(PMP_Mean_Eq)   <- c("P(mu_a==mu_b)", "P(mu_a, mu_b)")
 
