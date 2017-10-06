@@ -135,16 +135,16 @@ shinyServer(function(input, output) {
     return(mod)
   })
 
-  output$textoverview <- renderText(paste("MCMC run for", m$TotalIts, "iterations, of which", m$SavedIts, "were used."))
+  output$textoverview <- renderText(paste("MCMC run for", getModel()$TotalIts, "iterations, of which", getModel()$SavedIts, "were used."))
 
   output$coeftable <- renderTable(coef(getModel()), rownames = TRUE, digits = reactive(input$digits))
-  output$bftables  <- renderTable(BF.circGLM(getModel()))
-  output$ICtable  <- renderTable(IC_compare.circGLM(getModel()))
+  output$bftables  <- renderTable(BF.circGLM(getModel()), rownames = TRUE, digits = reactive(input$digits))
+  output$ICtable  <- renderTable(IC_compare.circGLM(getModel()), rownames = TRUE, digits = reactive(input$digits))
 
 
 
   # PLOT OUTPUTS
-  output$traceplot      <- renderPlot(plot(getModel(), type = 'trace'))
+  # output$traceplot      <- renderPlot(plot(getModel(), type = 'trace'))
   output$tracestackplot <- renderPlot(plot(getModel(), type = 'tracestack'))
   output$predictplot    <- renderPlot(plot(getModel(), type = 'predict'))
   output$meancompplot   <- renderPlot(plot(getModel(), type = 'meancompare'))
