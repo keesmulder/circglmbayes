@@ -13,7 +13,7 @@ library(CircGLMBayes)
 library(shinyjs)
 library(dplyr)
 
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
 
 
 
@@ -87,7 +87,7 @@ shinyServer(function(input, output) {
 
     # Variable selection:
     selectInput("outcome", "Select the outcome:",
-                names(Dataset()), names(Dataset()), multiple = FALSE)
+                names(Dataset()), names(Dataset())[1], multiple = FALSE)
   })
 
   # Select predictors:
@@ -117,6 +117,7 @@ shinyServer(function(input, output) {
     if (rvs$modelWasRun) {
 
       sidebarMenu(
+        id = "outputsidebar",
         h3(" Output"),
         menuItem("Results",     tabName = "results"),
         menuItem("Plots",       tabName = "plotout"),
@@ -137,6 +138,8 @@ shinyServer(function(input, output) {
     # Save the fact that the model was run so we can open the output menu.
     rvs$modelWasRun <- TRUE
 
+    updateTabItems(session, inputId = "outputsidebar", selected = "results")
+
     # Run the model to make sure that the output is generated.
     getModel()
   })
@@ -152,8 +155,16 @@ shinyServer(function(input, output) {
 
     # However, isolate so that the model is not re-run when anything else changes.
     isolate({
-      dat <- Dataset()
-      mod <- circGLM(th = dat[, input$outcome], X = dat[, input$predictors, drop = FALSE])
+
+      print(input$outcome)
+      print(input$predictors)
+
+      thisFormula <- as.formula(paste(input$outcome, "~", paste(c(1, input$predictors), collapse = " + ")))
+
+      print(thisFormula)
+
+      mod <- circGLM(formula = thisFormula, data = Dataset())
+      # mod <- circGLM(th = dat[, input$outcome, drop = FALSE], X = dat[, input$predictors, drop = FALSE])
     })
 
     return(mod)
