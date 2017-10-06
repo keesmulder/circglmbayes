@@ -58,7 +58,7 @@ shinyServer(function(input, output) {
     if (input$datasource == 'example') {
       return(essbhv[1:100, ])
 
-    # Check if user has not uploaded a file yet
+      # Check if user has not uploaded a file yet
     } else if (is.null(input$file)) {
       return(data.frame())
     }
@@ -113,22 +113,46 @@ shinyServer(function(input, output) {
 
 
 
+  output$outputmenu <- renderMenu({
+    if (rvs$modelWasRun) {
 
+      sidebarMenu(
+        h3(" Output"),
+        menuItem("Results",     tabName = "results"),
+        menuItem("Plots",       tabName = "plotout"),
+        menuItem("Text Output", tabName = "rtext"),
 
+        h3(" Output options"),
+        numericInput("digits", "Digits", 2, 0, 8)
+      )
+    } else {
+      sidebarMenu("")
+    }
+  })
 
+  # Set up a reactive value which check if the model was run.
+  rvs <- reactiveValues(modelWasRun = FALSE)
+  observeEvent(input$run, {
+
+    # Save the fact that the model was run so we can open the output menu.
+    rvs$modelWasRun <- TRUE
+
+    # Run the model to make sure that the output is generated.
+    getModel()
+  })
 
   ########### ANALYSIS ####################
   # Model run:
   getModel <- reactive({
+
+    if (!rvs$modelWasRun) return("Model was not yet run.")
 
     # If the run button is pressed, invalidate the model and run this again.
     input$run
 
     # However, isolate so that the model is not re-run when anything else changes.
     isolate({
-
       dat <- Dataset()
-
       mod <- circGLM(th = dat[, input$outcome], X = dat[, input$predictors, drop = FALSE])
     })
 
@@ -161,27 +185,27 @@ shinyServer(function(input, output) {
 
 
   ### Download dump:
-#
-#   output$downloadDump <- downloadHandler(
-#     filename = "Rdata.R",
-#     content = function(con) {
-#
-#       assign(input$name, Dataset()[,input$vars,drop=FALSE])
-#
-#       dump(input$name, con)
-#     }
-#   )
-#
-#   ### Download save:
-#
-#   output$downloadSave <- downloadHandler(
-#     filename = "Rdata.RData",
-#     content = function(con) {
-#
-#       assign(input$name, Dataset()[,input$vars,drop=FALSE])
-#
-#       save(list=input$name, file=con)
-#     }
+  #
+  #   output$downloadDump <- downloadHandler(
+  #     filename = "Rdata.R",
+  #     content = function(con) {
+  #
+  #       assign(input$name, Dataset()[,input$vars,drop=FALSE])
+  #
+  #       dump(input$name, con)
+  #     }
+  #   )
+  #
+  #   ### Download save:
+  #
+  #   output$downloadSave <- downloadHandler(
+  #     filename = "Rdata.RData",
+  #     content = function(con) {
+  #
+  #       assign(input$name, Dataset()[,input$vars,drop=FALSE])
+  #
+  #       save(list=input$name, file=con)
+  #     }
   # )
 
 })

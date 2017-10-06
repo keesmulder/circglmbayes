@@ -15,31 +15,14 @@ shinyUI(dashboardPage(
 
     sidebarMenu(
 
+      h3(" Input"),
       menuItem("Load data", tabName = "loaddata"),
+      menuItem("Analysis options", tabName = "analysisopts"),
+      menuItem("View dataset",     tabName = "fulldata"),
+      actionButton("run", "Run analysis")
 
-
-      menuItem("Analysis", tabName = "results"),
-
-
-      # Outcome selection:
-      htmlOutput("outcomeselect"),
-
-      # Predictor selection:
-      htmlOutput("predictorselect"),
-
-      actionButton("run", "Run analysis"),
-
-      br(),
-
-      numericInput("digits", "Digits in outputs", 2, 0, 8),
-
-
-
-      menuItem("View dataset", tabName = "fulldata"),
-      menuItem("Plots", tabName = "plotout"),
-      menuItem("Text Output", tabName = "rtext")
-
-    )
+    ),
+    sidebarMenuOutput("outputmenu")
   ),
 
 
@@ -47,7 +30,7 @@ shinyUI(dashboardPage(
   dashboardBody(
 
     tabItems(
-      tabItem(tabName = "loaddata", h3("Choose your data source"),
+      tabItem(tabName = "loaddata", h3("Data selection"), br(),
 
 
               tags$style(type='text/css', ".well { max-width: 20em; }"),
@@ -112,6 +95,18 @@ shinyUI(dashboardPage(
                 )
               )
       ),
+
+
+      tabItem(
+        tabName = "analysisopts",
+
+        # Outcome selection:
+        htmlOutput("outcomeselect"),
+
+        # Predictor selection:
+        htmlOutput("predictorselect")
+      ),
+
 
       tabItem(tabName = "fulldata",
               br(), br(),
@@ -180,7 +175,6 @@ shinyUI(dashboardPage(
                   )
                 )
               )
-
       )
     )
   )
