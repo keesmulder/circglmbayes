@@ -195,7 +195,7 @@ fixResultNames <- function(nms){
 circGLM <- function(formula,
                     data,
                     th,
-                    X = matrix(nrow = length(th), ncol = 0),
+                    X = if (missing(th)) model.matrix(formula, data)[, -1, drop = FALSE] else matrix(nrow = length(th), ncol = 0),
                     conj_prior = rep(0, 3),
                     bt_prior_musd = c("mu" = 0, "sd" = 1),
                     starting_values = c(0, 1, rep(0, ncol(X))),
