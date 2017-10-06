@@ -313,7 +313,7 @@ circGLM <- function(formula,
       colnames(res$bt_mean) <- bt_names
     rownames(res$bt_CCI) <- rownames(res$zt_CCI) <- c("LB", "UB")
 
-    if (returnPostSample && !grepl("bt_chain", colnames(res$bt_chain))) {
+    if (returnPostSample && any(!grepl("bt_chain", colnames(res$bt_chain)))) {
       colnames(res$bt_chain) <- paste0("bt_chain.", bt_names)
     }
 
@@ -334,9 +334,9 @@ circGLM <- function(formula,
 
     # Fix names for delta estimates
     colnames(res$dt_meandir) <- rownames(res$DeltaIneqBayesFactors) <-
-      colnames(res$dt_propacc) <- colnames(res$dt_CCI) <- paste0("dt_chain.", dt_names)
+      colnames(res$dt_propacc) <- colnames(res$dt_CCI) <- dt_names
 
-    if (returnPostSample && !grepl("dt_chain", colnames(res$dt_chain))) {
+    if (returnPostSample && any(!grepl("dt_chain", colnames(res$dt_chain)))) {
       colnames(res$dt_chain) <- paste0("dt_chain.", dt_names)
     }
 
