@@ -30,8 +30,12 @@ shinyUI(dashboardPage(
   dashboardBody(
 
     tabItems(
-      tabItem(tabName = "loaddata", h3("Data selection"), br(),
+      tabItem(
+        tabName = "loaddata",
 
+              fluidRow(
+                column(width = 6,
+              h3("Data selection"), br(),
 
               tags$style(type='text/css', ".well { max-width: 20em; }"),
               # Tags:
@@ -93,18 +97,24 @@ shinyUI(dashboardPage(
                   htmlOutput("varselect")
 
                 )
+                       )
+              ),
+                column(width = 6,
+
+                # Outcome selection:
+                htmlOutput("outcomeselect"),
+
+                # Predictor selection:
+                htmlOutput("predictorselect")
               )
+                       )
+
       ),
 
 
+
       tabItem(
-        tabName = "analysisopts",
-
-        # Outcome selection:
-        htmlOutput("outcomeselect"),
-
-        # Predictor selection:
-        htmlOutput("predictorselect")
+        tabName = "analysisopts"
       ),
 
 

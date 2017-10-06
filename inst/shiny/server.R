@@ -156,9 +156,6 @@ shinyServer(function(input, output, session) {
     # However, isolate so that the model is not re-run when anything else changes.
     isolate({
 
-      print(input$outcome)
-      print(input$predictors)
-
       thisFormula <- as.formula(paste(input$outcome, "~", paste(c(1, input$predictors), collapse = " + ")))
 
       print(thisFormula)
