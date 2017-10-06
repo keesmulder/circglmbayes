@@ -56,7 +56,9 @@ shinyServer(function(input, output, session) {
 
     # Check if we should load the example
     if (input$datasource == 'example') {
-      return(essbhv[1:100, ])
+      dat <- essbhv[1:100, ]
+      dat$isYoung <- as.numeric(dat$agea < median(dat$agea))
+      return(dat)
 
       # Check if user has not uploaded a file yet
     } else if (is.null(input$file)) {
@@ -85,9 +87,17 @@ shinyServer(function(input, output, session) {
 
     if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
 
+    # Select defaults for the example.
+    if (input$datasource == 'example') {
+      selected <- 'theta'
+    } else {
+      selected <- names(Dataset())[1]
+    }
+
     # Variable selection:
     selectInput("outcome", "Select the outcome:",
-                names(Dataset()), names(Dataset())[1], multiple = FALSE)
+                names(Dataset()),
+                selected = selected, multiple = FALSE)
   })
 
   # Select predictors:
@@ -98,8 +108,17 @@ shinyServer(function(input, output, session) {
     # Predictors can be any variable that is not the outcome.
     predOpts <- names(Dataset())[names(Dataset()) != input$outcome]
 
+    # Select defaults for the example.
+    if (input$datasource == 'example') {
+      selected <- c("isYoung", "happy", "rlgdgr")
+    } else {
+      selected <- NULL
+    }
+
     selectInput("predictors", "Select the predictors:",
-                choices = predOpts, multiple = TRUE)
+                choices = predOpts,
+                selected = selected,
+                multiple = TRUE)
   })
 
 
@@ -131,6 +150,7 @@ shinyServer(function(input, output, session) {
 
   # Set up a reactive value which check if the model was run.
   rvs <- reactiveValues(modelWasRun = FALSE)
+
   observeEvent(input$run, {
 
     # Save the fact that the model was run so we can open the output menu.
