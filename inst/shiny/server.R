@@ -143,6 +143,13 @@ shinyServer(function(input, output) {
 
 
 
+  # PLOT OUTPUTS
+  output$traceplot      <- renderPlot(plot(getModel(), type = 'trace'))
+  output$tracestackplot <- renderPlot(plot(getModel(), type = 'tracestack'))
+  output$predictplot    <- renderPlot(plot(getModel(), type = 'predict'))
+  output$meancompplot   <- renderPlot(plot(getModel(), type = 'meancompare'))
+  output$meanboxplot    <- renderPlot(plot(getModel(), type = 'meanboxplot'))
+
   # R Verbatim text output.
   output$basetextprint <- renderPrint(print(getModel(),                       digits = input$digits))
   output$mcmctextprint <- renderPrint(print(mcmc_summary.circGLM(getModel()), digits = input$digits))

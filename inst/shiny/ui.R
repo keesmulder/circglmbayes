@@ -13,10 +13,10 @@ shinyUI(dashboardPage(
   # Input in sidepanel:
   dashboardSidebar(
 
-    tabsetPanel(
+    sidebarMenu(
 
-      tabPanel(
-        "Load data",
+      menuItem("Load data", tabName = "loaddata",
+               selected = TRUE,
 
         tags$style(type='text/css', ".well { max-width: 20em; }"),
         # Tags:
@@ -86,12 +86,11 @@ shinyUI(dashboardPage(
             #       downloadLink('downloadSave', 'Download binary')
           )
         ), br()
-
-
       ),
 
-      tabPanel(
-        "Analysis",
+      menuItem("View dataset", tabName = "fulldata"),
+      menuItem("Analysis", tabName = "results",
+
 
         br(),
 
@@ -108,7 +107,11 @@ shinyUI(dashboardPage(
         numericInput("digits", "Digits in outputs", 2, 0, 8)
 
 
-      )
+      ),
+      menuItem("View dataset", tabName = "fulldata"),
+      menuItem("Plots", tabName = "plotout"),
+      menuItem("Text Output", tabName = "rtext")
+
     )
   ),
 
@@ -116,14 +119,15 @@ shinyUI(dashboardPage(
   # Main:
   dashboardBody(
 
-    tabsetPanel(
-      tabPanel("Full data",
+    tabItems(
+      tabItem(tabName = "loaddata", h3("Load data in the sidebar on the left.")),
+      tabItem(tabName = "fulldata",
                br(), br(),
-        dataTableOutput("showdata")
+               dataTableOutput("showdata")
       )
       ,
 
-      tabPanel("Results",
+      tabItem("Results", tabName = "results",
                # h3("Overview"),
                textOutput("textoverview"),
                h3("Coefficients"),
@@ -134,23 +138,46 @@ shinyUI(dashboardPage(
                # tableOutput("bftables")
 
       ),
-      tabPanel("Plots",
-               h3("MCMC Chain")
-
-
+      tabItem("Plots", tabName = "plotout",
+               box(
+                 title = "MCMC Chains",
+                 plotOutput("traceplot")
+               ),
+               box(
+                 title = "Prediction plot",
+                 plotOutput("predictplot")
+               ),
+               box(
+                 title = "MCMC Results",
+                 plotOutput("tracestackplot")
+               ),
+               box(
+                 title = "Meancompare",
+                 plotOutput("meancompplot")
+               ),
+               box(
+                 title = "Mean Boxplot",
+                 plotOutput("meanboxplot")
+               )
       ),
-      tabPanel("R text output",
-               h3("Overview"),
-               verbatimTextOutput("basetextprint"),
+      tabItem("R text output", tabName = "rtext",
+               box(
+                 title = "Overview",
+                 verbatimTextOutput("basetextprint")
+               ),
+               box(
+                 title = "MCMC Summary",
+                 verbatimTextOutput("mcmctextprint")
+               ),
+               box(
+                 title = "Full results object",
+                 verbatimTextOutput("alltextprint")
+               ),
+               box(
+                 title = "Bayes Factors and posterior model probabilities",
+                 verbatimTextOutput("bftextprint")
+               )
 
-               h3("MCMC Summary"),
-               verbatimTextOutput("mcmctextprint"),
-
-               h3("Bayes Factors and posterior model probabilities"),
-               verbatimTextOutput("bftextprint"),
-
-               h3("Full results object"),
-               verbatimTextOutput("alltextprint")
       )
     )
   )
