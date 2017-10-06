@@ -188,32 +188,4 @@ shinyServer(function(input, output, session) {
   output$bftextprint   <- renderPrint(print(BF.circGLM(getModel()),           digits = input$digits))
   output$alltextprint  <- renderPrint(print(getModel(), type = 'all',         digits = input$digits))
 
-
-
-
-
-  ### Download dump:
-  #
-  #   output$downloadDump <- downloadHandler(
-  #     filename = "Rdata.R",
-  #     content = function(con) {
-  #
-  #       assign(input$name, Dataset()[,input$vars,drop=FALSE])
-  #
-  #       dump(input$name, con)
-  #     }
-  #   )
-  #
-  #   ### Download save:
-  #
-  #   output$downloadSave <- downloadHandler(
-  #     filename = "Rdata.RData",
-  #     content = function(con) {
-  #
-  #       assign(input$name, Dataset()[,input$vars,drop=FALSE])
-  #
-  #       save(list=input$name, file=con)
-  #     }
-  # )
-
 })
