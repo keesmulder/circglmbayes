@@ -194,10 +194,8 @@ shinyServer(function(input, output, session) {
                           conj_prior = cjpr)
 
 
-      print(cglmArglist)
 
       mod <- do.call(circGLM, args = cglmArglist)
-      # mod <- circGLM(th = dat[, input$outcome, drop = FALSE], X = dat[, input$predictors, drop = FALSE])
     })
 
     return(mod)
