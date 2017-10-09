@@ -243,7 +243,7 @@ shinyServer(function(input, output, session) {
   output$meanboxplot    <- renderPlot(plot(getModel(), type = 'meanboxplot'))
 
   # R Verbatim text output.
-  output$basetextprint <- renderPrint(print(getModel(),                       digits = input$digits))
+  output$basetextprint <- renderPrint(print(coef(getModel()),                   digits = input$digits))
   output$mcmctextprint <- renderPrint(print(mcmc_summary.circGLM(getModel()), digits = input$digits))
   output$bftextprint   <- renderPrint(print(BF.circGLM(getModel()),           digits = input$digits))
   output$alltextprint  <- renderPrint(print(getModel(), type = 'all',         digits = input$digits))
