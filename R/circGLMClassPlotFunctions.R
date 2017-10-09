@@ -97,7 +97,7 @@ plot.circGLM <- function(x, type = "trace", ...) {
 #' plot(m, type = "predict")
 #'
 plot_predict.circGLM <- function(m, x, d, th,
-                                 linkfun = function(x) 2 * atan(x),
+                                 linkfun = function(x) m$r * atan(x),
                                  xlab = NA, ylab = expression(theta),
                                  colorPalette = c("#E69F00", "#56B4E9")) {
 

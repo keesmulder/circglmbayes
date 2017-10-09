@@ -176,9 +176,27 @@ shinyServer(function(input, output, session) {
 
       thisFormula <- as.formula(paste(input$outcome, "~", paste(c(1, input$predictors), collapse = " + ")))
 
-      print(thisFormula)
+      # Print the formula to the console
+      # print(thisFormula)
 
-      mod <- circGLM(formula = thisFormula, data = Dataset())
+      # Get the priors
+      btpr <- eval(parse(text = input$bt_prior_musd))
+      cjpr <- eval(parse(text = input$conj_prior))
+
+      cglmArglist <- list(formula = thisFormula,
+                          data = Dataset(),
+                          Q = input$Q,
+                          burn = input$burn,
+                          thin = input$thin,
+                          r = input$r,
+                          bwb = rep(input$bwb, length(input$predictors)),
+                          bt_prior_musd = btpr,
+                          conj_prior = cjpr)
+
+
+      print(cglmArglist)
+
+      mod <- do.call(circGLM, args = cglmArglist)
       # mod <- circGLM(th = dat[, input$outcome, drop = FALSE], X = dat[, input$predictors, drop = FALSE])
     })
 
@@ -205,6 +223,14 @@ shinyServer(function(input, output, session) {
       )
     )
 
+  })
+
+  # Show preview of the value put in the R code blocks for the priors.
+  output$btprval <- renderText({
+    try(eval(parse(text = input$bt_prior_musd)), silent = TRUE)
+  })
+  output$conjprval <- renderText({
+    try(eval(parse(text = input$conj_prior)), silent = TRUE)
   })
 
 

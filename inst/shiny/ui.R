@@ -114,7 +114,19 @@ shinyUI(dashboardPage(
 
 
       tabItem(
-        tabName = "analysisopts"
+        tabName = "analysisopts",
+        numericInput("Q",  "Iterations to keep", 10000, min = 100, step = 100),
+        numericInput("burn", "Burnin", 1000, min = 0, step = 100),
+        numericInput("thin", "Thinning factor", 1, min = 1, step = 1),
+        numericInput("r",    "Link function range (2 covers the whole circle)", 2, min = 0.01, step = .1),
+        numericInput("bwb",  "Proposal bandwith (MCMC tuning parameter)", .05, min = 0.01, step = .01),
+        br(),
+        h3("Parameters provided as R code"),
+        textInput("conj_prior",    "Conjugate prior values", "rep(0, 3)"),
+        textOutput("conjprval"),
+        textInput("bt_prior_musd", "Prior parameters for the normal prior for beta", "c(mu = 0, sd = 1)"),
+        textOutput("btprval")
+
       ),
 
 
