@@ -187,7 +187,7 @@ shinyUI(dashboardPage(
           column(
             width = 6,
             box( width = NULL,
-                 title = "Meancompare",
+                 title = "Mean Comparison density plot",
                  plotOutput("meancompplot")
             ),
             box( width = NULL,
