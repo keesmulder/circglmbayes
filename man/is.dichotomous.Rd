@@ -10,7 +10,7 @@ is.dichotomous(x)
 \item{x}{A character or numerical vector to be tested.}
 }
 \value{
-A logical, TRUE if the \code{x} has dummy coding (0, 1), FALSE otherwise.
+A logical, \code{TRUE} if the \code{x} has dummy coding (0, 1), \code{FALSE} otherwise.
 }
 \description{
 Check if a predictor is dichotomous

@@ -4,7 +4,8 @@
 \alias{circGLM}
 \title{Fitting Bayesian circular General Linear Models}
 \usage{
-circGLM(formula, data, th, X = matrix(nrow = length(th), ncol = 0),
+circGLM(formula, data, th, X = if (missing(th)) model.matrix(formula, data)[,
+  -1, drop = FALSE] else matrix(nrow = length(th), ncol = 0),
   conj_prior = rep(0, 3), bt_prior_musd = c(mu = 0, sd = 1),
   starting_values = c(0, 1, rep(0, ncol(X))), bwb = rep(0.05, ncol(X)),
   Q = 10000, burnin = 1000, thin = 1, kappaModeEstBandwith = 0.1,

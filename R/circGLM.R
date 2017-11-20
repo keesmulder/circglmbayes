@@ -2,7 +2,7 @@
 #'
 #' @param x A character or numerical vector to be tested.
 #'
-#' @return A logical, TRUE if the \code{x} has dummy coding (0, 1), FALSE otherwise.
+#' @return A logical, \code{TRUE} if the \code{x} has dummy coding (0, 1), \code{FALSE} otherwise.
 #'
 is.dichotomous <- function(x) {
   if (length(unique(x)) == 2) {
@@ -18,7 +18,7 @@ is.dichotomous <- function(x) {
 
 #' Fix names for circGLM vector output
 #'
-#' A function to change the names produced in the Rcpp code to more human readable forms.
+#' A function to change the names produced in the \code{\link{Rcpp}} code to more human readable forms.
 #'
 #' This is only done if the \code{\link{circGLM}} function is used with \code{output = "vector"}.
 #'
