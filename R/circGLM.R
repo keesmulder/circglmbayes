@@ -93,7 +93,7 @@ fixResultNames <- function(nms){
 #'
 #' As with all mcmc samplers, convergence must be checked, and tuning parameters
 #' \code{bwb} and \code{reparametrize} can be tweaked if the sampler converges
-#' badly. The circGLM object that is returned contains proportions acceptepted
+#' badly. The circGLM object that is returned contains proportions accepted
 #' which can be used to monitor performance.
 #'
 #'
@@ -129,7 +129,7 @@ fixResultNames <- function(nms){
 #'   \code{reparametrize = TRUE}, bwb corresponds to the bounds around the
 #'   reparametrized values.
 #' @param Q Integer; The number of iterations to perform.
-#' @param burnin Integer; The number of burnin (warmup) iterations.
+#' @param burnin Integer; The number of burn-in (warmup) iterations.
 #' @param thin Integer; The number of parameters sets to sample for each
 #'   parameter set that is saved. Can be used to save memory if \code{Q} is
 #'   large.
@@ -149,7 +149,7 @@ fixResultNames <- function(nms){
 #'   can reach the same are of the circle multiple times, which is unlikely to
 #'   be useful, and should be used with caution.
 #' @param returnPostSample Logical indicating whether the mcmc sample itself
-#'   should be returned. Should only be set to FALSE if there are memory
+#'   should be returned. Should only be set to \code{FALSE} if there are memory
 #'   constraints, as many subsequent analyses rely on the posterior sample
 #'   directly.
 #' @param output A character string, either \code{"list"} or \code{"vector"}. In
