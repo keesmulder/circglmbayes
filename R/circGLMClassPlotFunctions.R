@@ -48,7 +48,7 @@ plot.circGLM <- function(x, type = "trace", ...) {
 #' Plot the predictions made by a circGLM analysis.
 #'
 #' Creates a ggplot showing a prediction plot showing linear predictor against
-#' the circular outcome, an with an optional grouping variable. One or more
+#' the circular outcome, with an optional grouping variable. One or more
 #' regression lines show the predicted values for different values of the linear
 #' and categorical predictors.
 #'

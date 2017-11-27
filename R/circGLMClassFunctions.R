@@ -31,10 +31,10 @@ coef.circGLM <- coefficients.circGLM <- function(object, ...) {
 #'
 #' Compute posterior model probabilities from odds \code{x} and a prior odds.
 #'
-#' @param x An vector of odds for which to obtain the posterior model probabilities.
+#' @param x A vector of odds for which to obtain the posterior model probabilities.
 #' @param prior_odds The prior odds.
 #'
-#' @return A matrix with two columns, giving the relative probabilities of the first hypothesis versus the second.
+#' @return A matrix with two columns, giving the relative probabilities of the first hypothesis versus the second hypothesis.
 #' @export
 #'
 #' @examples
@@ -52,7 +52,7 @@ getPMP <- function(x, prior_odds = 1) {
 #'
 #' @param m A \code{circGLM} object.
 #'
-#' @return A list of tables of Bayes Factors and posterior model probabilies, where applicable.
+#' @return A list of tables of Bayes Factors and posterior model probabilities, where applicable.
 #' @export
 #'
 #' @examples
@@ -132,7 +132,7 @@ residuals.circGLM <- function(object, type = "arc", ...) {
 #' Obtain a prediction function from a circGLM object
 #'
 #' @param object A \code{circGLM} object.
-#' @param linkfun A link function to use in the analysis. Should be the same as the link function
+#' @param linkfun A link function to use in the analysis. Should be the same as the link function.
 #'
 #' @return A function that takes \code{newdata} as an argument, which must be a
 #'   data frame with predictors. The predictors must be the same as used in the
@@ -332,7 +332,7 @@ circSD <- function(x) {
 #'   midpoint of a highest density interval. Specifically, the mode is the
 #'   midpoint of the interval that contains \code{modebw} of the density of the
 #'   posterior. Reasonable values are roughly between .005 and .2, although
-#'   lower values may be reasonable if the number of iteration, Q, is large.
+#'   lower values may be reasonable if the number of iterations, Q, is large.
 #' @param ciperc The confidence interval percentage.
 #'
 #' @return A matrix with the parameters as rows, and on the columns central
