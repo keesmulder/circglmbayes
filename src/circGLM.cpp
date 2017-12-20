@@ -844,7 +844,7 @@ Rcpp::List circGLMC(vec th, mat X, mat D,
   rowvec dt_meandir = zeros<rowvec>(J);
   mat dt_CCI  = mat(2, J);
 
-  // Obtain the mean direction and
+  // Obtain the mean direction and CCI's for delta
   for (int j = 0; j < J; j++) {
     dt_meandir(j) = computeMeanDirection(dt_chain.col(j));
 
