@@ -9,7 +9,7 @@
 
 library(shiny)
 library(foreign)
-library(CircGLMBayes)
+library(circglmbayes)
 library(shinyjs)
 library(dplyr)
 

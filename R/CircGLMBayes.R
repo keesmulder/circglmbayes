@@ -1,4 +1,4 @@
-#' CircGLMBayes: A package for the Bayesian circular GLM.
+#' circglmbayes: A package for the Bayesian circular GLM.
 #'
 #' This package contains functions to perform a Bayesian circular GLM, which
 #' allows regressing a circular outcome on linear and categorical predictors.
@@ -17,12 +17,12 @@
 #'   \code{circGLM}, which can be further analyzed through associated
 #'   \code{\link{plot.circGLM}} and \code{\link{print.circGLM}} functions.
 #'
-#' @useDynLib CircGLMBayes
+#' @useDynLib circglmbayes
 #' @importFrom Rcpp sourceCpp
 #' @importFrom grDevices rgb
 #' @importFrom graphics plot
 #' @importFrom stats coef median rchisq rnorm runif sd
 #' @docType package
-#' @name CircGLMBayes
+#' @name circglmbayes
 NULL
 
