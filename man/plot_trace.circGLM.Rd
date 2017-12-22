@@ -17,10 +17,10 @@ plot_trace.circGLM(m, params, ...)
 Plot traceplots from a \code{circGLM} object. This plotting method uses the standard \code{coda} traceplots.
 }
 \examples{
-plot_trace.circGLM(circGLM(rvmc(10, 1, 1)))
+plot_trace.circGLM(circGLM(th = rvmc(10, 1, 1)))
 
 dat <- generateCircGLMData()
-plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "trace")
+plot(circGLM(th ~., dat), type = "trace")
 
 }
 \seealso{

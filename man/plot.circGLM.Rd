@@ -20,7 +20,7 @@ General plot function for \code{circGLM} objects, which dispatches the chosen ty
 of plotting to the corresponding function.
 }
 \examples{
-plot(circGLM(rvmc(10, 1, 1)))
+plot(circGLM(th = rvmc(10, 1, 1)))
 
 dat <- generateCircGLMData(n = 100, nconpred = 1, ncatpred = 1)
 m   <- circGLM(th ~ ., dat)

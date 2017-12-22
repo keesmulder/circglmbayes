@@ -18,7 +18,7 @@
 #'   \code{\link{plot_meanboxplot.circGLM}}.
 #'
 #' @examples
-#' plot(circGLM(rvmc(10, 1, 1)))
+#' plot(circGLM(th = rvmc(10, 1, 1)))
 #'
 #' dat <- generateCircGLMData(n = 100, nconpred = 1, ncatpred = 1)
 #' m   <- circGLM(th ~ ., dat)
@@ -288,10 +288,10 @@ plot_meanboxplot.circGLM <- function(m, xlab = "Mean direction") {
 #'   \code{\link{plot.circGLM}}.
 #'
 #' @examples
-#' plot_trace.circGLM(circGLM(rvmc(10, 1, 1)))
+#' plot_trace.circGLM(circGLM(th = rvmc(10, 1, 1)))
 #'
 #' dat <- generateCircGLMData()
-#' plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "trace")
+#' plot(circGLM(th ~., dat), type = "trace")
 #'
 plot_trace.circGLM <- function(m, params, ...) {
   if (missing(params)) {
@@ -315,7 +315,7 @@ plot_trace.circGLM <- function(m, params, ...) {
 #'   \code{"latex"}. By default, we find the names of the variables in the circGLM
 #'   object. If \code{"numbered"}, the parameter names are numberd. The "latex"
 #'   labels are useful if \code{knitr} is used with a Tikz device.
-#' @param ggTheme The ggplot theme to use if
+#' @param ggTheme A ggplot theme object to use. The relevant theme function should be evaluated.
 #' @param res The maximum number iterations to print. If \code{res} is larger
 #'   than the number of iterations in the \code{circGLM} object, a subset of size
 #'   \code{res} is selected, and it is attempted to equally space the selected

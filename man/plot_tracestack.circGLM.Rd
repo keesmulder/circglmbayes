@@ -19,7 +19,7 @@ not.}
 object. If \code{"numbered"}, the parameter names are numberd. The "latex"
 labels are useful if \code{knitr} is used with a Tikz device.}
 
-\item{ggTheme}{The ggplot theme to use if}
+\item{ggTheme}{A ggplot theme object to use. The relevant theme function should be evaluated.}
 
 \item{res}{The maximum number iterations to print. If \code{res} is larger
 than the number of iterations in the \code{circGLM} object, a subset of size
