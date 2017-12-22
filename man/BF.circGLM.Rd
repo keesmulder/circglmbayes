@@ -10,7 +10,7 @@ BF.circGLM(m, prior_odds = 1)
 \item{m}{A \code{circGLM} object.}
 }
 \value{
-A list of tables of Bayes Factors and posterior model probabilies, where applicable.
+A list of tables of Bayes Factors and posterior model probabilities, where applicable.
 }
 \description{
 Extracts the Bayes Factors from a \code{circGLM} object..

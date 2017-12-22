@@ -54,7 +54,7 @@ reparametrized values.}
 
 \item{Q}{Integer; The number of iterations to perform.}
 
-\item{burnin}{Integer; The number of burnin (warmup) iterations.}
+\item{burnin}{Integer; The number of burn-in (warmup) iterations.}
 
 \item{thin}{Integer; The number of parameters sets to sample for each
 parameter set that is saved. Can be used to save memory if \code{Q} is
@@ -79,7 +79,7 @@ can reach the same are of the circle multiple times, which is unlikely to
 be useful, and should be used with caution.}
 
 \item{returnPostSample}{Logical indicating whether the mcmc sample itself
-should be returned. Should only be set to FALSE if there are memory
+should be returned. Should only be set to \code{FALSE} if there are memory
 constraints, as many subsequent analyses rely on the posterior sample
 directly.}
 
@@ -148,7 +148,7 @@ hypothesis comparisons.
 
 As with all mcmc samplers, convergence must be checked, and tuning parameters
 \code{bwb} and \code{reparametrize} can be tweaked if the sampler converges
-badly. The circGLM object that is returned contains proportions acceptepted
+badly. The circGLM object that is returned contains proportions accepted
 which can be used to monitor performance.
 }
 \examples{

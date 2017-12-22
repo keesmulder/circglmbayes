@@ -13,7 +13,7 @@ mcmc_summary.circGLM(m, modebw = 0.1, ciperc = 0.95)
 midpoint of a highest density interval. Specifically, the mode is the
 midpoint of the interval that contains \code{modebw} of the density of the
 posterior. Reasonable values are roughly between .005 and .2, although
-lower values may be reasonable if the number of iteration, Q, is large.}
+lower values may be reasonable if the number of iterations, Q, is large.}
 
 \item{ciperc}{The confidence interval percentage.}
 }

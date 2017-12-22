@@ -13,7 +13,7 @@ fixResultNames(nms)
 A character vector of the same length as \code{nms}.
 }
 \description{
-A function to change the names produced in the Rcpp code to more human readable forms.
+A function to change the names produced in the \code{\link{Rcpp}} code to more human readable forms.
 }
 \details{
 This is only done if the \code{\link{circGLM}} function is used with \code{output = "vector"}.

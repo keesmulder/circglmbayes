@@ -9,7 +9,7 @@ predict_function.circGLM(object, linkfun = function(x) atanLF(x, 2))
 \arguments{
 \item{object}{A \code{circGLM} object.}
 
-\item{linkfun}{A link function to use in the analysis. Should be the same as the link function}
+\item{linkfun}{A link function to use in the analysis. Should be the same as the link function.}
 }
 \value{
 A function that takes \code{newdata} as an argument, which must be a
