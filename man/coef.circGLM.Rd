@@ -18,6 +18,6 @@ A table of coefficients with their corresponding lower and upper bounds.
 Create a table of coefficient results from a \code{circGLM} object.
 }
 \examples{
-coef(circGLM(rvmc(10, 0, 1)))
+coef(circGLM(th = rvmc(10, 0, 1)))
 
 }

@@ -22,7 +22,7 @@ Obtain predictions from the original dataset, or the predictions from the fitted
 }
 \examples{
 dat <- generateCircGLMData()
-m   <- circGLM(dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 
 # Predictions for the original outcome angles.
 predict(m)

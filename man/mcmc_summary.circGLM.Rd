@@ -32,7 +32,7 @@ and circular variables.
 }
 \examples{
 dat <- generateCircGLMData()
-m   <- circGLM(dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 mcmc_summary.circGLM(m)
 
 }

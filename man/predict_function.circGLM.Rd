@@ -21,7 +21,7 @@ Obtain a prediction function from a circGLM object
 }
 \examples{
 dat <- generateCircGLMData()
-m   <- circGLM(th = dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 predfun <- predict_function.circGLM(m)
 newd <- generateCircGLMData()
 

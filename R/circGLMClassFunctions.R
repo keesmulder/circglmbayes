@@ -11,7 +11,7 @@
 #' @method coef circGLM
 #'
 #' @examples
-#' coef(circGLM(rvmc(10, 0, 1)))
+#' coef(circGLM(th = rvmc(10, 0, 1)))
 #'
 coef.circGLM <- coefficients.circGLM <- function(object, ...) {
   mcmcSDs <- summary(object$all_chains)$statistics[, "SD"]
@@ -46,28 +46,33 @@ getPMP <- function(x, prior_odds = 1) {
 }
 
 
-#' Obtain Bayes Factors from circGLM objects
+#' Obtain Bayes Factors or posterior odds from circGLM objects
 #'
-#' Extracts the Bayes Factors from a \code{circGLM} object..
+#' Extracts the Bayes Factors or posterior odds from a \code{circGLM} object.
 #'
 #' @param m A \code{circGLM} object.
+#' @param prior_odds Numeric; If prior odds is 1, the default, the results are
+#'   the Bayes factors. The priors odds can also be provided in order to return
+#'   posterior odds directly, which are equal to the Bayes factor multiplied by
+#'   the prior odds.
 #'
-#' @return A list of tables of Bayes Factors and posterior model probabilities, where applicable.
+#' @return A list of tables of Bayes Factors and posterior model probabilities,
+#'   where applicable.
 #' @export
 #'
 #' @examples
 #' dat <- generateCircGLMData(truebeta = c(0, .2), truedelta = c(.4, .01))
-#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' BF.circGLM(m)
 #'
 #' dat <- generateCircGLMData(nconpred = 0)
-#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' BF.circGLM(m)
 #'
 #' dat <- generateCircGLMData(ncatpred = 0)
-#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' BF.circGLM(m)
-#'
+#' 
 BF.circGLM <- function(m, prior_odds = 1) {
 
   # Compute posterior model probabilities
@@ -141,7 +146,7 @@ residuals.circGLM <- function(object, type = "arc", ...) {
 #'
 #' @examples
 #' dat <- generateCircGLMData()
-#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' predfun <- predict_function.circGLM(m)
 #' newd <- generateCircGLMData()
 #'
@@ -186,7 +191,7 @@ predict_function.circGLM <- function(object, linkfun = function(x) atanLF(x, 2) 
 #'
 #' @examples
 #' dat <- generateCircGLMData()
-#' m   <- circGLM(dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #'
 #' # Predictions for the original outcome angles.
 #' predict(m)
@@ -218,7 +223,7 @@ predict.circGLM <- function(object, newdata, ...) {
 #' th <- rvmc(10, 0, 4) + Xcat
 #'
 #' # Compare a model that includes group differences with a model that does not.
-#' IC_compare.circGLM(circGLM(th), circGLM(th, X = Xcat))
+#' IC_compare.circGLM(circGLM(th = th), circGLM(th = th, X = Xcat))
 IC_compare.circGLM <- function(...,
                                ICs = c("n_par", "lppd",
                                        "AIC_Bayes", "DIC", "DIC_alt",
@@ -342,7 +347,7 @@ circSD <- function(x) {
 #'
 #' @examples
 #' dat <- generateCircGLMData()
-#' m   <- circGLM(dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' mcmc_summary.circGLM(m)
 #'
 mcmc_summary.circGLM <- function(m, modebw = .1, ciperc = .95) {

@@ -2,30 +2,36 @@
 % Please edit documentation in R/circGLMClassFunctions.R
 \name{BF.circGLM}
 \alias{BF.circGLM}
-\title{Obtain Bayes Factors from circGLM objects}
+\title{Obtain Bayes Factors or posterior odds from circGLM objects}
 \usage{
 BF.circGLM(m, prior_odds = 1)
 }
 \arguments{
 \item{m}{A \code{circGLM} object.}
+
+\item{prior_odds}{Numeric; If prior odds is 1, the default, the results are
+the Bayes factors. The priors odds can also be provided in order to return
+posterior odds directly, which are equal to the Bayes factor multiplied by
+the prior odds.}
 }
 \value{
-A list of tables of Bayes Factors and posterior model probabilities, where applicable.
+A list of tables of Bayes Factors and posterior model probabilities,
+  where applicable.
 }
 \description{
-Extracts the Bayes Factors from a \code{circGLM} object..
+Extracts the Bayes Factors or posterior odds from a \code{circGLM} object.
 }
 \examples{
 dat <- generateCircGLMData(truebeta = c(0, .2), truedelta = c(.4, .01))
-m   <- circGLM(th = dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 BF.circGLM(m)
 
 dat <- generateCircGLMData(nconpred = 0)
-m   <- circGLM(th = dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 BF.circGLM(m)
 
 dat <- generateCircGLMData(ncatpred = 0)
-m   <- circGLM(th = dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 BF.circGLM(m)
 
 }

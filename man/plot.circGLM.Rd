@@ -23,7 +23,7 @@ of plotting to the corresponding function.
 plot(circGLM(rvmc(10, 1, 1)))
 
 dat <- generateCircGLMData(n = 100, nconpred = 1, ncatpred = 1)
-m   <- circGLM(th = dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 
 # Traceplot by default
 plot(m)

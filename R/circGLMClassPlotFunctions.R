@@ -21,7 +21,7 @@
 #' plot(circGLM(rvmc(10, 1, 1)))
 #'
 #' dat <- generateCircGLMData(n = 100, nconpred = 1, ncatpred = 1)
-#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #'
 #' # Traceplot by default
 #' plot(m)
@@ -81,7 +81,7 @@ plot.circGLM <- function(x, type = "trace", ...) {
 #' @param ylab A character string with the y-label.
 #' @param colorPalette The colors to use in plotting, max 2.
 #'
-#' @return A \code{\link[ggplot2]{ggplot2}} plot, to which further \code{ggplot}
+#' @return A \code{\link[ggplot2]{ggplot}}, to which further \code{ggplot}
 #'   elements can be added.
 #' @export
 #'
@@ -93,7 +93,7 @@ plot.circGLM <- function(x, type = "trace", ...) {
 #'
 #' @examples
 #' dat <- generateCircGLMData()
-#' m <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' plot(m, type = "predict")
 #'
 plot_predict.circGLM <- function(m, x, d, th,
@@ -211,7 +211,7 @@ plot_predict.circGLM <- function(m, x, d, th,
 #'
 #' @examples
 #' dat <- generateCircGLMData(nconpred = 0)
-#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' plot_meancompare.circGLM(m)
 plot_meancompare.circGLM <- function(m, alpha = .7, xlab = "Mean direction") {
 
@@ -254,7 +254,7 @@ plot_meancompare.circGLM <- function(m, alpha = .7, xlab = "Mean direction") {
 #'
 #' @examples
 #' dat <- generateCircGLMData(nconpred = 0)
-#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' plot_meancompare.circGLM(m)
 plot_meanboxplot.circGLM <- function(m, xlab = "Mean direction") {
 
@@ -338,10 +338,10 @@ plot_trace.circGLM <- function(m, params, ...) {
 #'
 #'
 #' @examples
-#' plot(circGLM(rvmc(100, 0, 1)), type = "tracestack")
+#' plot(circGLM(th = rvmc(100, 0, 1)), type = "tracestack")
 #'
 #' dat <- generateCircGLMData()
-#' plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "tracestack")
+#' plot(circGLM(th ~ ., dat), type = "tracestack")
 #'
 plot_tracestack.circGLM <- function(m,
                                     coef="Beta",

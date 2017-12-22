@@ -38,10 +38,10 @@ A ggplot2 plot.
 An alternative option to plot traceplots from \code{circGLM} objects.
 }
 \examples{
-plot(circGLM(rvmc(100, 0, 1)), type = "tracestack")
+plot(circGLM(th = rvmc(100, 0, 1)), type = "tracestack")
 
 dat <- generateCircGLMData()
-plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "tracestack")
+plot(circGLM(th ~ ., dat), type = "tracestack")
 
 }
 \seealso{

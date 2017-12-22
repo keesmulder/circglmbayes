@@ -32,7 +32,7 @@ for the creation of the \code{circGLM} object.}
 \item{colorPalette}{The colors to use in plotting, max 2.}
 }
 \value{
-A \code{\link[ggplot2]{ggplot2}} plot, to which further \code{ggplot}
+A \code{\link[ggplot2]{ggplot}}, to which further \code{ggplot}
   elements can be added.
 }
 \description{
@@ -59,7 +59,7 @@ without grouping is required, \code{d} can be set to \code{NA}.
 }
 \examples{
 dat <- generateCircGLMData()
-m <- circGLM(th = dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 plot(m, type = "predict")
 
 }

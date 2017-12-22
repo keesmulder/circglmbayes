@@ -170,7 +170,7 @@ fixResultNames <- function(nms){
 #'   This removes the arbitrary dependence on the labeling of categorical
 #'   predictors and ensures that each group has a regression line of the same
 #'   shape. If  \code{skipDichSplit = FALSE}, the model will be the same as
-#'   \code{\link[circular]{lm.circular.cl}} in that no separate treatment for
+#'   \code{\link[circular]{lm.circular}} in that no separate treatment for
 #'   categorical variables is performed.
 #' @param centerOnly Logical; If \code{TRUE}, the continuous predictors are
 #'   centered only, not standardized. If \code{FALSE}, the continuous predictors
@@ -188,7 +188,7 @@ fixResultNames <- function(nms){
 #'
 #' @examples
 #' dat <- generateCircGLMData()
-#' m   <- circGLM(th = dat[, 1], X = dat[, -1])
+#' m   <- circGLM(th ~ ., dat)
 #' print(m)
 #' print(m, type = "all")
 #' plot(m, type = "tracestack")
