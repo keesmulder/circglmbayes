@@ -17,7 +17,7 @@
 #'   \code{circGLM}, which can be further analyzed through associated
 #'   \code{\link{plot.circGLM}} and \code{\link{print.circGLM}} functions.
 #'
-#' @useDynLib circglmbayes
+#' @useDynLib circglmbayes, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom grDevices rgb
 #' @importFrom graphics plot
@@ -26,3 +26,8 @@
 #' @name circglmbayes
 NULL
 
+
+
+.onUnload <- function (libpath) {
+  library.dynam.unload("circglmbayes", libpath)
+}

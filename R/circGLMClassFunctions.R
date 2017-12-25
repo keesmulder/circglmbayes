@@ -113,7 +113,7 @@ BF.circGLM <- function(m, prior_odds = 1) {
 #' @method residuals circGLM
 #'
 #' @examples
-#' m <- circGLM(rvmc(10, 0, 1))
+#' m <- circGLM(th = rvmc(10, 0, 1))
 #' residuals(m)
 #'
 #' # Cosine residuals

@@ -21,7 +21,7 @@ Note that the standard error and convergence diagnostics computed by
 \code{coda} are not necessarily trustworthy.
 }
 \examples{
-print(circGLM(rvmc(10, 1, 1)), type = "mcmc", digits = 3)
+print(circGLM(th = rvmc(10, 1, 1)), type = "mcmc", digits = 3)
 
 dat <- generateCircGLMData()
 cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])

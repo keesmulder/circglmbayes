@@ -87,13 +87,18 @@ fixResultNames <- function(nms){
 #' labeling of categorical predictors and ensures that each group has a
 #' regression line of the same shape.
 #'
+#' If categorical predictors are passed as factors, formula syntax is
+#' recommended, as it will automatically generate dummy variables. If the
+#' predictors are passed as a matrix \code{X}, categorical variables must be
+#' entered as dummy (dichotomous) variables.
+#'
 #' The main results obtained are estimates and credible intervals for the
 #' parameters, posterior samples, and Bayes factors for various standard
 #' hypothesis comparisons.
 #'
 #' As with all mcmc samplers, convergence must be checked, and tuning parameters
 #' \code{bwb} and \code{reparametrize} can be tweaked if the sampler converges
-#' badly. The circGLM object that is returned contains proportions accepted
+#' poorly. The circGLM object that is returned contains proportions accepted
 #' which can be used to monitor performance.
 #'
 #'
@@ -176,8 +181,109 @@ fixResultNames <- function(nms){
 #'   centered only, not standardized. If \code{FALSE}, the continuous predictors
 #'   are standardized.
 #'
-#' @return A circGLM object, which can be further analyzed with its associated
-#'   \code{\link{plot.circGLM}} and \code{\link{print.circGLM}} functions.
+#' @return A \code{circGLM} object, which can be further analyzed with its
+#'   associated \code{\link{plot.circGLM}}, \code{\link{coef.circGLM}} and
+#'   \code{\link{print.circGLM}} functions.
+#'
+#'   An object of class \code{circGLM} contains the following elements (although
+#'   some elements are not returned if not applicable): 
+#'   
+#' 
+#' \describe{
+#'   
+#'   \item{\code{b0_meandir}}{The posterior mean direction of \eqn{\beta_0}, the
+#'     circular intercept.}
+#'   \item{\code{b0_CCI}}{The circular credible interval of of \eqn{\beta_0},
+#'     the circular intercept.}
+#'   \item{\code{kp_mean}}{The posterior mean of \eqn{\kappa}, the concentration
+#'     parameter.}
+#'   \item{\code{kp_mode}}{The posterior mode of \eqn{\kappa}, the concentration
+#'     parameter.}
+#'   \item{\code{kp_HDI}}{The \code{CIsize} highest posterior density interval
+#'     of \eqn{\kappa}.}
+#'   \item{\code{kp_propacc}}{The acceptence proportion of the rejection sampler
+#'     for \eqn{\kappa}.}
+#'   \item{\code{bt_mean}}{The posterior means of the regression coefficients
+#'     \eqn{\beta}.}
+#'   \item{\code{bt_CCI}}{The credible intervals of the regression coefficients
+#'     \eqn{\beta}.}
+#'   \item{\code{bt_propacc}}{The acceptence proportions of the
+#'     Metropolis-Hastings sampler for \eqn{\beta}.}
+#'   \item{\code{dt_meandir}}{The posterior mean directions of the group
+#'     difference parameters, \eqn{\delta}.}
+#'   \item{\code{dt_CCI}}{The circular credible intervals of the group
+#'     difference parameters, \eqn{\delta}.}
+#'   \item{\code{dt_propacc}}{The acceptence proportions of the
+#'     Metropolis-Hastings sampler for \eqn{\delta}.}
+#'   \item{\code{zt_mean}}{The posterior means of the reparametrized
+#'     coefficients  \eqn{\zeta}.}
+#'   \item{\code{zt_mdir}}{The posterior mean directions of the reparametrized
+#'     coefficients  \eqn{\zeta}.}
+#'   \item{\code{zt_CCI}}{The credible intervals of the reparametrized
+#'     coefficients  \eqn{\zeta}.}
+#'   \item{\code{lppd}}{Ingredient for information criteria; Log posterior
+#'     predictive density.}
+#'   \item{\code{n_par}}{Ingredient for information criteria; Number of
+#'     parameters.}
+#'   \item{\code{ll_th_estpars}}{Ingredient for information criteria;
+#'     Log-likelihood of the dataset at estimated parameter set.}
+#'   \item{\code{ll_each_th_curpars}}{Ingredient for information criteria;
+#'     Log-likelihood of each datapoint at each sampled parameter set.}
+#'   \item{\code{ll_th_curpars}}{Ingredient for information criteria;
+#'     Log-likelihood of the dataset at each sampled parameter set.}
+#'   \item{\code{th_hat}}{An n-vector of predicted angles.}
+#'   \item{\code{b0_chain}}{A Q-vector of sampled circular intercepts.}
+#'   \item{\code{kp_chain}}{A Q-vector of sampled concentration parameters.}
+#'   \item{\code{bt_chain}}{A matrix of sampled circular regression coefficients.}
+#'   \item{\code{dt_chain}}{A matrix of sampled group difference parameters.}
+#'   \item{\code{zt_chain}}{A matrix of sampled reparametrized circular
+#'     regression coefficients.}
+#'   \item{\code{mu_chain}}{A matrix of sampled group means.}
+#'   \item{\code{AIC_Bayes}}{A version of the AIC where posterior estimates are
+#'     used to compute the log-likelihood.}
+#'   \item{\code{p_DIC}}{Ingredient for DIC.}
+#'   \item{\code{p_DIC_alt}}{Ingredient for DIC.}
+#'   \item{\code{DIC}}{The DIC.}
+#'   \item{\code{DIC_alt}}{The alternative formulation of the DIC as given in
+#'     Bayesian Data Analysis, Gelman et al. (2003).}
+#'   \item{\code{p_WAIC1}}{Ingredient for WAIC1.}
+#'   \item{\code{p_WAIC2}}{Ingredient for WAIC2.}
+#'   \item{\code{WAIC1}}{The first formulation of the WAIC as given in Bayesian
+#'     Data Analysis, Gelman et al. (2003).}
+#'   \item{\code{WAIC2}}{The second formulation of the WAIC as given in Bayesian
+#'     Data Analysis, Gelman et al. (2003).}
+#'   \item{\code{DeltaIneqBayesFactors}}{A matrix of inequality Bayes factors
+#'     for group difference parameters.}
+#'   \item{\code{BetaIneqBayesFactors}}{A matrix of inequality Bayes factors for
+#'     regression parameters.}
+#'   \item{\code{BetaSDDBayesFactors}}{A matrix of equality Bayes factors
+#'     (Savage-Dickey Density ratio) for group difference parameters.}
+#'   \item{\code{MuIneqBayesFactors}}{A matrix of inequality Bayes factors for
+#'     group mean parameters.}
+#'   \item{\code{MuSDDBayesFactors}}{A matrix of equality Bayes factors
+#'     (Savage-Dickey Density ratio) for group mean parameters.}
+#'   \item{\code{SavedIts}}{Number of iterations returned, without thinned
+#'     iterations and burn-in.}
+#'   \item{\code{TotalIts}}{Number of iterations performed, including thinning
+#'    and burn-in.}
+#'   \item{\code{TimeTaken}}{Seconds taken for analysis.}
+#'   \item{\code{BetaBayesFactors}}{Matrix of Bayes factors for regression
+#'     parameters.}
+#'   \item{\code{MuBayesFactors}}{Matrix of Bayes factors for mean parameters.}
+#'   \item{\code{all_chains}}{A matrix with all sampled values of all
+#'     parameters.}
+#'   \item{\code{Call}}{The matched call.}
+#'   \item{\code{thin}}{Thinning factor used.} 
+#'   \item{\code{burnin}}{Burn-in used.}
+#'   \item{\code{data_th}}{The original dataset.}
+#'   \item{\code{data_X}}{Matrix of used continuous predictors.}
+#'   \item{\code{data_d}}{Matrix of used categorical predictors.}
+#'   \item{\code{data_stX}}{Matrix of used standardized categorical predictors.}
+#'   \item{\code{r}}{Used parameter of the link function.}
+#'   }
+#'
+#'
+#'
 #' @export
 #'
 #' @seealso \code{\link{print.circGLM}}, \code{\link{plot.circGLM}},
@@ -208,7 +314,7 @@ circGLM <- function(formula,
                     r = 2,
                     returnPostSample = TRUE,
                     output = "list",
-                    reparametrize = FALSE,
+                    reparametrize = TRUE,
                     groupMeanComparisons = TRUE,
                     skipDichSplit = FALSE,
                     centerOnly = FALSE) {

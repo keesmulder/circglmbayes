@@ -15,7 +15,7 @@ print_text.circGLM(m, digits = 3)
 Print the main results from a \code{circGLM} object.
 }
 \examples{
-print(circGLM(rvmc(10, 1, 1)), type = "text")
+print(circGLM(th = rvmc(10, 1, 1)), type = "text")
 
 dat <- generateCircGLMData()
 cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])

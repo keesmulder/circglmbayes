@@ -17,10 +17,10 @@
 #'
 #'
 #' @examples
-#' print(circGLM(rvmc(10, 1, 1)))
+#' print(circGLM(th = rvmc(10, 1, 1)))
 #'
 #' dat <- generateCircGLMData()
-#' cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
+#' cglmmod <- circGLM(th ~ ., dat)
 #'
 #' print(cglmmod)
 #'
@@ -49,7 +49,7 @@ print.circGLM <- function(x, type = "text", ...) {
 #'   \code{\link{print.circGLM}}.
 #'
 #' @examples
-#' print(circGLM(rvmc(10, 1, 1)), type = "text")
+#' print(circGLM(th = rvmc(10, 1, 1)), type = "text")
 #'
 #' dat <- generateCircGLMData()
 #' cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
@@ -87,7 +87,7 @@ print_text.circGLM <- function(m, digits = 3) {
 #'   \code{\link{print.circGLM}}.
 #'
 #' @examples
-#' print(circGLM(rvmc(10, 1, 1)), type = "mcmc", digits = 3)
+#' print(circGLM(th = rvmc(10, 1, 1)), type = "mcmc", digits = 3)
 #'
 #' dat <- generateCircGLMData()
 #' cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
@@ -112,10 +112,10 @@ print_mcmc.circGLM <- function(m, ...) {
 #'   \code{\link{print_coef.circGLM}}, \code{\link{print.circGLM}}.
 #'
 #' @examples
-#' print(circGLM(rvmc(10, 1, 1)), type = "all")
+#' print(circGLM(th = rvmc(10, 1, 1)), type = "all")
 #'
 #' dat <- generateCircGLMData()
-#' cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
+#' cglmmod <- circGLM(th ~ ., dat)
 #' print(cglmmod, type = "all")
 print_all.circGLM <- function(m, digits = 3) {
 
@@ -154,7 +154,7 @@ print_all.circGLM <- function(m, digits = 3) {
 #'   \code{\link{print.circGLM}}.
 #'
 #' @examples
-#' print(circGLM(rvmc(10, 0, 1)), type = "coef")
+#' print(circGLM(th = rvmc(10, 0, 1)), type = "coef")
 #'
 #' dat <- generateCircGLMData()
 #' cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
