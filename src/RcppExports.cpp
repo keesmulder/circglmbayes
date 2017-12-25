@@ -138,37 +138,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// estimateDensity
-double estimateDensity(vec x, double x_0, double cip);
-RcppExport SEXP _circglmbayes_estimateDensity(SEXP xSEXP, SEXP x_0SEXP, SEXP cipSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< vec >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type x_0(x_0SEXP);
-    Rcpp::traits::input_parameter< double >::type cip(cipSEXP);
-    rcpp_result_gen = Rcpp::wrap(estimateDensity(x, x_0, cip));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rhsll
-double rhsll(double b0, double kp, vec bt, vec dt, vec th, mat X, mat D, double r);
-RcppExport SEXP _circglmbayes_rhsll(SEXP b0SEXP, SEXP kpSEXP, SEXP btSEXP, SEXP dtSEXP, SEXP thSEXP, SEXP XSEXP, SEXP DSEXP, SEXP rSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type b0(b0SEXP);
-    Rcpp::traits::input_parameter< double >::type kp(kpSEXP);
-    Rcpp::traits::input_parameter< vec >::type bt(btSEXP);
-    Rcpp::traits::input_parameter< vec >::type dt(dtSEXP);
-    Rcpp::traits::input_parameter< vec >::type th(thSEXP);
-    Rcpp::traits::input_parameter< mat >::type X(XSEXP);
-    Rcpp::traits::input_parameter< mat >::type D(DSEXP);
-    Rcpp::traits::input_parameter< double >::type r(rSEXP);
-    rcpp_result_gen = Rcpp::wrap(rhsll(b0, kp, bt, dt, th, X, D, r));
-    return rcpp_result_gen;
-END_RCPP
-}
 // logProbNormal
 vec logProbNormal(vec x, vec mu, vec sd);
 RcppExport SEXP _circglmbayes_logProbNormal(SEXP xSEXP, SEXP muSEXP, SEXP sdSEXP) {

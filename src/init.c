@@ -15,12 +15,10 @@ extern SEXP _circglmbayes_computeHDI(SEXP, SEXP);
 extern SEXP _circglmbayes_computeHDICirc(SEXP, SEXP);
 extern SEXP _circglmbayes_computeMeanDirection(SEXP);
 extern SEXP _circglmbayes_computeResultantLength(SEXP);
-extern SEXP _circglmbayes_estimateDensity(SEXP, SEXP, SEXP);
 extern SEXP _circglmbayes_estimateMode(SEXP, SEXP);
 extern SEXP _circglmbayes_estimateModeCirc(SEXP, SEXP);
 extern SEXP _circglmbayes_invAtanLF(SEXP, SEXP);
 extern SEXP _circglmbayes_logProbNormal(SEXP, SEXP, SEXP);
-extern SEXP _circglmbayes_rhsll(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _circglmbayes_rvmc(SEXP, SEXP, SEXP);
 extern SEXP _circglmbayes_sampleKappa(SEXP, SEXP);
 extern SEXP _circglmbayes_truncCauchyPdf(SEXP, SEXP, SEXP);
@@ -33,12 +31,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_circglmbayes_computeHDICirc",         (DL_FUNC) &_circglmbayes_computeHDICirc,          2},
     {"_circglmbayes_computeMeanDirection",   (DL_FUNC) &_circglmbayes_computeMeanDirection,    1},
     {"_circglmbayes_computeResultantLength", (DL_FUNC) &_circglmbayes_computeResultantLength,  1},
-    {"_circglmbayes_estimateDensity",        (DL_FUNC) &_circglmbayes_estimateDensity,         3},
     {"_circglmbayes_estimateMode",           (DL_FUNC) &_circglmbayes_estimateMode,            2},
     {"_circglmbayes_estimateModeCirc",       (DL_FUNC) &_circglmbayes_estimateModeCirc,        2},
     {"_circglmbayes_invAtanLF",              (DL_FUNC) &_circglmbayes_invAtanLF,               2},
     {"_circglmbayes_logProbNormal",          (DL_FUNC) &_circglmbayes_logProbNormal,           3},
-    {"_circglmbayes_rhsll",                  (DL_FUNC) &_circglmbayes_rhsll,                   8},
     {"_circglmbayes_rvmc",                   (DL_FUNC) &_circglmbayes_rvmc,                    3},
     {"_circglmbayes_sampleKappa",            (DL_FUNC) &_circglmbayes_sampleKappa,             2},
     {"_circglmbayes_truncCauchyPdf",         (DL_FUNC) &_circglmbayes_truncCauchyPdf,          3},
