@@ -17,10 +17,8 @@
 // [[Rcpp::depends(BH)]]
 #include <boost/math/special_functions/bessel.hpp>
 
-#include <iostream>
 #include <math.h>
 #include <typeinfo>
-
 
 using namespace Rcpp;
 using namespace std;
