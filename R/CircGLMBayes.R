@@ -3,7 +3,7 @@
 #' This package contains functions to perform a Bayesian circular GLM, which
 #' allows regressing a circular outcome on linear and categorical predictors.
 #' The model used in this package is similar to the model used by
-#' \code{\link[circular]{lm.circular}}. Differences are that the model used
+#' \code{lm.circular} form the package \code{circular}. Differences are that the model used
 #' by this package treats categorical variables specially. In addition, several
 #' hypothesis testing options are provided.
 #'
