@@ -1,3 +1,5 @@
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/circglmbayes)](https://cran.r-project.org/package=circglmbayes)
+
 # circglmbayes
 R Package for a Bayesian Circular GLM
 
