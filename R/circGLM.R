@@ -5,12 +5,18 @@
 #' @return A logical, \code{TRUE} if the \code{x} has dummy coding (0, 1), \code{FALSE} otherwise.
 #'
 is.dichotomous <- function(x) {
-  if (length(unique(x)) == 2) {
+  n_unique_x <- length(unique(x))
+  if (n_unique_x == 2) {
     if (all(x == 0 | x == 1)) {
       return(TRUE)
     } else {
       warning("A predictor might be dichotomous but not 0|1.")
     }
+  } else if (n_unique_x > 2 & n_unique_x < 8) {
+    warning(paste("A predictor has between 3 and 7 unique values.",
+                  "It might be categorical with multiple categories but without dummy coding."))
+  } else if (n_unique_x == 1) {
+    stop("A predictor had only a single unique value.")
   }
   FALSE
 }
