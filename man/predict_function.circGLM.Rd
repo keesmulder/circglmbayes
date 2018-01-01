@@ -9,7 +9,8 @@ predict_function.circGLM(object, linkfun = function(x) atanLF(x, 2))
 \arguments{
 \item{object}{A \code{circGLM} object.}
 
-\item{linkfun}{A link function to use in the analysis. Should be the same as the link function.}
+\item{linkfun}{A link function to use in the analysis. Should be the same as
+the link function.}
 }
 \value{
 A function that takes \code{newdata} as an argument, which must be a
@@ -17,7 +18,9 @@ A function that takes \code{newdata} as an argument, which must be a
   \code{circGLM} object and must have the same column names.
 }
 \description{
-Obtain a prediction function from a circGLM object
+This functions creates and returns a new prediction \code{function} that
+takes in new data, and returns their predicted values. The prediction
+function is based on the posterior estimates.
 }
 \examples{
 dat <- generateCircGLMData()

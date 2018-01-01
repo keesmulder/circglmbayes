@@ -136,8 +136,13 @@ residuals.circGLM <- function(object, type = "arc", ...) {
 
 #' Obtain a prediction function from a circGLM object
 #'
+#' This functions creates and returns a new prediction \code{function} that
+#' takes in new data, and returns their predicted values. The prediction
+#' function is based on the posterior estimates.
+#'
 #' @param object A \code{circGLM} object.
-#' @param linkfun A link function to use in the analysis. Should be the same as the link function.
+#' @param linkfun A link function to use in the analysis. Should be the same as
+#'   the link function.
 #'
 #' @return A function that takes \code{newdata} as an argument, which must be a
 #'   data frame with predictors. The predictors must be the same as used in the
@@ -152,7 +157,7 @@ residuals.circGLM <- function(object, type = "arc", ...) {
 #'
 #' # Predicted values of the new data.
 #' predfun(newd)
-#'
+#' 
 predict_function.circGLM <- function(object, linkfun = function(x) atanLF(x, 2) ) {
 
   function(newdata) {
