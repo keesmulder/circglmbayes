@@ -157,7 +157,6 @@ residuals.circGLM <- function(object, type = "arc", ...) {
 #'
 #' # Predicted values of the new data.
 #' predfun(newd)
-#' 
 predict_function.circGLM <- function(object, linkfun = function(x) atanLF(x, 2) ) {
 
   function(newdata) {
@@ -204,7 +203,6 @@ predict_function.circGLM <- function(object, linkfun = function(x) atanLF(x, 2) 
 #' # Predictions for new data
 #' dat2  <- generateCircGLMData()
 #' predict(m, newdata = dat2)
-#'
 predict.circGLM <- function(object, newdata, ...) {
   if (missing(newdata)) {
     return(object$th_hat)
@@ -260,7 +258,6 @@ IC_compare.circGLM <- function(...,
 #'
 #' @examples
 #' medianDirection(rvmc(30, 0, 2))
-#'
 medianDirection <- function(th, fastMethod = TRUE) {
 
   if (fastMethod) {
