@@ -343,7 +343,11 @@ circGLM <- function(formula,
   
   
   # Indices of dichotomous predictors.
-  dichInd <- apply(X, 2, is.dichotomous)
+  if (ncol(X) > 0) {
+    dichInd <- apply(X, 2, is.dichotomous)
+  } else {
+    dichInd <- logical(0)
+  }
 
   if (!skipDichSplit) {
 
