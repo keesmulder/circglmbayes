@@ -306,6 +306,7 @@ circGLM <- function(formula,
                     r = 2,
                     returnPostSample = TRUE,
                     output = "list",
+                    BFMethod = "brms",
                     reparametrize = TRUE,
                     groupMeanComparisons = TRUE,
                     skipDichSplit = FALSE,
@@ -470,6 +471,15 @@ circGLM <- function(formula,
       names(dimnames(res$MuBayesFactors)) <- c("[mu_a, mu_b]", "Comparison")
     }
   }
+  
+  
+  if (BFMethod = "brms") {
+    
+  } else  if (BFMethod != "histogram") {
+    stop(paste("Bayes Factor method", BFMethod, "is not a valid method. Try 'brms' or 'histogram'."))
+  }
+  res$BFMethod <- BFMethod
+  
 
   rownames(res$TimeTaken) <- c("Initialization", "Loop", "Post-processing", "Total")
   colnames(res$TimeTaken) <- "Time (sec)"
@@ -479,6 +489,8 @@ circGLM <- function(formula,
   res$all_chains <- coda::mcmc(as.data.frame(res[chainPos]),
                          start = burnin, thin = thin)
 
+  
+  
 
   # Choose how to return the output.
   if (output == "list") {
