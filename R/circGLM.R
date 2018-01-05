@@ -22,6 +22,7 @@ is.dichotomous <- function(x) {
 }
 
 
+
 #' Fix names for circGLM vector output
 #'
 #' A function to change the names produced in the \code{\link{Rcpp}} code to more human readable forms.
@@ -306,7 +307,7 @@ circGLM <- function(formula,
                     r = 2,
                     returnPostSample = TRUE,
                     output = "list",
-                    BFMethod = "brms",
+                    BFMethod = "density",
                     reparametrize = TRUE,
                     groupMeanComparisons = TRUE,
                     skipDichSplit = FALSE,

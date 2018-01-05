@@ -12,6 +12,5 @@ ByteCompile: true
 LazyData: true
 Depends: R (>= 2.10)
 LinkingTo: Rcpp, BH, RcppArmadillo
-Imports: Rcpp, stats, graphics, shiny, grDevices, ggplot2, reshape2, dplyr, coda,
-    brms
+Imports: Rcpp, stats, graphics, shiny, grDevices, ggplot2, reshape2, dplyr, coda
 RoxygenNote: 6.0.1
