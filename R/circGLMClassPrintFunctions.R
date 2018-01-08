@@ -124,7 +124,7 @@ print_all.circGLM <- function(m, digits = 3) {
   if (any(empties)) m <- m[-which(empties)]
 
   # Gather single results
-  singles <- lapply(m, length) == 1
+  singles <- (lapply(m, length) == 1) & (!sapply(m, is.character))
   singmat <- as.matrix(round(unlist(m[singles]), digits))
   print(singmat)
 
