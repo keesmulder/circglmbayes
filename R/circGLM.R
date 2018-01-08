@@ -105,6 +105,16 @@ estimateDensityBySpline <- function(x, x0 = 0, npow = 15, rangeExtend = 1/4) {
   max(0, stats::spline(dens$x, dens$y, xout = x0)$y)
 }
 
+#' Compute the arc distance between two angular vectors 
+#'
+#' @param th1 The first angular vector in radians.
+#' @param th2 The second angular vector in radians.
+#'
+#' @return The distance in radians. 
+arcDistance <- function(th1, th2) {
+  min(abs(th1 - th2), 2 * pi - abs(th1 - th2))
+}
+
 
 
 
@@ -483,6 +493,7 @@ circGLM <- function(formula,
     if (length(res$dt_meandir) > 0 & groupMeanComparisons) {
       diff_0_density <- apply(cbind(first, last), 1, function(x) {
         estimateDensityBySpline(res$mu_chain[, x[1]] - res$mu_chain[, x[2]])
+        estimateDensityBySpline(arcDistance(res$mu_chain[, x[1]], res$mu_chain[, x[2]]))
       })
       
       # The posterior density is taken times two pi to divide by the prior probability.
