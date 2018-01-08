@@ -183,7 +183,7 @@ arcDistance <- function(th1, th2) {
 #' @param X An optional matrix of predictors, both continuous (linear) and
 #'   categorical (as dummies). If categorical predictors are included, the
 #'   dummies must already be made and they must be in (0, 1), because this is
-#'   checked to be able to seperate them from the continuous predictors, so that
+#'   checked to be able to separate them from the continuous predictors, so that
 #'   they are treated differently. If not, or if \cite{skipDichSplit = TRUE},
 #'   they will be treated as linear predictors.
 #' @param conj_prior A numeric vector of length 3, containing, in that order,
@@ -247,7 +247,7 @@ arcDistance <- function(th1, th2) {
 #'   \code{FALSE}, proposals for beta are drawn on uniformly around beta, so
 #'   from \code{bt_can = runif(1, bt_cur - bwb, bt_cur + bwb)}.
 #' @param groupMeanComparisons Logical indicating whether mean comparisons in
-#'   the form of Bayes Factors and posterior model probabilites should be
+#'   the form of Bayes Factors and posterior model probabilities should be
 #'   computed.
 #' @param skipDichSplit Logical indicating whether to treat categorical
 #'   predictor specially. Usually, \code{skipDichSplit = TRUE} should be used.
@@ -275,16 +275,16 @@ arcDistance <- function(th1, th2) {
 #'   posterior mean of \eqn{\kappa}, the concentration parameter.}
 #'   \item{\code{kp_mode}}{The posterior mode of \eqn{\kappa}, the concentration
 #'   parameter.} \item{\code{kp_HDI}}{The \code{CIsize} highest posterior
-#'   density interval of \eqn{\kappa}.} \item{\code{kp_propacc}}{The acceptence
+#'   density interval of \eqn{\kappa}.} \item{\code{kp_propacc}}{The acceptance
 #'   proportion of the rejection sampler for \eqn{\kappa}.}
 #'   \item{\code{bt_mean}}{The posterior means of the regression coefficients
 #'   \eqn{\beta}.} \item{\code{bt_CCI}}{The credible intervals of the regression
-#'   coefficients \eqn{\beta}.} \item{\code{bt_propacc}}{The acceptence
+#'   coefficients \eqn{\beta}.} \item{\code{bt_propacc}}{The acceptance
 #'   proportions of the Metropolis-Hastings sampler for \eqn{\beta}.}
 #'   \item{\code{dt_meandir}}{The posterior mean directions of the group
 #'   difference parameters, \eqn{\delta}.} \item{\code{dt_CCI}}{The circular
 #'   credible intervals of the group difference parameters, \eqn{\delta}.}
-#'   \item{\code{dt_propacc}}{The acceptence proportions of the
+#'   \item{\code{dt_propacc}}{The acceptance proportions of the
 #'   Metropolis-Hastings sampler for \eqn{\delta}.} \item{\code{zt_mean}}{The
 #'   posterior means of the reparametrized coefficients  \eqn{\zeta}.}
 #'   \item{\code{zt_mdir}}{The posterior mean directions of the reparametrized
@@ -295,7 +295,7 @@ arcDistance <- function(th1, th2) {
 #'   criteria; Number of parameters.} \item{\code{ll_th_estpars}}{Ingredient for
 #'   information criteria; Log-likelihood of the dataset at estimated parameter
 #'   set.} \item{\code{ll_each_th_curpars}}{Ingredient for information criteria;
-#'   Log-likelihood of each datapoint at each sampled parameter set.}
+#'   Log-likelihood of each data point at each sampled parameter set.}
 #'   \item{\code{ll_th_curpars}}{Ingredient for information criteria;
 #'   Log-likelihood of the dataset at each sampled parameter set.}
 #'   \item{\code{th_hat}}{An n-vector of predicted angles.}

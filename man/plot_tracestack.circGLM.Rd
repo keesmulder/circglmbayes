@@ -16,7 +16,7 @@ not.}
 
 \item{labelFormat}{A character vector, either \code{"default"}, \code{"numbered"} or
 \code{"latex"}. By default, we find the names of the variables in the circGLM
-object. If \code{"numbered"}, the parameter names are numberd. The "latex"
+object. If \code{"numbered"}, the parameter names are numbered. The "latex"
 labels are useful if \code{knitr} is used with a Tikz device.}
 
 \item{ggTheme}{A ggplot theme object to use. The relevant theme function should be evaluated.}
