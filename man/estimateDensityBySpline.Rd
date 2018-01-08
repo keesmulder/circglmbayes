@@ -27,6 +27,7 @@ density estimate of a sample from the probability density \code{x}, and then
 interpolating it by a spline.
 }
 \examples{
+# Compare the estimate from this function with the analytic result.
 estimateDensityBySpline(rnorm(1000), 0.1)
 dnorm(.1)
 

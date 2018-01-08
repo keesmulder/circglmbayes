@@ -93,10 +93,12 @@ etc.}
 \code{"histogram"}. Gives the method to If \code{SDDBFDensEstMethod =
 "density"}, the default, the Bayes Factors are computed based on the
 density estimate given by a spline interpolation of the \code{density()}
-function, so they are calculated in R rather than C++. If
-\code{SDDBFDensEstMethod = "histogram"}, Bayes factors are computed by
-estimating the density from the posterior sample as the midpoint of a
-histogram bar at 0 containing 10\% of the data.}
+function, so they are calculated in R rather than C++. This method should
+be much more stable than the histogram method, especially if there is low
+probability at 0 in the posterior. If \code{SDDBFDensEstMethod =
+"histogram"}, Bayes factors are computed by estimating the density from the
+posterior sample as the midpoint of a histogram bar at 0 containing 10\% of
+the data.}
 
 \item{reparametrize}{Logical; If \code{TRUE}, proposals for beta are drawn
 uniformly around a reparametrization \code{zt = pi * atan(bt) / 2}, so from
