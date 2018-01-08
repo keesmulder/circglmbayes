@@ -33,10 +33,10 @@ is.dichotomous <- function(x) {
 #'
 #' @return A character vector of the same length as \code{nms}.
 fixResultNames <- function(nms){
-
+  
   nms[grep("b0_CCI", nms)]     <- c("b0_CCI_LB", "b0_CCI_UB")
   nms[grep("kp_HDI", nms)]     <- c("kp_HDI_LB", "kp_HDI_UB")
-
+  
   # Beta/Zeta
   nbts <- length(grep("bt_mean", nms))
   if (nbts > 0) {
@@ -51,18 +51,18 @@ fixResultNames <- function(nms){
                                        rep(1:nbts, each=2),
                                        c("_LB", "_UB"))
   }
-
+  
   # Delta
   ndts <- length(grep("dt_meandir", nms))
   if (ndts > 0) {
-
+    
     nms[grep("dt_meandir", nms)] <- paste0("dt_", 1:ndts, "_mdir")
     nms[grep("dt_propacc", nms)] <- paste0("dt_", 1:ndts, "_propacc")
     nms[grep("dt_CCI", nms)] <- paste0("dt_",
                                        rep(1:ndts, each = 2),
                                        c("_LB", "_UB"))
   }
-
+  
   nms
 }
 
@@ -87,6 +87,7 @@ fixResultNames <- function(nms){
 #' @export
 #'
 #' @examples
+#' # Compare the estimate from this function with the analytic result.
 #' estimateDensityBySpline(rnorm(1000), 0.1)
 #' dnorm(.1)
 #' 
@@ -100,8 +101,8 @@ estimateDensityBySpline <- function(x, x0 = 0, npow = 15, rangeExtend = 1/4) {
   } else if (xmax < x0) {
     xmax <- x0 + sd(x) * rangeExtend
   }
-  dens <- density(x = x, from = xmin, to = xmax, n = 2^npow, bw = "SJ")
-  spline(dens$x, dens$y, xout = x0)$y
+  dens <- stats::density(x = x, from = xmin, to = xmax, n = 2^npow, bw = "SJ")
+  max(0, stats::spline(dens$x, dens$y, xout = x0)$y)
 }
 
 
@@ -223,10 +224,12 @@ estimateDensityBySpline <- function(x, x0 = 0, npow = 15, rangeExtend = 1/4) {
 #'   \code{"histogram"}. Gives the method to If \code{SDDBFDensEstMethod =
 #'   "density"}, the default, the Bayes Factors are computed based on the
 #'   density estimate given by a spline interpolation of the \code{density()}
-#'   function, so they are calculated in R rather than C++. If
-#'   \code{SDDBFDensEstMethod = "histogram"}, Bayes factors are computed by
-#'   estimating the density from the posterior sample as the midpoint of a
-#'   histogram bar at 0 containing 10\% of the data.
+#'   function, so they are calculated in R rather than C++. This method should
+#'   be much more stable than the histogram method, especially if there is low
+#'   probability at 0 in the posterior. If \code{SDDBFDensEstMethod =
+#'   "histogram"}, Bayes factors are computed by estimating the density from the
+#'   posterior sample as the midpoint of a histogram bar at 0 containing 10\% of
+#'   the data.
 #' @param reparametrize Logical; If \code{TRUE}, proposals for beta are drawn
 #'   uniformly around a reparametrization \code{zt = pi * atan(bt) / 2}, so from
 #'   \code{zt_can = runif(1, zt - bwb, zt + bwb)}, which is then transformed
@@ -362,23 +365,23 @@ circGLM <- function(formula,
                     groupMeanComparisons = TRUE,
                     skipDichSplit = FALSE,
                     centerOnly = FALSE) {
-
+  
   # Check the form of the input.
   if ( (missing(formula) | missing(data) ) && missing(th)) {
     stop(paste0("Either the outcome angles must be specified as 'th',", 
                 "or formula and data should be given."))
-
-  # Formula syntax is used.
+    
+    # Formula syntax is used.
   } else if (missing(th)) {
-
+    
     # Force input data to be a data frame.
     if (!is.data.frame(data)) data <- as.data.frame(data)
-
+    
     # Get predictors and outcome.
     X  <- model.matrix(formula, data)[, -1, drop = FALSE]
     th <- as.matrix(data[, all.vars(formula)[1], drop = FALSE])
-
-  # If the inputs are directly given, check if they are matrices.
+    
+    # If the inputs are directly given, check if they are matrices.
   } else if (missing(formula) && missing(data)) {
     # Check if the inputs are matrices.
     if (!is.matrix(th)) th <- as.matrix(th)
@@ -387,13 +390,13 @@ circGLM <- function(formula,
     stop(paste0("Either the outcome angles must be specified as 'th',",
                 "or formula and data should be given, but not both."))
   }
-
+  
   # Check if theta is in radians
   if (length(unique(th)) == 1) stop("All outcome angles are equal.")
   if (any(th > 2*pi)) {
     th <- th * pi / 180
   }
-
+  
   
   
   # Indices of dichotomous predictors.
@@ -402,22 +405,22 @@ circGLM <- function(formula,
   } else {
     dichInd <- logical(0)
   }
-
+  
   if (!skipDichSplit) {
-
+    
     # Standardize continuous predictors.
     stX <- scale(X[, !dichInd, drop = FALSE], scale = !centerOnly)
-
+    
     d <- X[, dichInd, drop = FALSE]
-
+    
   } else {
     # Standardize continuous predictors.
     stX <- cbind(scale(X[, !dichInd, drop = FALSE], scale = !centerOnly),
                  X[, dichInd, drop = FALSE])
-
+    
     d <- matrix(nrow = nrow(X), ncol = 0)
   }
-
+  
   # Names of the continuous and categorical predictors.
   nbt <- ncol(stX)
   ndt <- ncol(d)
@@ -435,14 +438,14 @@ circGLM <- function(formula,
     dt_names <- colnames(d)
     mu_names <- c("Reference", dt_names)
   }
-
+  
   # Set the a prior for beta if needed.
   if (ncol(stX) > 0) {
     bt_prior <- matrix(bt_prior_musd, nrow = ncol(stX), ncol = 2, byrow = TRUE)
   } else {
     bt_prior <- matrix(NA, nrow = 0, ncol = 2, byrow = TRUE)
   }
-
+  
   # Run the C++ mcmc sampler.
   res <- circGLMC(th = th, X = stX, D = d,
                   conj_prior = conj_prior,
@@ -456,71 +459,71 @@ circGLM <- function(formula,
                   bt_prior_type = as.numeric(!is.na(bt_prior_musd)[1]),
                   reparametrize = reparametrize,
                   groupMeanComparisons = groupMeanComparisons)
-
-
+  
+  
   ### FIXING NAMES
-
+  
   # Set some names for clarity in the output.
   colnames(res$b0_CCI)     <- "Beta_0"
   rownames(res$b0_CCI)     <- c("LB", "UB")
   colnames(res$kp_HDI)     <- "Kappa"
   rownames(res$kp_HDI)     <- c("LB", "UB")
-
+  
   # Set names for beta only if there are beta's.
   if (length(res$bt_mean) > 0) {
     colnames(res$bt_propacc) <- colnames(res$bt_CCI) <-
       colnames(res$bt_mean) <- bt_names
     rownames(res$bt_CCI) <- rownames(res$zt_CCI) <- c("LB", "UB")
-
+    
     if (returnPostSample && any(!grepl("bt_chain", colnames(res$bt_chain)))) {
       colnames(res$bt_chain) <- paste0("bt_chain.", bt_names)
     }
-
+    
     colnames(res$zt_CCI) <- colnames(res$zt_mdir) <- colnames(res$zt_mean) <- zt_names
-
+    
     # Fix names for Beta Bayes Factors
     rownames(res$BetaIneqBayesFactors) <- rownames(res$BetaSDDBayesFactors) <- bt_names
     res$BetaBayesFactors <- cbind(res$BetaIneqBayesFactors, res$BetaSDDBayesFactors)
     colnames(res$BetaBayesFactors) <- c("BF(bt>0:bt<0)",
                                         "BF(bt==0:bt=/=0)")
-
+    
   }
-
-
-
+  
+  
+  
   # Set names for delta only if there are delta's.
   if (length(res$dt_meandir) > 0) {
-
+    
     # Fix names for delta estimates
     colnames(res$dt_meandir) <- rownames(res$DeltaIneqBayesFactors) <-
       colnames(res$dt_propacc) <- colnames(res$dt_CCI) <- dt_names
-
+    
     if (returnPostSample && any(!grepl("dt_chain", colnames(res$dt_chain)))) {
       colnames(res$dt_chain) <- paste0("dt_chain.", dt_names)
     }
-
+    
     rownames(res$dt_meandir) <- "MeanDir"
     rownames(res$dt_CCI)  <- c("LB", "UB")
     rownames(res$dt_propacc) <- "ProportionAccepted"
-
+    
     if (returnPostSample) colnames(res$mu_chain) <- mu_names
-
+    
     # Fix names for Delta Ineq Bayes Factors
     colnames(res$DeltaIneqBayesFactors) <- "BF(dt>0:dt<0)"
-
+    
     if (groupMeanComparisons) {
-
+      
       ngroup  <- sum(dichInd) + 1
       basemat <- matrix(1:ngroup, ncol = ngroup, nrow = ngroup)
       first   <- t(basemat)[lower.tri(basemat)]
       last    <- basemat[lower.tri(basemat, diag = FALSE)]
-
+      
       rownames(res$MuIneqBayesFactors) <- rownames(res$MuSDDBayesFactors) <-
         paste0("[", mu_names[first], ", ", mu_names[last],"]")
       res$MuBayesFactors <- cbind(res$MuIneqBayesFactors,
                                   res$MuSDDBayesFactors)
       colnames(res$MuBayesFactors) <- c("BF(mu_a>mu_b:mu_a<mu_b)", "BF(mu_a==mu_b:(mu_a, mu_b))")
-
+      
       names(dimnames(res$MuBayesFactors)) <- c("[mu_a, mu_b]", "Comparison")
     }
   }
@@ -531,34 +534,52 @@ circGLM <- function(formula,
   # so they are calculated in R rather than C++.
   if (SDDBFDensEstMethod == "density") {
     
+    ### BETA
+    post_prob_0_beta  <- apply(res$bt_chain, 2, estimateDensityBySpline) 
+    prior_prob_0_beta <- stats::dnorm(0, bt_prior[,1], bt_prior[,2])
     
+    new_beta_SDD_BF   <- matrix(post_prob_0_beta / prior_prob_0_beta, 
+                                dimnames = dimnames(res$BetaSDDBayesFactors))
     
+    res$BetaSDDBayesFactors <- new_beta_SDD_BF
+
+    ### MU
+    diff_0_density <- apply(cbind(first, last), 1, function(x) {
+      estimateDensityBySpline(res$mu_chain[, x[1]] - res$mu_chain[, x[2]])
+    })
+    
+    # The posterior density is taken times two pi to divide by the prior probability.
+    new_mu_SDD_BF <- matrix(diff_0_density * 2 * pi, 
+                            dimnames = dimnames(res$MuSDDBayesFactors))
+    
+    res$MuSDDBayesFactors <- new_mu_SDD_BF
     
   } else  if (SDDBFDensEstMethod != "histogram") {
-    stop(paste("Bayes Factor method", SDDBFDensEstMethod, "is not a valid method. Try 'density' or 'histogram'."))
+    stop(paste("Bayes Factor method", SDDBFDensEstMethod, 
+               "is not a valid method. Try 'density' or 'histogram'."))
     
   }
   res$SDDBFDensEstMethod <- SDDBFDensEstMethod
   
-
+  
   rownames(res$TimeTaken) <- c("Initialization", "Loop", "Post-processing", "Total")
   colnames(res$TimeTaken) <- "Time (sec)"
-
+  
   # Define a coda mcmc object containing all chains.
   chainPos <- grep("chain", names(res))
   res$all_chains <- coda::mcmc(as.data.frame(res[chainPos]),
-                         start = burnin, thin = thin)
-
+                               start = burnin, thin = thin)
   
   
-
+  
+  
   # Choose how to return the output.
   if (output == "list") {
-
+    
     # Add a class 'circGLM', so that we can use print and plot methods for this class.
     class(res) <- c("circGLM", class(res))
-
-
+    
+    
     # Save some of the inputs in the output for easy access.
     res$Call      <- match.call()
     res$thin      <- thin
@@ -568,16 +589,16 @@ circGLM <- function(formula,
     res$data_d    <- d
     res$data_stX  <- stX
     res$r         <- r
-
+    
     return(res)
-
+    
   } else if (output == "vector") {
     if (returnPostSample == TRUE) {message("Vector output with full chains.")}
-
+    
     out <- unlist(res)
     names(out) <- fixResultNames(names(out))
     return(out)
-
+    
   } else {
     stop(paste("Output type", output, "not found"))
   }
