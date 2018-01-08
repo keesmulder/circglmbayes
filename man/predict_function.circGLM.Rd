@@ -30,5 +30,4 @@ newd <- generateCircGLMData()
 
 # Predicted values of the new data.
 predfun(newd)
-
 }

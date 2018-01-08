@@ -69,6 +69,27 @@ fixResultNames <- function(nms){
 
 
 
+#' Estimate the density value from a sample by a spline interpolation of the
+#' kernel density
+#'
+#' This function estimates the density at \code{x0} by first taking a kernel
+#' density estimate of a sample from the probability density \code{x}, and then
+#' interpolating it by a spline.
+#'
+#' @param x A (large) sample of from the probability density function of
+#'   interest, such as a posterior.
+#' @param x0 The value at which to evaluate the density.
+#' @param npow The precision used with the \code{density} function.
+#' @param rangeExtend The number of standard deviations past the range of
+#'   \code{x} to start the density estimate.
+#'
+#' @return Numeric; a scalar of the estimated probability density at \code{x0}.
+#' @export
+#'
+#' @examples
+#' estimateDensityBySpline(rnorm(1000), 0.1)
+#' dnorm(.1)
+#' 
 estimateDensityBySpline <- function(x, x0 = 0, npow = 15, rangeExtend = 1/4) {
   
   xmin <- min(x)

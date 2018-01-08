@@ -10,8 +10,8 @@ circGLM(formula, data, th, X = if (missing(th)) model.matrix(formula, data)[,
   starting_values = c(0, 1, rep(0, ncol(X))), bwb = rep(0.05, ncol(X)),
   Q = 10000, burnin = 1000, thin = 1, kappaModeEstBandwith = 0.1,
   CIsize = 0.95, r = 2, returnPostSample = TRUE, output = "list",
-  reparametrize = TRUE, groupMeanComparisons = TRUE,
-  skipDichSplit = FALSE, centerOnly = FALSE)
+  SDDBFDensEstMethod = "density", reparametrize = TRUE,
+  groupMeanComparisons = TRUE, skipDichSplit = FALSE, centerOnly = FALSE)
 }
 \arguments{
 \item{formula}{an optional object of class "formula" (or one that can be
@@ -27,10 +27,11 @@ the circular outcome we want to predict. If any value is larger than
 treated as radians.}
 
 \item{X}{An optional matrix of predictors, both continuous (linear) and
-categorical. Categorical predictors must be in (0, 1), because this is
+categorical (as dummies). If categorical predictors are included, the
+dummies must already be made and they must be in (0, 1), because this is
 checked to be able to seperate them from the continuous predictors, so that
 they are treated differently. If not, or if \cite{skipDichSplit = TRUE},
-they will be treated as linear predictors. continuous.}
+they will be treated as linear predictors.}
 
 \item{conj_prior}{A numeric vector of length 3, containing, in that order,
 prior mean direction, prior resultant length, and prior sample size. Used
@@ -88,6 +89,15 @@ most situations, \code{"list"} should be used, which returns a circGLM
 object. The \code{"vector"} options is only useful for simulation studies
 etc.}
 
+\item{SDDBFDensEstMethod}{A character string, either \code{"density"} or
+\code{"histogram"}. Gives the method to If \code{SDDBFDensEstMethod =
+"density"}, the default, the Bayes Factors are computed based on the
+density estimate given by a spline interpolation of the \code{density()}
+function, so they are calculated in R rather than C++. If
+\code{SDDBFDensEstMethod = "histogram"}, Bayes factors are computed by
+estimating the density from the posterior sample as the midpoint of a
+histogram bar at 0 containing 10\% of the data.}
+
 \item{reparametrize}{Logical; If \code{TRUE}, proposals for beta are drawn
 uniformly around a reparametrization \code{zt = pi * atan(bt) / 2}, so from
 \code{zt_can = runif(1, zt - bwb, zt + bwb)}, which is then transformed
@@ -118,7 +128,6 @@ A \code{circGLM} object, which can be further analyzed with its
 
   An object of class \code{circGLM} contains the following elements (although
   some elements are not returned if not applicable):
-
 
   \describe{
 
@@ -205,13 +214,15 @@ object which can be further investigated with standard functions \code{plot},
 \code{print}, \code{coef}, \code{residuals}, and special functions
 \code{mcmc_summary.circGLM} for results for all MCMC chains,
 \code{IC_compare.circGLM} for a comparison of information criteria of one or
-more circGLM models, \code{BF.circGLM} to obtain Bayes Factors,
-and \code{predict_function.circGLM} to create a prediction function.
+more circGLM models, \code{BF.circGLM} to obtain Bayes Factors, and
+\code{predict_function.circGLM} to create a prediction function.
 }
 \details{
 The model can be passed either as a combination of a \code{formula} and a
 data frame or matrix \code{data}, as in \code{lm()}, or as an outcome vector
-\code{th} and a matrix of predictors \code{X}.
+\code{th} and a matrix of predictors \code{X}. If categorical variables are
+to be included that are not yet given as dummies, formula syntax is
+recommended as this will automatically take care of dummy creation.
 
 \code{circGLM} performs an mcmc sampler that generates a sample from the
 posterior of the intercept \eqn{\beta_0}, regression coefficients

@@ -23,5 +23,4 @@ This function computes the median direction, which is defined as the middle obse
 }
 \examples{
 medianDirection(rvmc(30, 0, 2))
-
 }

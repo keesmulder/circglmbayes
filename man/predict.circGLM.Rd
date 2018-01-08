@@ -30,5 +30,4 @@ predict(m)
 # Predictions for new data
 dat2  <- generateCircGLMData()
 predict(m, newdata = dat2)
-
 }
