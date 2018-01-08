@@ -112,7 +112,7 @@ estimateDensityBySpline <- function(x, x0 = 0, npow = 15, rangeExtend = 1/4) {
 #'
 #' @return The distance in radians. 
 arcDistance <- function(th1, th2) {
-  min(abs(th1 - th2), 2 * pi - abs(th1 - th2))
+  pmin(abs(th1 - th2), 2 * pi - abs(th1 - th2))
 }
 
 
