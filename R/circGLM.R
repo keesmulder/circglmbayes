@@ -491,8 +491,14 @@ circGLM <- function(formula,
     
     ### MU
     if (length(res$dt_meandir) > 0 & groupMeanComparisons) {
+      
+      # Create a list of comparisons.
+      ngroup  <- sum(dichInd) + 1
+      basemat <- matrix(1:ngroup, ncol = ngroup, nrow = ngroup)
+      first   <- t(basemat)[lower.tri(basemat)]
+      last    <- basemat[lower.tri(basemat, diag = FALSE)]
+      
       diff_0_density <- apply(cbind(first, last), 1, function(x) {
-        estimateDensityBySpline(res$mu_chain[, x[1]] - res$mu_chain[, x[2]])
         estimateDensityBySpline(arcDistance(res$mu_chain[, x[1]], res$mu_chain[, x[2]]))
       })
       
@@ -564,13 +570,7 @@ circGLM <- function(formula,
     colnames(res$DeltaIneqBayesFactors) <- "BF(dt>0:dt<0)"
     
     if (groupMeanComparisons) {
-      
-      ngroup  <- sum(dichInd) + 1
-      basemat <- matrix(1:ngroup, ncol = ngroup, nrow = ngroup)
-      first   <- t(basemat)[lower.tri(basemat)]
-      last    <- basemat[lower.tri(basemat, diag = FALSE)]
-      
-      rownames(res$MuIneqBayesFactors) <- rownames(res$MuSDDBayesFactors) <-
+       rownames(res$MuIneqBayesFactors) <- rownames(res$MuSDDBayesFactors) <-
         paste0("[", mu_names[first], ", ", mu_names[last],"]")
       res$MuBayesFactors <- cbind(res$MuIneqBayesFactors,
                                   res$MuSDDBayesFactors)
