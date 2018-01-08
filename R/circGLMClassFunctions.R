@@ -73,7 +73,7 @@ getPMP <- function(x, prior_odds = 1) {
 #' m   <- circGLM(th ~ ., dat)
 #' BF.circGLM(m)
 #' 
-BF.circGLM <- function(m, prior_odds = 1) {
+BF.circGLM <- function(m, prior_odds = 1, digits = 5) {
 
   # Compute posterior model probabilities
   PMP_Beta_Ineq           <- getPMP(m$BetaBayesFactors[, 1, drop = FALSE], prior_odds = prior_odds)
@@ -86,12 +86,13 @@ BF.circGLM <- function(m, prior_odds = 1) {
   colnames(PMP_Mean_Ineq) <- c("P(mu_a>mu_b)", "P(mu_a<mu_b)")
   colnames(PMP_Mean_Eq)   <- c("P(mu_a==mu_b)", "P(mu_a, mu_b)")
 
-  list(BF_Beta       = m$BetaBayesFactors,
-       PMP_Beta_Ineq = PMP_Beta_Ineq,
-       PMP_Beta_Eq   = PMP_Beta_Eq,
-       BF_Mean       = m$MuBayesFactors,
-       PMP_Mean_Ineq = PMP_Mean_Ineq,
-       PMP_Mean_Eq   = PMP_Mean_Eq)
+  lapply( list(BF_Beta       = m$BetaBayesFactors,
+               PMP_Beta_Ineq = PMP_Beta_Ineq,
+               PMP_Beta_Eq   = PMP_Beta_Eq,
+               BF_Mean       = m$MuBayesFactors,
+               PMP_Mean_Ineq = PMP_Mean_Ineq,
+               PMP_Mean_Eq   = PMP_Mean_Eq), 
+          function(x) if(!is.null(x)) (round(x, digits)))
 }
 
 
