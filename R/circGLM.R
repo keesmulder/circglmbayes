@@ -535,24 +535,28 @@ circGLM <- function(formula,
   if (SDDBFDensEstMethod == "density") {
     
     ### BETA
-    post_prob_0_beta  <- apply(res$bt_chain, 2, estimateDensityBySpline) 
-    prior_prob_0_beta <- stats::dnorm(0, bt_prior[,1], bt_prior[,2])
-    
-    new_beta_SDD_BF   <- matrix(post_prob_0_beta / prior_prob_0_beta, 
-                                dimnames = dimnames(res$BetaSDDBayesFactors))
-    
-    res$BetaSDDBayesFactors <- new_beta_SDD_BF
+    if (length(res$bt_mean) > 0) {
+      post_prob_0_beta  <- apply(res$bt_chain, 2, estimateDensityBySpline) 
+      prior_prob_0_beta <- stats::dnorm(0, bt_prior[,1], bt_prior[,2])
+      
+      new_beta_SDD_BF   <- matrix(post_prob_0_beta / prior_prob_0_beta, 
+                                  dimnames = dimnames(res$BetaSDDBayesFactors))
+      
+      res$BetaSDDBayesFactors <- new_beta_SDD_BF
+    }
 
     ### MU
-    diff_0_density <- apply(cbind(first, last), 1, function(x) {
-      estimateDensityBySpline(res$mu_chain[, x[1]] - res$mu_chain[, x[2]])
-    })
-    
-    # The posterior density is taken times two pi to divide by the prior probability.
-    new_mu_SDD_BF <- matrix(diff_0_density * 2 * pi, 
-                            dimnames = dimnames(res$MuSDDBayesFactors))
-    
-    res$MuSDDBayesFactors <- new_mu_SDD_BF
+    if (length(res$dt_meandir) > 0 & groupMeanComparisons) {
+      diff_0_density <- apply(cbind(first, last), 1, function(x) {
+        estimateDensityBySpline(res$mu_chain[, x[1]] - res$mu_chain[, x[2]])
+      })
+      
+      # The posterior density is taken times two pi to divide by the prior probability.
+      new_mu_SDD_BF <- matrix(diff_0_density * 2 * pi, 
+                              dimnames = dimnames(res$MuSDDBayesFactors))
+      
+      res$MuSDDBayesFactors <- new_mu_SDD_BF
+    }
     
   } else  if (SDDBFDensEstMethod != "histogram") {
     stop(paste("Bayes Factor method", SDDBFDensEstMethod, 
