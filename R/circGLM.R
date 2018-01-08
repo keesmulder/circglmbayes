@@ -153,7 +153,7 @@ estimateDensityBySpline <- function(x, x0 = 0, npow = 15, rangeExtend = 1/4) {
 #'   dummies must already be made and they must be in (0, 1), because this is
 #'   checked to be able to seperate them from the continuous predictors, so that
 #'   they are treated differently. If not, or if \cite{skipDichSplit = TRUE},
-#'   they will be treated as linear predictors. 
+#'   they will be treated as linear predictors.
 #' @param conj_prior A numeric vector of length 3, containing, in that order,
 #'   prior mean direction, prior resultant length, and prior sample size. Used
 #'   for the von Mises part of the model, beta_0 and kappa.
@@ -198,6 +198,14 @@ estimateDensityBySpline <- function(x, x0 = 0, npow = 15, rangeExtend = 1/4) {
 #'   most situations, \code{"list"} should be used, which returns a circGLM
 #'   object. The \code{"vector"} options is only useful for simulation studies
 #'   etc.
+#' @param SDDBFDensEstMethod A character string, either \code{"density"} or
+#'   \code{"histogram"}. Gives the method to If \code{SDDBFDensEstMethod =
+#'   "density"}, the default, the Bayes Factors are computed based on the
+#'   density estimate given by a spline interpolation of the \code{density()}
+#'   function, so they are calculated in R rather than C++. If
+#'   \code{SDDBFDensEstMethod = "histogram"}, Bayes factors are computed by
+#'   estimating the density from the posterior sample as the midpoint of a
+#'   histogram bar at 0 containing 10\% of the data.
 #' @param reparametrize Logical; If \code{TRUE}, proposals for beta are drawn
 #'   uniformly around a reparametrization \code{zt = pi * atan(bt) / 2}, so from
 #'   \code{zt_can = runif(1, zt - bwb, zt + bwb)}, which is then transformed
@@ -328,7 +336,7 @@ circGLM <- function(formula,
                     r = 2,
                     returnPostSample = TRUE,
                     output = "list",
-                    BFMethod = "density",
+                    SDDBFDensEstMethod = "density",
                     reparametrize = TRUE,
                     groupMeanComparisons = TRUE,
                     skipDichSplit = FALSE,
@@ -496,13 +504,20 @@ circGLM <- function(formula,
     }
   }
   
-  
-  if (BFMethod = "brms") {
+  # By default, the method circGLMC method returns histogram-based Bayes
+  # Factors. If SDDBFDensEstMethod == "density", they are replaced by new BFs based on the
+  # density estimate given by a spline interpolation of the density() function,
+  # so they are calculated in R rather than C++.
+  if (SDDBFDensEstMethod == "density") {
     
-  } else  if (BFMethod != "histogram") {
-    stop(paste("Bayes Factor method", BFMethod, "is not a valid method. Try 'brms' or 'histogram'."))
+    
+    
+    
+  } else  if (SDDBFDensEstMethod != "histogram") {
+    stop(paste("Bayes Factor method", SDDBFDensEstMethod, "is not a valid method. Try 'density' or 'histogram'."))
+    
   }
-  res$BFMethod <- BFMethod
+  res$SDDBFDensEstMethod <- SDDBFDensEstMethod
   
 
   rownames(res$TimeTaken) <- c("Initialization", "Loop", "Post-processing", "Total")
