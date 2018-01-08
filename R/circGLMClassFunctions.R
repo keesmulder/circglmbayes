@@ -18,8 +18,12 @@ coef.circGLM <- coefficients.circGLM <- function(object, ...) {
 
   b0 <- c(object$b0_meandir, mcmcSDs["b0_chain"], object$b0_CCI)
   kp <- c(object$kp_mode, mcmcSDs["kp_chain"], object$kp_HDI)
-  bt <- cbind(t(object$bt_mean), mcmcSDs[grep("bt_chain", names(mcmcSDs))], t(object$bt_CCI))
-  dt <- cbind(t(object$dt_meandir), mcmcSDs[grep("dt_chain", names(mcmcSDs))], t(object$dt_CCI))
+  bt <- cbind(t(object$bt_mean), 
+              mcmcSDs[grep("bt_chain", names(mcmcSDs))], 
+              t(object$bt_CCI))
+  dt <- cbind(t(object$dt_meandir), 
+              mcmcSDs[grep("dt_chain", names(mcmcSDs))], 
+              t(object$dt_CCI))
 
   coefmat <- rbind(Intercept = b0, Kappa = kp, bt, dt)
   colnames(coefmat) <- c("Estimate", "SD", "LB", "UB")
@@ -31,15 +35,17 @@ coef.circGLM <- coefficients.circGLM <- function(object, ...) {
 #'
 #' Compute posterior model probabilities from odds \code{x} and a prior odds.
 #'
-#' @param x A vector of odds for which to obtain the posterior model probabilities.
+#' @param x A vector of odds for which to obtain the posterior model
+#'   probabilities.
 #' @param prior_odds The prior odds.
 #'
-#' @return A matrix with two columns, giving the relative probabilities of the first hypothesis versus the second hypothesis.
+#' @return A matrix with two columns, giving the relative probabilities of the
+#'   first hypothesis versus the second hypothesis.
 #' @export
 #'
 #' @examples
 #' getPMP(3)
-#'
+#' 
 getPMP <- function(x, prior_odds = 1) {
   posterior_odds <- prior_odds * x
   cbind(posterior_odds/(1 + posterior_odds), 1/(1 + posterior_odds))
@@ -77,13 +83,17 @@ getPMP <- function(x, prior_odds = 1) {
 BF.circGLM <- function(m, prior_odds = 1, digits = 5) {
 
   # Compute posterior model probabilities
-  PMP_Beta_Ineq           <- getPMP(m$BetaBayesFactors[, 1, drop = FALSE], prior_odds = prior_odds)
-  PMP_Beta_Eq             <- getPMP(m$BetaBayesFactors[, 2, drop = FALSE], prior_odds = prior_odds)
+  PMP_Beta_Ineq           <- getPMP(m$BetaBayesFactors[, 1, drop = FALSE], 
+                                    prior_odds = prior_odds)
+  PMP_Beta_Eq             <- getPMP(m$BetaBayesFactors[, 2, drop = FALSE], 
+                                    prior_odds = prior_odds)
   colnames(PMP_Beta_Ineq) <- c("P(bt>0)", "P(bt<0)")
   colnames(PMP_Beta_Eq)   <- c("P(bt==0)", "P(bt=/=0)")
 
-  PMP_Mean_Ineq           <- getPMP(m$MuBayesFactors[, 1, drop = FALSE], prior_odds = prior_odds)
-  PMP_Mean_Eq             <- getPMP(m$MuBayesFactors[, 2, drop = FALSE], prior_odds = prior_odds)
+  PMP_Mean_Ineq           <- getPMP(m$MuBayesFactors[, 1, drop = FALSE], 
+                                    prior_odds = prior_odds)
+  PMP_Mean_Eq             <- getPMP(m$MuBayesFactors[, 2, drop = FALSE], 
+                                    prior_odds = prior_odds)
   colnames(PMP_Mean_Ineq) <- c("P(mu_a>mu_b)", "P(mu_a<mu_b)")
   colnames(PMP_Mean_Eq)   <- c("P(mu_a==mu_b)", "P(mu_a, mu_b)")
 
@@ -159,7 +169,8 @@ residuals.circGLM <- function(object, type = "arc", ...) {
 #'
 #' # Predicted values of the new data.
 #' predfun(newd)
-predict_function.circGLM <- function(object, linkfun = function(x) atanLF(x, 2) ) {
+predict_function.circGLM <- function(object, 
+                                     linkfun = function(x) atanLF(x, 2) ) {
 
   function(newdata) {
 
@@ -183,7 +194,8 @@ predict_function.circGLM <- function(object, linkfun = function(x) atanLF(x, 2) 
 
 #' Obtain predictions for the circGLM model
 #'
-#' Obtain predictions from the original dataset, or the predictions from the fitted model on a new dataset \code{newdata}.
+#' Obtain predictions from the original dataset, or the predictions from the
+#' fitted model on a new dataset \code{newdata}.
 #'
 #' @param object A \code{circGLM} object.
 #' @param newdata A data frame with predictors. The predictors must be the same
@@ -246,7 +258,8 @@ IC_compare.circGLM <- function(...,
 
 #' Compute the median direction
 #'
-#' This function computes the median direction, which is defined as the middle observation of the shortest arc containing all observations.
+#' This function computes the median direction, which is defined as the middle
+#' observation of the shortest arc containing all observations.
 #'
 #' @param th A vector of angles in radians.
 #' @param fastMethod Logical; If \code{TRUE}, the data is rotated so that the
@@ -331,7 +344,8 @@ circSD <- function(x) {
 #' Obtain different central tendencies and CIs from a circGLM object
 #'
 #' Computes the mean (arithmetic or mean direction), median, and mode estimate
-#' for the MCMC chains of a \code{circGLM} object, as well as a credible interval.
+#' for the MCMC chains of a \code{circGLM} object, as well as a credible
+#' interval.
 #'
 #' The summary statistics computed have to be computed differently for linear
 #' and circular variables.
@@ -353,7 +367,7 @@ circSD <- function(x) {
 #' dat <- generateCircGLMData()
 #' m   <- circGLM(th ~ ., dat)
 #' mcmc_summary.circGLM(m)
-#'
+#' 
 mcmc_summary.circGLM <- function(m, modebw = .1, ciperc = .95) {
 
   nms <- colnames(m$all_chains)

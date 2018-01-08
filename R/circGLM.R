@@ -2,8 +2,9 @@
 #'
 #' @param x A character or numerical vector to be tested.
 #'
-#' @return A logical, \code{TRUE} if the \code{x} has dummy coding (0, 1), \code{FALSE} otherwise.
-#'
+#' @return A logical, \code{TRUE} if the \code{x} has dummy coding (0, 1),
+#'   \code{FALSE} otherwise.
+#'   
 is.dichotomous <- function(x) {
   n_unique_x <- length(unique(x))
   if (n_unique_x == 2) {
@@ -14,7 +15,8 @@ is.dichotomous <- function(x) {
     }
   } else if (n_unique_x > 2 & n_unique_x < 8) {
     warning(paste("A predictor has between 3 and 7 unique values.",
-                  "It might be categorical with multiple categories but without dummy coding."))
+                  "It might be categorical with multiple categories", 
+                  "but without dummy coding."))
   } else if (n_unique_x == 1) {
     stop("A predictor had only a single unique value.")
   }
@@ -357,7 +359,11 @@ arcDistance <- function(th1, th2) {
 circGLM <- function(formula,
                     data,
                     th,
-                    X = if (missing(th)) model.matrix(formula, data)[, -1, drop = FALSE] else matrix(nrow = length(th), ncol = 0),
+                    X = if (missing(th)) {
+                      model.matrix(formula, data)[, -1, drop = FALSE] 
+                    } else {
+                      matrix(nrow = length(th), ncol = 0)
+                    },
                     conj_prior = rep(0, 3),
                     bt_prior_musd = c("mu" = 0, "sd" = 1),
                     starting_values = c(0, 1, rep(0, ncol(X))),
@@ -473,9 +479,9 @@ circGLM <- function(formula,
   
   
   # By default, the method circGLMC method returns histogram-based Bayes
-  # Factors. If SDDBFDensEstMethod == "density", they are replaced by new BFs based on the
-  # density estimate given by a spline interpolation of the density() function,
-  # so they are calculated in R rather than C++.
+  # Factors. If SDDBFDensEstMethod == "density", they are replaced by new BFs
+  # based on the density estimate given by a spline interpolation of the
+  # density() function, so they are calculated in R rather than C++.
   if (SDDBFDensEstMethod == "density") {
     
     ### BETA
@@ -499,10 +505,12 @@ circGLM <- function(formula,
       last    <- basemat[lower.tri(basemat, diag = FALSE)]
       
       diff_0_density <- apply(cbind(first, last), 1, function(x) {
-        estimateDensityBySpline(arcDistance(res$mu_chain[, x[1]], res$mu_chain[, x[2]]))
+        estimateDensityBySpline(arcDistance(res$mu_chain[, x[1]], 
+                                            res$mu_chain[, x[2]]))
       })
       
-      # The posterior density is taken times two pi to divide by the prior probability.
+      # The posterior density is taken times two pi to divide by the prior
+      # probability.
       new_mu_SDD_BF <- matrix(diff_0_density * 2 * pi, 
                               dimnames = dimnames(res$MuSDDBayesFactors))
       
@@ -537,11 +545,14 @@ circGLM <- function(formula,
       colnames(res$bt_chain) <- paste0("bt_chain.", bt_names)
     }
     
-    colnames(res$zt_CCI) <- colnames(res$zt_mdir) <- colnames(res$zt_mean) <- zt_names
+    colnames(res$zt_CCI) <- colnames(res$zt_mdir) <- 
+      colnames(res$zt_mean) <- zt_names
     
     # Fix names for Beta Bayes Factors
-    rownames(res$BetaIneqBayesFactors) <- rownames(res$BetaSDDBayesFactors) <- bt_names
-    res$BetaBayesFactors <- cbind(res$BetaIneqBayesFactors, res$BetaSDDBayesFactors)
+    rownames(res$BetaIneqBayesFactors) <- 
+      rownames(res$BetaSDDBayesFactors) <- bt_names
+    res$BetaBayesFactors <- cbind(res$BetaIneqBayesFactors, 
+                                  res$BetaSDDBayesFactors)
     colnames(res$BetaBayesFactors) <- c("BF(bt>0:bt<0)",
                                         "BF(bt==0:bt=/=0)")
     
@@ -574,13 +585,15 @@ circGLM <- function(formula,
         paste0("[", mu_names[first], ", ", mu_names[last],"]")
       res$MuBayesFactors <- cbind(res$MuIneqBayesFactors,
                                   res$MuSDDBayesFactors)
-      colnames(res$MuBayesFactors) <- c("BF(mu_a>mu_b:mu_a<mu_b)", "BF(mu_a==mu_b:(mu_a, mu_b))")
+      colnames(res$MuBayesFactors) <- c("BF(mu_a>mu_b:mu_a<mu_b)", 
+                                        "BF(mu_a==mu_b:(mu_a, mu_b))")
       names(dimnames(res$MuBayesFactors)) <- c("[mu_a, mu_b]", "Comparison")
     }
   }
   
   
-  rownames(res$TimeTaken) <- c("Initialization", "Loop", "Post-processing", "Total")
+  rownames(res$TimeTaken) <- c("Initialization", "Loop", 
+                               "Post-processing", "Total")
   colnames(res$TimeTaken) <- "Time (sec)"
   
   # Define a coda mcmc object containing all chains.
@@ -594,7 +607,8 @@ circGLM <- function(formula,
   # Choose how to return the output.
   if (output == "list") {
     
-    # Add a class 'circGLM', so that we can use print and plot methods for this class.
+    # Add a class 'circGLM', so that we can use print and plot methods for this
+    # class.
     class(res) <- c("circGLM", class(res))
     
     

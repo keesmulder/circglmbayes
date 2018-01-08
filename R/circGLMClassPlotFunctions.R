@@ -1,7 +1,7 @@
 #' Plot circGLM object
 #'
-#' General plot function for \code{circGLM} objects, which dispatches the chosen type
-#' of plotting to the corresponding function.
+#' General plot function for \code{circGLM} objects, which dispatches the chosen
+#' type of plotting to the corresponding function.
 #'
 #' @param x A \code{circGLM} object to be plotted.
 #' @param type Character string giving the type of plotting. The options are
@@ -12,8 +12,7 @@
 #' @export
 #'
 #' @seealso \code{\link{plot_trace.circGLM}},
-#'   \code{\link{plot_tracestack.circGLM}},
-#'   \code{\link{plot_predict.circGLM}},
+#'   \code{\link{plot_tracestack.circGLM}}, \code{\link{plot_predict.circGLM}},
 #'   \code{\link{plot_meancompare.circGLM}} and
 #'   \code{\link{plot_meanboxplot.circGLM}}.
 #'
@@ -35,7 +34,7 @@
 #' # Mean comparisons
 #' plot(m, type = "meancompare")
 #' plot(m, type = "meanboxplot")
-#'
+#' 
 plot.circGLM <- function(x, type = "trace", ...) {
   printFunName <- paste0("plot_", type, ".circGLM")
   do.call(printFunName, args = c(list(m = x), list(...)))
@@ -53,9 +52,9 @@ plot.circGLM <- function(x, type = "trace", ...) {
 #' and categorical predictors.
 #'
 #' Predictors \code{x} and \code{d} and outcome \code{th} can be provided as
-#' numeric vectors of the same length as the outcome in the \code{circGLM} object
-#' \code{m}. This allows plotting the regression line from an earlier dataset on
-#' a new dataset.
+#' numeric vectors of the same length as the outcome in the \code{circGLM}
+#' object \code{m}. This allows plotting the regression line from an earlier
+#' dataset on a new dataset.
 #'
 #' Alternatively, \code{x} and \code{d} can be strings containing names of
 #' corresponding predictors in the original model. In that case, \code{th}
@@ -88,14 +87,13 @@ plot.circGLM <- function(x, type = "trace", ...) {
 #' @seealso \code{\link{plot_trace.circGLM}},
 #'   \code{\link{plot_tracestack.circGLM}},
 #'   \code{\link{plot_meancompare.circGLM}},
-#'   \code{\link{plot_meanboxplot.circGLM}},
-#'   \code{\link{plot.circGLM}}.
+#'   \code{\link{plot_meanboxplot.circGLM}}, \code{\link{plot.circGLM}}.
 #'
 #' @examples
 #' dat <- generateCircGLMData()
 #' m   <- circGLM(th ~ ., dat)
 #' plot(m, type = "predict")
-#'
+#' 
 plot_predict.circGLM <- function(m, x, d, th,
                                  linkfun = function(x) m$r * atan(x),
                                  xlab = NA, ylab = expression(theta),
@@ -121,7 +119,8 @@ plot_predict.circGLM <- function(m, x, d, th,
       x   <- m$data_stX[, 1, drop = FALSE]
     } else {
       warning(paste("Predict plot can not be drawn without continuous",
-                    "predictors. Returning a mean posterior plot instead."), call. = FALSE)
+                    "predictors. Returning a mean posterior plot instead."), 
+              call. = FALSE)
       return(plot_meancompare.circGLM(m))
     }
     # Find the correct column x if it is given as a string.
@@ -173,7 +172,9 @@ plot_predict.circGLM <- function(m, x, d, th,
       ggplot2::xlab(xlab)
   } else {
     pdat[, "d"] <- factor(pdat[, "d"])
-    p <- ggplot2::ggplot(data = pdat, ggplot2::aes_string(y = "th", x = "x", col = "d")) +
+    p <- ggplot2::ggplot(data = pdat, ggplot2::aes_string(y = "th", 
+                                                          x = "x", 
+                                                          col = "d")) +
       ggplot2::geom_point() +
       ggplot2::stat_function(fun = predfun,
                              col = colorPalette[1]) +
@@ -223,7 +224,8 @@ plot_meancompare.circGLM <- function(m, alpha = .7, xlab = "Mean direction") {
   ggplot2::ggplot(data = mudat,
                   mapping = ggplot2::aes_string(x = "value", fill = "mu")) +
     ggplot2::geom_density(alpha = alpha) +
-    ggplot2::scale_fill_discrete(guide = ggplot2::guide_legend(title = "Group")) +
+    ggplot2::scale_fill_discrete(guide = 
+                                   ggplot2::guide_legend(title = "Group")) +
     ggplot2::theme_bw() + ggplot2::xlab(xlab) + ggplot2::ylab("Probability")
 }
 
@@ -266,33 +268,35 @@ plot_meanboxplot.circGLM <- function(m, xlab = "Mean direction") {
                                          y     = "value",
                                          fill  = "mu")) +
     ggplot2::geom_boxplot(outlier.size = 0) + ggplot2::coord_flip() +
-    ggplot2::scale_fill_discrete(guide = ggplot2::guide_legend(title = "Group")) +
+    ggplot2::scale_fill_discrete(guide = ggplot2::guide_legend(title = 
+                                                                 "Group")) +
     ggplot2::theme_bw() + ggplot2::xlab("") + ggplot2::ylab(xlab)
 }
 
 
 #' Make traceplots for circGLM
 #'
-#'  Plot traceplots from a \code{circGLM} object. This plotting method uses the standard \code{coda} traceplots.
+#' Plot traceplots from a \code{circGLM} object. This plotting method uses the
+#' standard \code{coda} traceplots.
 #'
 #' @param m A \code{circGLM} object.
-#' @param params An optional character vector containing the parameter chains to display. If left empty, all are plotted.
-#' @param ... Additional parameters passed to \code{\link[coda]{plot.mcmc}} from the coda package.
+#' @param params An optional character vector containing the parameter chains to
+#'   display. If left empty, all are plotted.
+#' @param ... Additional parameters passed to \code{\link[coda]{plot.mcmc}} from
+#'   the coda package.
 #'
 #' @export
 #'
 #' @seealso \code{\link{plot_tracestack.circGLM}},
-#'   \code{\link{plot_predict.circGLM}},
-#'   \code{\link{plot_meancompare.circGLM}},
-#'   \code{\link{plot_meanboxplot.circGLM}},
-#'   \code{\link{plot.circGLM}}.
+#'   \code{\link{plot_predict.circGLM}}, \code{\link{plot_meancompare.circGLM}},
+#'   \code{\link{plot_meanboxplot.circGLM}}, \code{\link{plot.circGLM}}.
 #'
 #' @examples
 #' plot_trace.circGLM(circGLM(th = rvmc(10, 1, 1)))
 #'
 #' dat <- generateCircGLMData()
 #' plot(circGLM(th ~., dat), type = "trace")
-#'
+#' 
 plot_trace.circGLM <- function(m, params, ...) {
   if (missing(params)) {
     plot(m$all_chains, ...)
@@ -311,16 +315,18 @@ plot_trace.circGLM <- function(m, params, ...) {
 #' @param coef A character string, either "Beta" or "Zeta", determining whether
 #'   the continuous regression predictors are shown in reparametrized form or
 #'   not.
-#' @param labelFormat A character vector, either \code{"default"}, \code{"numbered"} or
-#'   \code{"latex"}. By default, we find the names of the variables in the circGLM
-#'   object. If \code{"numbered"}, the parameter names are numbered. The "latex"
-#'   labels are useful if \code{knitr} is used with a Tikz device.
-#' @param ggTheme A ggplot theme object to use. The relevant theme function should be evaluated.
+#' @param labelFormat A character vector, either \code{"default"},
+#'   \code{"numbered"} or \code{"latex"}. By default, we find the names of the
+#'   variables in the circGLM object. If \code{"numbered"}, the parameter names
+#'   are numbered. The "latex" labels are useful if \code{knitr} is used with a
+#'   Tikz device.
+#' @param ggTheme A ggplot theme object to use. The relevant theme function
+#'   should be evaluated.
 #' @param res The maximum number iterations to print. If \code{res} is larger
-#'   than the number of iterations in the \code{circGLM} object, a subset of size
-#'   \code{res} is selected, and it is attempted to equally space the selected
-#'   iterations from the full set. This is useful if there is a very large
-#'   posterior sample due to having very little thinning.
+#'   than the number of iterations in the \code{circGLM} object, a subset of
+#'   size \code{res} is selected, and it is attempted to equally space the
+#'   selected iterations from the full set. This is useful if there is a very
+#'   large posterior sample due to having very little thinning.
 #' @param burnThinLabel Logical; if TRUE, the x-label will reflect the fact that
 #'   a burn-in and a thinning factor were used. If FALSE, the x-labels will run
 #'   from 1 to Q.
@@ -330,8 +336,7 @@ plot_trace.circGLM <- function(m, params, ...) {
 #'
 #'
 #' @seealso \code{\link{plot_trace.circGLM}},
-#'   \code{\link{plot_predict.circGLM}},
-#'   \code{\link{plot_meancompare.circGLM}},
+#'   \code{\link{plot_predict.circGLM}}, \code{\link{plot_meancompare.circGLM}},
 #'   \code{\link{plot_meanboxplot.circGLM}}, \code{\link{plot.circGLM}}.
 #'
 #'
@@ -342,7 +347,7 @@ plot_trace.circGLM <- function(m, params, ...) {
 #'
 #' dat <- generateCircGLMData()
 #' plot(circGLM(th ~ ., dat), type = "tracestack")
-#'
+#' 
 plot_tracestack.circGLM <- function(m,
                                     coef="Beta",
                                     labelFormat = "default",
@@ -377,8 +382,12 @@ plot_tracestack.circGLM <- function(m,
   } else if (labelFormat == "latex") {
     yLabB0    <- "$\\beta_0$"
     yLabKp    <- "$\\kappa$"
-    yLabDt    <- if (ndt > 0) {paste0("$\\delta_", 1:ndt, "$")             } else {NULL}
-    yLabPd    <- if (npd > 0) {paste0("\\", tolower(coef), "_", 1:npd, "$")} else {NULL}
+    yLabDt    <- if (ndt > 0) {
+      paste0("$\\delta_", 1:ndt, "$")             
+      } else {NULL}
+    yLabPd    <- if (npd > 0) {
+      paste0("\\", tolower(coef), "_", 1:npd, "$")
+      } else {NULL}
   } else {
     stop("Unknown label format.")
   }
@@ -402,7 +411,8 @@ plot_tracestack.circGLM <- function(m,
 
   # Reflect the burnin and thinning in the x-label if required.
   if (burnThinLabel) {
-    scaleGeom <- ggplot2::scale_x_continuous(labels = function(x) m$burnin + x*m$thin)
+    scaleGeom <- ggplot2::scale_x_continuous(labels = 
+                                               function(x) m$burnin + x*m$thin)
   } else {
     scaleGeom <- NULL
   }
