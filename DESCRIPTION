@@ -9,6 +9,8 @@ Description: This package contains functions to perform a Bayesian circular GLM,
 License: GPL-3
 Encoding: UTF-8
 ByteCompile: true
+URL: https://github.com/keesmulder/circglmbayes
+BugReports: https://github.com/keesmulder/circglmbayes/issues
 LazyData: true
 Depends: R (>= 2.10)
 LinkingTo: Rcpp, BH, RcppArmadillo
