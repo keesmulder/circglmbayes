@@ -7,7 +7,8 @@
 cglmShiny()
 }
 \description{
-Run a shiny app interface for this package. Provides a point-and-click interface where the user can load their own data.
+Run a shiny app interface for this package. Provides a point-and-click
+interface where the user can load their own data.
 }
 \examples{
 

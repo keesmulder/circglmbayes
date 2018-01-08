@@ -16,8 +16,8 @@ and \code{"meanboxplot"}.}
 \item{...}{Additional arguments to be passed to print functions.}
 }
 \description{
-General plot function for \code{circGLM} objects, which dispatches the chosen type
-of plotting to the corresponding function.
+General plot function for \code{circGLM} objects, which dispatches the chosen
+type of plotting to the corresponding function.
 }
 \examples{
 plot(circGLM(th = rvmc(10, 1, 1)))
@@ -41,8 +41,7 @@ plot(m, type = "meanboxplot")
 }
 \seealso{
 \code{\link{plot_trace.circGLM}},
-  \code{\link{plot_tracestack.circGLM}},
-  \code{\link{plot_predict.circGLM}},
+  \code{\link{plot_tracestack.circGLM}}, \code{\link{plot_predict.circGLM}},
   \code{\link{plot_meancompare.circGLM}} and
   \code{\link{plot_meanboxplot.circGLM}}.
 }

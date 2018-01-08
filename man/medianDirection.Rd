@@ -19,7 +19,8 @@ correct value.}
 An angle in radians, the median direction.
 }
 \description{
-This function computes the median direction, which is defined as the middle observation of the shortest arc containing all observations.
+This function computes the median direction, which is defined as the middle
+observation of the shortest arc containing all observations.
 }
 \examples{
 medianDirection(rvmc(30, 0, 2))

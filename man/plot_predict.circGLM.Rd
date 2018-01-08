@@ -45,9 +45,9 @@ regression lines show the predicted values for different values of the linear
 and categorical predictors.
 
 Predictors \code{x} and \code{d} and outcome \code{th} can be provided as
-numeric vectors of the same length as the outcome in the \code{circGLM} object
-\code{m}. This allows plotting the regression line from an earlier dataset on
-a new dataset.
+numeric vectors of the same length as the outcome in the \code{circGLM}
+object \code{m}. This allows plotting the regression line from an earlier
+dataset on a new dataset.
 
 Alternatively, \code{x} and \code{d} can be strings containing names of
 corresponding predictors in the original model. In that case, \code{th}
@@ -67,6 +67,5 @@ plot(m, type = "predict")
 \code{\link{plot_trace.circGLM}},
   \code{\link{plot_tracestack.circGLM}},
   \code{\link{plot_meancompare.circGLM}},
-  \code{\link{plot_meanboxplot.circGLM}},
-  \code{\link{plot.circGLM}}.
+  \code{\link{plot_meanboxplot.circGLM}}, \code{\link{plot.circGLM}}.
 }

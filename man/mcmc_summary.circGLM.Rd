@@ -24,7 +24,8 @@ A matrix with the parameters as rows, and on the columns central
 }
 \description{
 Computes the mean (arithmetic or mean direction), median, and mode estimate
-for the MCMC chains of a \code{circGLM} object, as well as a credible interval.
+for the MCMC chains of a \code{circGLM} object, as well as a credible
+interval.
 }
 \details{
 The summary statistics computed have to be computed differently for linear
