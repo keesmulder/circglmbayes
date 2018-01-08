@@ -4,7 +4,7 @@
 \alias{BF.circGLM}
 \title{Obtain Bayes Factors or posterior odds from circGLM objects}
 \usage{
-BF.circGLM(m, prior_odds = 1)
+BF.circGLM(m, prior_odds = 1, digits = 5)
 }
 \arguments{
 \item{m}{A \code{circGLM} object.}
@@ -13,6 +13,8 @@ BF.circGLM(m, prior_odds = 1)
 the Bayes factors. The priors odds can also be provided in order to return
 posterior odds directly, which are equal to the Bayes factor multiplied by
 the prior odds.}
+
+\item{digits}{Integer; The number of digits to display.}
 }
 \value{
 A list of tables of Bayes Factors and posterior model probabilities,

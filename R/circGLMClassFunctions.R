@@ -55,6 +55,7 @@ getPMP <- function(x, prior_odds = 1) {
 #'   the Bayes factors. The priors odds can also be provided in order to return
 #'   posterior odds directly, which are equal to the Bayes factor multiplied by
 #'   the prior odds.
+#' @param digits Integer; The number of digits to display.
 #'
 #' @return A list of tables of Bayes Factors and posterior model probabilities,
 #'   where applicable.
