@@ -69,15 +69,15 @@ fixResultNames <- function(nms){
 
 
 
-estimateDensityBySpline <- function(x, x0 = 0, npow = 15) {
+estimateDensityBySpline <- function(x, x0 = 0, npow = 15, rangeExtend = 1/4) {
   
   xmin <- min(x)
   xmax <- max(x)
   
   if (xmin > x0) {
-    xmin <- x0 - sd(x) / 2
+    xmin <- x0 - sd(x) * rangeExtend
   } else if (xmax < x0) {
-    xmax <- x0 + sd(x) / 2
+    xmax <- x0 + sd(x) * rangeExtend
   }
   dens <- density(x = x, from = xmin, to = xmax, n = 2^npow, bw = "SJ")
   spline(dens$x, dens$y, xout = x0)$y
