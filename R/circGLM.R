@@ -336,7 +336,8 @@ circGLM <- function(formula,
 
   # Check the form of the input.
   if ( (missing(formula) | missing(data) ) && missing(th)) {
-    stop("Either the outcome angles must be specified as 'th', or formula and data should be given.")
+    stop(paste0("Either the outcome angles must be specified as 'th',", 
+                "or formula and data should be given."))
 
   # Formula syntax is used.
   } else if (missing(th)) {
@@ -354,7 +355,8 @@ circGLM <- function(formula,
     if (!is.matrix(th)) th <- as.matrix(th)
     if (!is.matrix(X))  X  <- as.matrix(X)
   } else {
-    stop("Either the outcome angles must be specified as 'th', or formula and data should be given, but not both.")
+    stop(paste0("Either the outcome angles must be specified as 'th',",
+                "or formula and data should be given, but not both."))
   }
 
   # Check if theta is in radians
