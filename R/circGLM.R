@@ -461,6 +461,47 @@ circGLM <- function(formula,
                   groupMeanComparisons = groupMeanComparisons)
   
   
+  
+  # By default, the method circGLMC method returns histogram-based Bayes
+  # Factors. If SDDBFDensEstMethod == "density", they are replaced by new BFs based on the
+  # density estimate given by a spline interpolation of the density() function,
+  # so they are calculated in R rather than C++.
+  if (SDDBFDensEstMethod == "density") {
+    
+    ### BETA
+    if (length(res$bt_mean) > 0) {
+      post_prob_0_beta  <- apply(res$bt_chain, 2, estimateDensityBySpline) 
+      prior_prob_0_beta <- stats::dnorm(0, bt_prior[,1], bt_prior[,2])
+      
+      new_beta_SDD_BF   <- matrix(post_prob_0_beta / prior_prob_0_beta, 
+                                  dimnames = dimnames(res$BetaSDDBayesFactors))
+      
+      res$BetaSDDBayesFactors <- new_beta_SDD_BF
+    }
+    
+    ### MU
+    if (length(res$dt_meandir) > 0 & groupMeanComparisons) {
+      diff_0_density <- apply(cbind(first, last), 1, function(x) {
+        estimateDensityBySpline(res$mu_chain[, x[1]] - res$mu_chain[, x[2]])
+      })
+      
+      # The posterior density is taken times two pi to divide by the prior probability.
+      new_mu_SDD_BF <- matrix(diff_0_density * 2 * pi, 
+                              dimnames = dimnames(res$MuSDDBayesFactors))
+      
+      res$MuSDDBayesFactors <- new_mu_SDD_BF
+    }
+    
+  } else  if (SDDBFDensEstMethod != "histogram") {
+    stop(paste("Bayes Factor method", SDDBFDensEstMethod, 
+               "is not a valid method. Try 'density' or 'histogram'."))
+    
+  }
+  res$SDDBFDensEstMethod <- SDDBFDensEstMethod
+  
+  
+  
+  
   ### FIXING NAMES
   
   # Set some names for clarity in the output.
@@ -523,47 +564,9 @@ circGLM <- function(formula,
       res$MuBayesFactors <- cbind(res$MuIneqBayesFactors,
                                   res$MuSDDBayesFactors)
       colnames(res$MuBayesFactors) <- c("BF(mu_a>mu_b:mu_a<mu_b)", "BF(mu_a==mu_b:(mu_a, mu_b))")
-      
       names(dimnames(res$MuBayesFactors)) <- c("[mu_a, mu_b]", "Comparison")
     }
   }
-  
-  # By default, the method circGLMC method returns histogram-based Bayes
-  # Factors. If SDDBFDensEstMethod == "density", they are replaced by new BFs based on the
-  # density estimate given by a spline interpolation of the density() function,
-  # so they are calculated in R rather than C++.
-  if (SDDBFDensEstMethod == "density") {
-    
-    ### BETA
-    if (length(res$bt_mean) > 0) {
-      post_prob_0_beta  <- apply(res$bt_chain, 2, estimateDensityBySpline) 
-      prior_prob_0_beta <- stats::dnorm(0, bt_prior[,1], bt_prior[,2])
-      
-      new_beta_SDD_BF   <- matrix(post_prob_0_beta / prior_prob_0_beta, 
-                                  dimnames = dimnames(res$BetaSDDBayesFactors))
-      
-      res$BetaSDDBayesFactors <- new_beta_SDD_BF
-    }
-
-    ### MU
-    if (length(res$dt_meandir) > 0 & groupMeanComparisons) {
-      diff_0_density <- apply(cbind(first, last), 1, function(x) {
-        estimateDensityBySpline(res$mu_chain[, x[1]] - res$mu_chain[, x[2]])
-      })
-      
-      # The posterior density is taken times two pi to divide by the prior probability.
-      new_mu_SDD_BF <- matrix(diff_0_density * 2 * pi, 
-                              dimnames = dimnames(res$MuSDDBayesFactors))
-      
-      res$MuSDDBayesFactors <- new_mu_SDD_BF
-    }
-    
-  } else  if (SDDBFDensEstMethod != "histogram") {
-    stop(paste("Bayes Factor method", SDDBFDensEstMethod, 
-               "is not a valid method. Try 'density' or 'histogram'."))
-    
-  }
-  res$SDDBFDensEstMethod <- SDDBFDensEstMethod
   
   
   rownames(res$TimeTaken) <- c("Initialization", "Loop", "Post-processing", "Total")
