@@ -1,7 +1,7 @@
 Package: circglmbayes
 Type: Package
 Title: A Bayesian analysis of a circular GLM
-Version: 1.2.0
+Version: 1.2.1
 Authors@R: person("Kees", "Mulder", 
            email = "keestimmulder@gmail.com", 
            role = c("aut", "cre"))
