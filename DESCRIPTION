@@ -10,8 +10,8 @@ Maintainer: Kees Mulder <keestimmulder@gmail.com>
 Description: Perform a Bayesian analysis of a circular General Linear Model 
     (GLM), which allows regressing a circular outcome on linear and categorical 
     predictors. Posterior samples are obtained by means of an MCMC algorithm 
-    written in C++ through Rcpp. Estimation and credible intervals are provided,
-    as well as hypothesis testing through Bayes Factors. 
+    written in 'C++' through 'Rcpp'. Estimation and credible intervals are 
+    provided, as well as hypothesis testing through Bayes Factors. 
     See Mulder and Klugkist (2017) <doi:10.1016/j.jmp.2017.07.001>.
 License: GPL-3
 Encoding: UTF-8
