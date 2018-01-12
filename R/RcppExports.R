@@ -26,6 +26,27 @@ rvmc <- function(n, mu, kp) {
     .Call(`_circglmbayes_rvmc`, n, mu, kp)
 }
 
+#' Sample a value from the Bessel exponential distribution
+#'
+#' This is an implementation of the algorithm of Forbes and Mardia (2015) to
+#' sample from the Bessel exponential distribution, which is the conditional
+#' distribution of the concentration parameter of a von Mises distribution
+#' given the mean \code{mu}. The distribution is proportional to \eqn{exp(-
+#' \eta g \kappa)/I_0(\kappa)^\eta}. Note that \code{beta_0} in Forbes and
+#' Mardia (2015) is renamed \code{g} here.
+#'
+#' @param etag Numeric; This is \code{eta * g}, which should
+#'   \code{-R*cos(mu-theta_bar)}, where \code{R} is the posterior mean
+#'   resultant length, and \code{theta_bar} is the posterior mean, while
+#'   \code{mu} is the current value of the mean.
+#' @param eta Integer; This is the posterior sample size, which is n + c where
+#'   c is the number of observations contained in the conjugate prior. For
+#'   uninformative, \code{c = 0} and \code{eta = n}.
+#'
+#' @return A sampled value \code{kappa} from the Bessel exponential
+#'   distribution.
+#'
+#' @export
 sampleKappa <- function(etag, eta) {
     .Call(`_circglmbayes_sampleKappa`, etag, eta)
 }
