@@ -18,11 +18,12 @@ as used in the \code{circGLM} object and must have the same column names.}
 A numeric vector with predictions.
 }
 \description{
-Obtain predictions from the original dataset, or the predictions from the fitted model on a new dataset \code{newdata}.
+Obtain predictions from the original dataset, or the predictions from the
+fitted model on a new dataset \code{newdata}.
 }
 \examples{
 dat <- generateCircGLMData()
-m   <- circGLM(dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 
 # Predictions for the original outcome angles.
 predict(m)
@@ -30,5 +31,4 @@ predict(m)
 # Predictions for new data
 dat2  <- generateCircGLMData()
 predict(m, newdata = dat2)
-
 }

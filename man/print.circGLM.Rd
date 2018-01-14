@@ -19,10 +19,10 @@ General print function for \code{circGLM} objects, which dispatches the chosen t
 of printing to the corresponding function.
 }
 \examples{
-print(circGLM(rvmc(10, 1, 1)))
+print(circGLM(th = rvmc(10, 1, 1)))
 
 dat <- generateCircGLMData()
-cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
+cglmmod <- circGLM(th ~ ., dat)
 
 print(cglmmod)
 

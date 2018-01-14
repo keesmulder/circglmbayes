@@ -14,18 +14,20 @@ plot_tracestack.circGLM(m, coef = "Beta", labelFormat = "default",
 the continuous regression predictors are shown in reparametrized form or
 not.}
 
-\item{labelFormat}{A character vector, either \code{"default"}, \code{"numbered"} or
-\code{"latex"}. By default, we find the names of the variables in the circGLM
-object. If \code{"numbered"}, the parameter names are numberd. The "latex"
-labels are useful if \code{knitr} is used with a Tikz device.}
+\item{labelFormat}{A character vector, either \code{"default"},
+\code{"numbered"} or \code{"latex"}. By default, we find the names of the
+variables in the circGLM object. If \code{"numbered"}, the parameter names
+are numbered. The "latex" labels are useful if \code{knitr} is used with a
+Tikz device.}
 
-\item{ggTheme}{The ggplot theme to use if}
+\item{ggTheme}{A ggplot theme object to use. The relevant theme function
+should be evaluated.}
 
 \item{res}{The maximum number iterations to print. If \code{res} is larger
-than the number of iterations in the \code{circGLM} object, a subset of size
-\code{res} is selected, and it is attempted to equally space the selected
-iterations from the full set. This is useful if there is a very large
-posterior sample due to having very little thinning.}
+than the number of iterations in the \code{circGLM} object, a subset of
+size \code{res} is selected, and it is attempted to equally space the
+selected iterations from the full set. This is useful if there is a very
+large posterior sample due to having very little thinning.}
 
 \item{burnThinLabel}{Logical; if TRUE, the x-label will reflect the fact that
 a burn-in and a thinning factor were used. If FALSE, the x-labels will run
@@ -38,15 +40,14 @@ A ggplot2 plot.
 An alternative option to plot traceplots from \code{circGLM} objects.
 }
 \examples{
-plot(circGLM(rvmc(100, 0, 1)), type = "tracestack")
+plot(circGLM(th = rvmc(100, 0, 1)), type = "tracestack")
 
 dat <- generateCircGLMData()
-plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "tracestack")
+plot(circGLM(th ~ ., dat), type = "tracestack")
 
 }
 \seealso{
 \code{\link{plot_trace.circGLM}},
-  \code{\link{plot_predict.circGLM}},
-  \code{\link{plot_meancompare.circGLM}},
+  \code{\link{plot_predict.circGLM}}, \code{\link{plot_meancompare.circGLM}},
   \code{\link{plot_meanboxplot.circGLM}}, \code{\link{plot.circGLM}}.
 }

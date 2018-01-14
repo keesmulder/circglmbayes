@@ -9,24 +9,25 @@ plot_trace.circGLM(m, params, ...)
 \arguments{
 \item{m}{A \code{circGLM} object.}
 
-\item{params}{An optional character vector containing the parameter chains to display. If left empty, all are plotted.}
+\item{params}{An optional character vector containing the parameter chains to
+display. If left empty, all are plotted.}
 
-\item{...}{Additional parameters passed to \code{\link[coda]{plot.mcmc}} from the coda package.}
+\item{...}{Additional parameters passed to \code{\link[coda]{plot.mcmc}} from
+the coda package.}
 }
 \description{
-Plot traceplots from a \code{circGLM} object. This plotting method uses the standard \code{coda} traceplots.
+Plot traceplots from a \code{circGLM} object. This plotting method uses the
+standard \code{coda} traceplots.
 }
 \examples{
-plot_trace.circGLM(circGLM(rvmc(10, 1, 1)))
+plot_trace.circGLM(circGLM(th = rvmc(10, 1, 1)))
 
 dat <- generateCircGLMData()
-plot(circGLM(th = dat[, 1], X = dat[, -1]), type = "trace")
+plot(circGLM(th ~., dat), type = "trace")
 
 }
 \seealso{
 \code{\link{plot_tracestack.circGLM}},
-  \code{\link{plot_predict.circGLM}},
-  \code{\link{plot_meancompare.circGLM}},
-  \code{\link{plot_meanboxplot.circGLM}},
-  \code{\link{plot.circGLM}}.
+  \code{\link{plot_predict.circGLM}}, \code{\link{plot_meancompare.circGLM}},
+  \code{\link{plot_meanboxplot.circGLM}}, \code{\link{plot.circGLM}}.
 }

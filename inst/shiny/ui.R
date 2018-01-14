@@ -2,9 +2,6 @@
 library(shiny)
 library(shinydashboard)
 
-
-
-
 shinyUI(dashboardPage(
 
   # Header:
@@ -40,15 +37,20 @@ shinyUI(dashboardPage(
                  tags$style(type='text/css', ".well { max-width: 20em; }"),
                  # Tags:
                  tags$head(
-                   tags$style(type="text/css", "select[multiple] { width: 100%; height:10em}"),
-                   tags$style(type="text/css", "select { width: 100%}"),
-                   tags$style(type="text/css", "input { width: 19em; max-width:100%}")
+                   tags$style(type="text/css", 
+                              "select[multiple] { width: 100%; height:10em}"),
+                   tags$style(type="text/css", 
+                              "select { width: 100%}"),
+                   tags$style(type="text/css", 
+                              "input { width: 19em; max-width:100%}")
                  ),
 
 
                  radioButtons("datasource", "Choose data source",
-                              choices = c("Use the example" = "example", "Load your own data" = "user")),
-                 # checkboxInput("useexample", "Use example dataset instead.", value = FALSE),
+                              choices = c("Use the example" = "example", 
+                                          "Load your own data" = "user")),
+                 # checkboxInput("useexample", "Use example dataset instead.", 
+                 #                value = FALSE),
 
                  conditionalPanel(
                    "input.datasource == 'user'",
@@ -82,7 +84,8 @@ shinyUI(dashboardPage(
                    fileInput("file", "Upload data-file:"),
 
                    # Select whether to show all the advanced options.
-                   checkboxInput("advOptions", "Show advanced options", value = FALSE),
+                   checkboxInput("advOptions", "Show advanced options", 
+                                 value = FALSE),
 
                    conditionalPanel(
                      "input.advOptions",
@@ -118,13 +121,17 @@ shinyUI(dashboardPage(
         numericInput("Q",  "Iterations to keep", 10000, min = 100, step = 100),
         numericInput("burn", "Burnin", 1000, min = 0, step = 100),
         numericInput("thin", "Thinning factor", 1, min = 1, step = 1),
-        numericInput("r",    "Link function range (2 covers the whole circle)", 2, min = 0.01, step = .1),
-        numericInput("bwb",  "Proposal bandwith (MCMC tuning parameter)", .05, min = 0.01, step = .01),
+        numericInput("r",    "Link function range (2 covers the whole circle)",
+                     2, min = 0.01, step = .1),
+        numericInput("bwb",  "Proposal bandwith (MCMC tuning parameter)",
+                     .05, min = 0.01, step = .01),
         br(),
         h3("Parameters provided as R code"),
         textInput("conj_prior",    "Conjugate prior values", "rep(0, 3)"),
         textOutput("conjprval"),
-        textInput("bt_prior_musd", "Prior parameters for the normal prior for beta", "c(mu = 0, sd = 1)"),
+        textInput("bt_prior_musd", 
+                  "Prior parameters for the normal prior for beta", 
+                  "c(mu = 0, sd = 1)"),
         textOutput("btprval")
 
       ),

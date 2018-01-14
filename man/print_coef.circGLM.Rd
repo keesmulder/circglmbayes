@@ -15,7 +15,7 @@ print_coef.circGLM(m, digits = 3)
 Print circGLM coefficients
 }
 \examples{
-print(circGLM(rvmc(10, 0, 1)), type = "coef")
+print(circGLM(th = rvmc(10, 0, 1)), type = "coef")
 
 dat <- generateCircGLMData()
 cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])

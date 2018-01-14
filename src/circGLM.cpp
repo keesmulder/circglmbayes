@@ -17,10 +17,8 @@
 // [[Rcpp::depends(BH)]]
 #include <boost/math/special_functions/bessel.hpp>
 
-#include <iostream>
 #include <math.h>
 #include <typeinfo>
-
 
 using namespace Rcpp;
 using namespace std;
@@ -288,7 +286,6 @@ double estimateModeCirc(NumericVector x, double cip) {
 }
 
 
-
 // [[Rcpp::export]]
 NumericVector computeHDICirc(NumericVector x, double cip) {
   /* FUNCTION computeHDICirc -----------------------------------------
@@ -339,7 +336,6 @@ NumericVector computeHDICirc(NumericVector x, double cip) {
   return M;
 }
 
-
 // [[Rcpp::export]]
 double estimateMode(vec x, double cip) {
   // Compute the mode using interval cip%.
@@ -375,7 +371,6 @@ double estimateMode(vec x, double cip) {
 
   return M;
 }
-
 
 // [[Rcpp::export]]
 vec computeHDI(vec x, double cip) {
@@ -416,7 +411,6 @@ vec computeHDI(vec x, double cip) {
 }
 
 
-// [[Rcpp::export]]
 double estimateDensity(vec x, double x_0, double cip) {
   // A method to estimate the density of a random variable x (here, often an
   // MCMC sample) at a value x_0. It uses a 'histogram' solution.
@@ -462,7 +456,6 @@ double estimateDensity(vec x, double x_0, double cip) {
 
 
 
-// [[Rcpp::export]]
 double rhsll(double b0, double kp, vec bt, vec dt,
              vec th, mat X, mat D, double r) {
   // The log-likelihood for use in the MCMC-algorithm. For speed-up the constant
@@ -844,7 +837,7 @@ Rcpp::List circGLMC(vec th, mat X, mat D,
   rowvec dt_meandir = zeros<rowvec>(J);
   mat dt_CCI  = mat(2, J);
 
-  // Obtain the mean direction and
+  // Obtain the mean direction and CCI's for delta
   for (int j = 0; j < J; j++) {
     dt_meandir(j) = computeMeanDirection(dt_chain.col(j));
 

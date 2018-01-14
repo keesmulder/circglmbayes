@@ -32,7 +32,7 @@ for the creation of the \code{circGLM} object.}
 \item{colorPalette}{The colors to use in plotting, max 2.}
 }
 \value{
-A \code{\link[ggplot2]{ggplot2}} plot, to which further \code{ggplot}
+A \code{\link[ggplot2]{ggplot}}, to which further \code{ggplot}
   elements can be added.
 }
 \description{
@@ -40,14 +40,14 @@ Plot the predictions made by a circGLM analysis.
 }
 \details{
 Creates a ggplot showing a prediction plot showing linear predictor against
-the circular outcome, an with an optional grouping variable. One or more
+the circular outcome, with an optional grouping variable. One or more
 regression lines show the predicted values for different values of the linear
 and categorical predictors.
 
 Predictors \code{x} and \code{d} and outcome \code{th} can be provided as
-numeric vectors of the same length as the outcome in the \code{circGLM} object
-\code{m}. This allows plotting the regression line from an earlier dataset on
-a new dataset.
+numeric vectors of the same length as the outcome in the \code{circGLM}
+object \code{m}. This allows plotting the regression line from an earlier
+dataset on a new dataset.
 
 Alternatively, \code{x} and \code{d} can be strings containing names of
 corresponding predictors in the original model. In that case, \code{th}
@@ -59,7 +59,7 @@ without grouping is required, \code{d} can be set to \code{NA}.
 }
 \examples{
 dat <- generateCircGLMData()
-m <- circGLM(th = dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 plot(m, type = "predict")
 
 }
@@ -67,6 +67,5 @@ plot(m, type = "predict")
 \code{\link{plot_trace.circGLM}},
   \code{\link{plot_tracestack.circGLM}},
   \code{\link{plot_meancompare.circGLM}},
-  \code{\link{plot_meanboxplot.circGLM}},
-  \code{\link{plot.circGLM}}.
+  \code{\link{plot_meanboxplot.circGLM}}, \code{\link{plot.circGLM}}.
 }

@@ -9,7 +9,7 @@
 
 library(shiny)
 library(foreign)
-library(CircGLMBayes)
+library(circglmbayes)
 library(shinyjs)
 library(dplyr)
 
@@ -44,7 +44,8 @@ shinyServer(function(input, output, session) {
 
     if (is.null(input[[fun__arg]]))
     {
-      textInput(fun__arg, label = "Enter value:", value = deparse(Defaults[[input$arg]]))
+      textInput(fun__arg, label = "Enter value:", 
+                value = deparse(Defaults[[input$arg]]))
     } else {
       textInput(fun__arg, label = "Enter value:", value = input[[fun__arg]])
     }
@@ -65,7 +66,8 @@ shinyServer(function(input, output, session) {
       return(data.frame())
     }
 
-    args <- grep(paste0("^",input$readFunction,"__"), names(input), value = TRUE)
+    args <- grep(paste0("^",input$readFunction,"__"), 
+                 names(input), value = TRUE)
 
     argList <- list()
     for (i in seq_along(args))
@@ -76,7 +78,8 @@ shinyServer(function(input, output, session) {
 
     argList <- argList[names(argList) %in% ArgNames()]
 
-    Dataset <- as.data.frame(do.call(input$readFunction,c(list(input$file$datapath),argList)))
+    Dataset <- as.data.frame(do.call(input$readFunction,
+                                     c(list(input$file$datapath),argList)))
 
     return(Dataset)
   })
@@ -85,7 +88,9 @@ shinyServer(function(input, output, session) {
   # Select Outcome:
   output$outcomeselect <- renderUI({
 
-    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
+    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) {
+      return(NULL)
+    }
 
     # Select defaults for the example.
     if (input$datasource == 'example') {
@@ -103,7 +108,9 @@ shinyServer(function(input, output, session) {
   # Select predictors:
   output$predictorselect <- renderUI({
 
-    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
+    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) {
+      return(NULL)
+    }
 
     # Predictors can be any variable that is not the outcome.
     predOpts <- names(Dataset())[names(Dataset()) != input$outcome]
@@ -125,7 +132,9 @@ shinyServer(function(input, output, session) {
   # Show full data:
   output$showdata <- renderDataTable({
 
-    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) return(NULL)
+    if (identical(Dataset(), '') || identical(Dataset(),data.frame())) {
+      return(NULL)
+    }
 
     return(Dataset())
   })
@@ -171,10 +180,13 @@ shinyServer(function(input, output, session) {
     # If the run button is pressed, invalidate the model and run this again.
     input$run
 
-    # However, isolate so that the model is not re-run when anything else changes.
+    # However, isolate so that the model is not re-run when anything else
+    # changes.
     isolate({
 
-      thisFormula <- as.formula(paste(input$outcome, "~", paste(c(1, input$predictors), collapse = " + ")))
+      thisFormula <- as.formula(paste(input$outcome, "~", 
+                                      paste(c(1, input$predictors), 
+                                            collapse = " + ")))
 
       # Print the formula to the console
       # print(thisFormula)
@@ -201,10 +213,15 @@ shinyServer(function(input, output, session) {
     return(mod)
   })
 
-  output$textoverview <- renderText(paste("MCMC run for", getModel()$TotalIts, "iterations, of which", getModel()$SavedIts, "were used."))
+  output$textoverview <- renderText(paste("MCMC run for", getModel()$TotalIts, 
+                                          "iterations, of which", 
+                                          getModel()$SavedIts, "were used."))
 
-  output$coeftable <- renderTable(coef(getModel()), rownames = TRUE, digits = reactive(input$digits))
-  output$ICtable  <- renderTable(IC_compare.circGLM(getModel()), rownames = TRUE, colnames = FALSE, digits = reactive(input$digits))
+  output$coeftable <- renderTable(coef(getModel()), rownames = TRUE, 
+                                  digits = reactive(input$digits))
+  output$ICtable  <- renderTable(IC_compare.circGLM(getModel()), 
+                                 rownames = TRUE, colnames = FALSE, 
+                                 digits = reactive(input$digits))
 
   output$hyptest  <- renderUI({
     hyplist <- BF.circGLM(getModel())
@@ -241,9 +258,13 @@ shinyServer(function(input, output, session) {
   output$meanboxplot    <- renderPlot(plot(getModel(), type = 'meanboxplot'))
 
   # R Verbatim text output.
-  output$basetextprint <- renderPrint(print(coef(getModel()),                   digits = input$digits))
-  output$mcmctextprint <- renderPrint(print(mcmc_summary.circGLM(getModel()), digits = input$digits))
-  output$bftextprint   <- renderPrint(print(BF.circGLM(getModel()),           digits = input$digits))
-  output$alltextprint  <- renderPrint(print(getModel(), type = 'all',         digits = input$digits))
+  output$basetextprint <- renderPrint(print(coef(getModel()),                 
+                                            digits = input$digits))
+  output$mcmctextprint <- renderPrint(print(mcmc_summary.circGLM(getModel()), 
+                                            digits = input$digits))
+  output$bftextprint   <- renderPrint(print(BF.circGLM(getModel()),           
+                                            digits = input$digits))
+  output$alltextprint  <- renderPrint(print(getModel(), type = 'all',         
+                                            digits = input$digits))
 
 })

@@ -42,7 +42,8 @@
 #' @examples
 #'
 #' # Von Mises data with mean 2, kappa 3.
-#' generateCircGLMData(truebeta0 = 2, residkappa = 3, nconpred = 0, ncatpred = 0)
+#' generateCircGLMData(truebeta0 = 2, residkappa = 3, 
+#'                     nconpred = 0, ncatpred = 0)
 #'
 #' # circGLM data
 #' generateCircGLMData(n = 20, nconpred = 4, truebeta = c(0, 0.4, 0.2, 0.05))
@@ -78,7 +79,8 @@ generateCircGLMData <- function(n = 30, residkappa = 5,
   }
 
   if (ncatpred > 0) {
-    Xcat  <- sapply(1:ncatpred, function(x) sample(0:1, size = n, replace = TRUE))
+    Xcat  <- sapply(1:ncatpred, function(x) sample(0:1, size = n, 
+                                                   replace = TRUE))
     colnames(Xcat) <- paste0("c", 1:ncatpred)
     dtpart <- apply(Xcat, 1, "%*%", truedelta)
   }
@@ -93,7 +95,8 @@ generateCircGLMData <- function(n = 30, residkappa = 5,
 
   dmat   <- cbind(th, Xcon, Xcat)
 
-  # Save the percentage of data that is found on the half circle closest to the true beta_0.
+  # Save the percentage of data that is found on the half circle closest to the
+  # true beta_0.
   uLB <- truebeta0 - pi/2 %% (2*pi)
   uUB <- truebeta0 + pi/2 %% (2*pi)
   if (uLB < uUB) {

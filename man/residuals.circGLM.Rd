@@ -24,7 +24,7 @@ Computes the residuals either by taking the arc distance or the cosine
 distance between the predictions and the observed outcomes.
 }
 \examples{
-m <- circGLM(rvmc(10, 0, 1))
+m <- circGLM(th = rvmc(10, 0, 1))
 residuals(m)
 
 # Cosine residuals

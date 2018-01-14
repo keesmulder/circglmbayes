@@ -17,10 +17,10 @@ the scalar results and displays these together, then prints all further list ele
 chains are not printed.
 }
 \examples{
-print(circGLM(rvmc(10, 1, 1)), type = "all")
+print(circGLM(th = rvmc(10, 1, 1)), type = "all")
 
 dat <- generateCircGLMData()
-cglmmod <- circGLM(th = dat[, 1], X = dat[, -1])
+cglmmod <- circGLM(th ~ ., dat)
 print(cglmmod, type = "all")
 }
 \seealso{

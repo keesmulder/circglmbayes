@@ -7,12 +7,14 @@
 getPMP(x, prior_odds = 1)
 }
 \arguments{
-\item{x}{An vector of odds for which to obtain the posterior model probabilities.}
+\item{x}{A vector of odds for which to obtain the posterior model
+probabilities.}
 
 \item{prior_odds}{The prior odds.}
 }
 \value{
-A matrix with two columns, giving the relative probabilities of the first hypothesis versus the second.
+A matrix with two columns, giving the relative probabilities of the
+  first hypothesis versus the second hypothesis.
 }
 \description{
 Compute posterior model probabilities from odds \code{x} and a prior odds.

@@ -24,7 +24,7 @@ will correspond to the intercept parameter for each group.
 }
 \examples{
 dat <- generateCircGLMData(nconpred = 0)
-m   <- circGLM(th = dat[, 1], X = dat[, -1])
+m   <- circGLM(th ~ ., dat)
 plot_meancompare.circGLM(m)
 }
 \seealso{
