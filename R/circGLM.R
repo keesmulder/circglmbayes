@@ -146,7 +146,7 @@ arcDistance <- function(th1, th2) {
 #' to be included that are not yet given as dummies, formula syntax is
 #' recommended as this will automatically take care of dummy creation.
 #'
-#' \code{circGLM} performs an mcmc sampler that generates a sample from the
+#' \code{circGLM} performs an MCMC sampler that generates a sample from the
 #' posterior of the intercept \eqn{\beta_0}, regression coefficients
 #' \eqn{\beta}, group mean direction differences \eqn{\delta} and residual
 #' \eqn{\kappa}.
@@ -166,7 +166,7 @@ arcDistance <- function(th1, th2) {
 #' parameters, posterior samples, and Bayes factors for various standard
 #' hypothesis comparisons.
 #'
-#' As with all mcmc samplers, convergence must be checked, and tuning parameters
+#' As with all MCMC samplers, convergence must be checked, and tuning parameters
 #' \code{bwb} and \code{reparametrize} can be tweaked if the sampler converges
 #' poorly. The circGLM object that is returned contains proportions accepted
 #' which can be used to monitor performance.
@@ -195,7 +195,7 @@ arcDistance <- function(th1, th2) {
 #'   \code{bt_prior_musd = NA}, a constant prior is used. If it is a numeric
 #'   vector of length 2, a Normal prior is used so that the first value is the
 #'   mean, and the second value is the standard deviation.
-#' @param starting_values A numeric vector with starting values for the mcmc
+#' @param starting_values A numeric vector with starting values for the MCMC
 #'   sampler. The length of the numeric vector should be 2 plus the number of
 #'   columns in X.
 #' @param bwb A numeric vector, where the length is at least the number of
@@ -224,7 +224,7 @@ arcDistance <- function(th1, th2) {
 #'   proportion \code{r / 2} of the circle. If \code{r > 2}, the link functions
 #'   can reach the same are of the circle multiple times, which is unlikely to
 #'   be useful, and should be used with caution.
-#' @param returnPostSample Logical indicating whether the mcmc sample itself
+#' @param returnPostSample Logical indicating whether the MCMC sample itself
 #'   should be returned. Should only be set to \code{FALSE} if there are memory
 #'   constraints, as many subsequent analyses rely on the posterior sample
 #'   directly.

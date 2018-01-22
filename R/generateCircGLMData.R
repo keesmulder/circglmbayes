@@ -13,7 +13,7 @@
 #' parameters are also added to the data set that is returned as attributes.
 #'
 #' @param n Integer; the sample size to be generated.
-#' @param residkappa A positive numeric; the residual concentration parameter.
+#' @param residkappa A non-negative numeric; the residual concentration parameter.
 #'   This is the \eqn{\kappa} of the von Mises distribution that the residuals
 #'   follow.
 #' @param nconpred Integer; The number of continuous (linear) predictors to be
@@ -31,7 +31,7 @@
 #'
 #' @return A numeric matrix containing a dataset sampled according to the
 #'   circular GLM model. The first column \code{th} represents the circular
-#'   outcome. The following columns represent the linear predictors and are
+#'   outcome in radians. The following columns represent the linear predictors and are
 #'   named \code{l1}, \code{l2}, ... . The following columns represent the
 #'   categorical predictors and are named \code{c1}, \code{c2}, ... . The matrix
 #'   also has attributes containing the true values of the parameters, the used

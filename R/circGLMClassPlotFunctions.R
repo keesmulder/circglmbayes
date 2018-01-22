@@ -7,7 +7,8 @@
 #' @param type Character string giving the type of plotting. The options are
 #'   \code{"trace"}, \code{"tracestack"}, \code{"predict"}, \code{"meancompare"}
 #'   and \code{"meanboxplot"}.
-#' @param ... Additional arguments to be passed to print functions.
+#' @param ... Additional arguments to be passed to print functions based on the 
+#'   package \code{"ggplot2"}.
 #'
 #' @export
 #'
