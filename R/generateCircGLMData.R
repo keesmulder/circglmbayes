@@ -16,9 +16,6 @@
 #' @param residkappa A non-negative numeric; the residual concentration
 #'   parameter. This is the \eqn{\kappa} of the von Mises distribution that the
 #'   residuals follow.
-#' @param residkappa A non-negative numeric; the residual concentration parameter.
-#'   This is the \eqn{\kappa} of the von Mises distribution that the residuals
-#'   follow.
 #' @param nconpred Integer; The number of continuous (linear) predictors to be
 #'   generated.
 #' @param ncatpred Integer; The number of categorical predictors to be
@@ -29,8 +26,8 @@
 #'   coefficients of the continuous predictors.
 #' @param truedelta A numeric vector containing angles in radians that represent
 #'   the group differences for each of the categorical predictors.
-#' @param linkfun Function; The link function to use. The default is the canonical
-#'   arctangent link.
+#' @param linkfun Function; The link function to use. The default is the
+#'   canonical arctangent link.
 #'
 #' @return A numeric matrix containing a dataset sampled according to the
 #'   circular GLM model. The first column \code{th} represents the circular
