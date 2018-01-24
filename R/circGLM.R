@@ -386,6 +386,7 @@ circGLM <- function(formula,
   
   if (burnin < 0) stop("Burn-in must be non-negative.")
   if (thin < 1) stop("Thinning factor must be positive.")
+  if (CIsize <= 0) stop("Confidence interval size 'CIsize' must be positive.")
   
   # Check the form of the input.
   if ( (missing(formula) | missing(data) ) && missing(th)) {
