@@ -27,9 +27,11 @@ is.dichotomous <- function(x) {
 
 #' Fix names for circGLM vector output
 #'
-#' A function to change the names produced in the \code{\link{Rcpp}} code to more human readable forms.
+#' A function to change the names produced in the \code{\link{Rcpp}} code to
+#' more human readable forms.
 #'
-#' This is only done if the \code{\link{circGLM}} function is used with \code{output = "vector"}.
+#' This is only done if the \code{\link{circGLM}} function is used with
+#' \code{output = "vector"}.
 #'
 #' @param nms The original names.
 #'
