@@ -16,6 +16,9 @@
 #' @param residkappa A non-negative numeric; the residual concentration
 #'   parameter. This is the \eqn{\kappa} of the von Mises distribution that the
 #'   residuals follow.
+#' @param residkappa A non-negative numeric; the residual concentration parameter.
+#'   This is the \eqn{\kappa} of the von Mises distribution that the residuals
+#'   follow.
 #' @param nconpred Integer; The number of continuous (linear) predictors to be
 #'   generated.
 #' @param ncatpred Integer; The number of categorical predictors to be
@@ -26,7 +29,7 @@
 #'   coefficients of the continuous predictors.
 #' @param truedelta A numeric vector containing angles in radians that represent
 #'   the group differences for each of the categorical predictors.
-#' @param linkfun The link function to use. The default is the canonical
+#' @param linkfun Function; The link function to use. The default is the canonical
 #'   arctangent link.
 #'
 #' @return A numeric matrix containing a dataset sampled according to the
@@ -55,6 +58,8 @@ generateCircGLMData <- function(n = 30, residkappa = 5,
                                 truedelta = rep(1, ncatpred),
                                 linkfun   = function(x) 2 * atan(x)) {
 
+  if (residkappa < 0) stop("Residual kappa must be non-negative.")
+  
   dtpart <- btpart <- 0
 
   Xcon <- matrix(nrow = n, ncol = nconpred)

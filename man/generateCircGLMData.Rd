@@ -11,7 +11,7 @@ generateCircGLMData(n = 30, residkappa = 5, nconpred = 2, ncatpred = 2,
 \arguments{
 \item{n}{Integer; the sample size to be generated.}
 
-\item{residkappa}{A positive numeric; the residual concentration parameter.
+\item{residkappa}{A non-negative numeric; the residual concentration parameter.
 This is the \eqn{\kappa} of the von Mises distribution that the residuals
 follow.}
 
@@ -30,7 +30,7 @@ coefficients of the continuous predictors.}
 \item{truedelta}{A numeric vector containing angles in radians that represent
 the group differences for each of the categorical predictors.}
 
-\item{linkfun}{The link function to use. The default is the canonical
+\item{linkfun}{Function; The link function to use. The default is the canonical
 arctangent link.}
 }
 \value{
