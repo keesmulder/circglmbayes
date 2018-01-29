@@ -13,7 +13,7 @@
 \code{"trace"}, \code{"tracestack"}, \code{"predict"}, \code{"meancompare"}
 and \code{"meanboxplot"}.}
 
-\item{...}{Additional arguments to be passed to print functions.}
+\item{...}{Additional arguments to be passed to subsequent plot functions.}
 }
 \description{
 General plot function for \code{circGLM} objects, which dispatches the chosen

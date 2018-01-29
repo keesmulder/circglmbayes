@@ -11,9 +11,9 @@ generateCircGLMData(n = 30, residkappa = 5, nconpred = 2, ncatpred = 2,
 \arguments{
 \item{n}{Integer; the sample size to be generated.}
 
-\item{residkappa}{A non-negative numeric; the residual concentration parameter.
-This is the \eqn{\kappa} of the von Mises distribution that the residuals
-follow.}
+\item{residkappa}{A non-negative numeric; the residual concentration
+parameter. This is the \eqn{\kappa} of the von Mises distribution that the
+residuals follow.}
 
 \item{nconpred}{Integer; The number of continuous (linear) predictors to be
 generated.}
@@ -30,18 +30,18 @@ coefficients of the continuous predictors.}
 \item{truedelta}{A numeric vector containing angles in radians that represent
 the group differences for each of the categorical predictors.}
 
-\item{linkfun}{Function; The link function to use. The default is the canonical
-arctangent link.}
+\item{linkfun}{Function; The link function to use. The default is the
+canonical arctangent link.}
 }
 \value{
 A numeric matrix containing a dataset sampled according to the
   circular GLM model. The first column \code{th} represents the circular
-  outcome. The following columns represent the linear predictors and are
-  named \code{l1}, \code{l2}, ... . The following columns represent the
-  categorical predictors and are named \code{c1}, \code{c2}, ... . The matrix
-  also has attributes containing the true values of the parameters, the used
-  link function, and a proportion \code{u} showing the proportion of the data
-  that is on the semicircle closest to \code{beta_0}.
+  outcome in radians. The following columns represent the linear predictors
+  and are named \code{l1}, \code{l2}, ... . The following columns represent
+  the categorical predictors and are named \code{c1}, \code{c2}, ... . The
+  matrix also has attributes containing the true values of the parameters,
+  the used link function, and a proportion \code{u} showing the proportion of
+  the data that is on the semicircle closest to \code{beta_0}.
 }
 \description{
 This function samples data according to the circular GLM model. A set of true
@@ -60,7 +60,7 @@ parameters are also added to the data set that is returned as attributes.
 \examples{
 
 # Von Mises data with mean 2, kappa 3.
-generateCircGLMData(truebeta0 = 2, residkappa = 3, 
+generateCircGLMData(truebeta0 = 2, residkappa = 3,
                     nconpred = 0, ncatpred = 0)
 
 # circGLM data

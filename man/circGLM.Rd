@@ -42,7 +42,7 @@ for the von Mises part of the model, beta_0 and kappa.}
 vector of length 2, a Normal prior is used so that the first value is the
 mean, and the second value is the standard deviation.}
 
-\item{starting_values}{A numeric vector with starting values for the mcmc
+\item{starting_values}{A numeric vector with starting values for the MCMC
 sampler. The length of the numeric vector should be 2 plus the number of
 columns in X.}
 
@@ -79,7 +79,7 @@ proportion \code{r / 2} of the circle. If \code{r > 2}, the link functions
 can reach the same are of the circle multiple times, which is unlikely to
 be useful, and should be used with caution.}
 
-\item{returnPostSample}{Logical indicating whether the mcmc sample itself
+\item{returnPostSample}{Logical indicating whether the MCMC sample itself
 should be returned. Should only be set to \code{FALSE} if there are memory
 constraints, as many subsequent analyses rely on the posterior sample
 directly.}
@@ -226,7 +226,7 @@ data frame or matrix \code{data}, as in \code{lm()}, or as an outcome vector
 to be included that are not yet given as dummies, formula syntax is
 recommended as this will automatically take care of dummy creation.
 
-\code{circGLM} performs an mcmc sampler that generates a sample from the
+\code{circGLM} performs an MCMC sampler that generates a sample from the
 posterior of the intercept \eqn{\beta_0}, regression coefficients
 \eqn{\beta}, group mean direction differences \eqn{\delta} and residual
 \eqn{\kappa}.
@@ -246,7 +246,7 @@ The main results obtained are estimates and credible intervals for the
 parameters, posterior samples, and Bayes factors for various standard
 hypothesis comparisons.
 
-As with all mcmc samplers, convergence must be checked, and tuning parameters
+As with all MCMC samplers, convergence must be checked, and tuning parameters
 \code{bwb} and \code{reparametrize} can be tweaked if the sampler converges
 poorly. The circGLM object that is returned contains proportions accepted
 which can be used to monitor performance.
