@@ -6,7 +6,7 @@
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
 
-When run locally on windows, there was 1 NOTE:
+When run locally on windows, there were 2 NOTEs:
 
 File 'circglmbayes/libs/x64/circglmbayes.dll':
   Found no calls to: 'R_registerRoutines', 'R_useDynamicSymbols'
@@ -17,4 +17,12 @@ search.
 
 This is a known false positive on Windows, as registration is in fact taken care of in RcppExports.R and this NOTE is not happening on ubuntu.
 
+
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Kees Mulder <keestimmulder@gmail.com>'
+
+New submission
+
+
+This is safe to ignore. 
 
