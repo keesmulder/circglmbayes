@@ -230,7 +230,7 @@ double computeResultantLength (vec th) {
 }
 
 
-vec quantile(vec x, vec q) {
+vec quantile(arma::vec x, arma::vec q) {
   // Compute a quantile of vector x for each proportion in vector q.
 
   int nx = x.size();
@@ -248,7 +248,7 @@ vec quantile(vec x, vec q) {
 }
 
 // [[Rcpp::export]]
-vec circQuantile(arma::vec th, vec q) {
+vec circQuantile(arma::vec th, arma::vec q) {
   // Compute a circular quantile.
 
   double rotation = computeMeanDirection(th) - pi;
@@ -831,7 +831,7 @@ Rcpp::List circGLMC(vec th, mat X, mat D,
   //////////////////////
 
   // Bounds for the CCI's
-  vec qbounds = vec(2);
+  vec qbounds = arma::vec(2);
   qbounds(0)  = (1-CIsize)/2.0;
   qbounds(1)  = 1-((1-CIsize)/2.0);
 
