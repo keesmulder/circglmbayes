@@ -79,13 +79,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // circQuantile
-vec circQuantile(arma::vec th, vec q);
+vec circQuantile(arma::vec th, arma::vec q);
 RcppExport SEXP _circglmbayes_circQuantile(SEXP thSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::vec >::type th(thSEXP);
-    Rcpp::traits::input_parameter< vec >::type q(qSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type q(qSEXP);
     rcpp_result_gen = Rcpp::wrap(circQuantile(th, q));
     return rcpp_result_gen;
 END_RCPP

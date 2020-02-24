@@ -20,7 +20,7 @@
 #' plot(circGLM(th = rvmc(10, 1, 1)))
 #'
 #' dat <- generateCircGLMData(n = 100, nconpred = 1, ncatpred = 1)
-#' m   <- circGLM(th ~ ., dat)
+#' m   <- circGLM(th ~ ., dat, Q = 100)
 #'
 #' # Traceplot by default
 #' plot(m)
@@ -91,7 +91,7 @@ plot.circGLM <- function(x, type = "trace", ...) {
 #'
 #' @examples
 #' dat <- generateCircGLMData()
-#' m   <- circGLM(th ~ ., dat)
+#' m   <- circGLM(th ~ ., dat, Q = 100)
 #' plot(m, type = "predict")
 #' 
 plot_predict.circGLM <- function(m, x, d, th,
