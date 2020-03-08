@@ -4,14 +4,16 @@
 \alias{circGLM}
 \title{Fitting Bayesian circular General Linear Models}
 \usage{
-circGLM(formula, data, th, X = if (missing(th)) {     model.matrix(formula,
-  data)[, -1, drop = FALSE] } else {     matrix(nrow = length(th), ncol = 0) },
-  conj_prior = rep(0, 3), bt_prior_musd = c(mu = 0, sd = 1),
-  starting_values = c(0, 1, rep(0, ncol(X))), bwb = rep(0.05, ncol(X)),
-  Q = 10000, burnin = 1000, thin = 1, kappaModeEstBandwith = 0.1,
-  CIsize = 0.95, r = 2, returnPostSample = TRUE, output = "list",
+circGLM(formula, data, th, X = if (missing(th)) {    
+  model.matrix(formula, data)[, -1, drop = FALSE] } else {     matrix(nrow
+  = length(th), ncol = 0) }, conj_prior = rep(0, 3),
+  bt_prior_musd = c(mu = 0, sd = 1), starting_values = c(0, 1, rep(0,
+  ncol(X))), bwb = rep(0.05, ncol(X)), Q = 1000, burnin = 0,
+  thin = 1, kappaModeEstBandwith = 0.1, CIsize = 0.95, r = 2,
+  returnPostSample = TRUE, returnLLEachPar = FALSE, output = "list",
   SDDBFDensEstMethod = "density", reparametrize = TRUE,
-  groupMeanComparisons = TRUE, skipDichSplit = FALSE, centerOnly = FALSE)
+  groupMeanComparisons = TRUE, skipDichSplit = FALSE,
+  centerOnly = FALSE)
 }
 \arguments{
 \item{formula}{an optional object of class "formula" (or one that can be
@@ -83,6 +85,9 @@ be useful, and should be used with caution.}
 should be returned. Should only be set to \code{FALSE} if there are memory
 constraints, as many subsequent analyses rely on the posterior sample
 directly.}
+
+\item{returnLLEachPar}{Logical indicating whether to return the likelihood
+for each observation and each sampled parameter set.}
 
 \item{output}{A character string, either \code{"list"} or \code{"vector"}. In
 most situations, \code{"list"} should be used, which returns a circGLM

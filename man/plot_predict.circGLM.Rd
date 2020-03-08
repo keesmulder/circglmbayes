@@ -59,7 +59,7 @@ without grouping is required, \code{d} can be set to \code{NA}.
 }
 \examples{
 dat <- generateCircGLMData()
-m   <- circGLM(th ~ ., dat)
+m   <- circGLM(th ~ ., dat, Q = 100, burnin = 0)
 plot(m, type = "predict")
 
 }

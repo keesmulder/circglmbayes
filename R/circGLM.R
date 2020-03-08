@@ -226,6 +226,8 @@ arcDistance <- function(th1, th2) {
 #'   proportion \code{r / 2} of the circle. If \code{r > 2}, the link functions
 #'   can reach the same are of the circle multiple times, which is unlikely to
 #'   be useful, and should be used with caution.
+#' @param returnLLEachPar Logical indicating whether to return the likelihood
+#'   for each observation and each sampled parameter set.
 #' @param returnPostSample Logical indicating whether the MCMC sample itself
 #'   should be returned. Should only be set to \code{FALSE} if there are memory
 #'   constraints, as many subsequent analyses rely on the posterior sample
@@ -370,13 +372,14 @@ circGLM <- function(formula,
                     bt_prior_musd = c("mu" = 0, "sd" = 1),
                     starting_values = c(0, 1, rep(0, ncol(X))),
                     bwb = rep(.05, ncol(X)),
-                    Q = 10000,
-                    burnin = 1000,
+                    Q = 1000,
+                    burnin = 0,
                     thin = 1,
                     kappaModeEstBandwith = .1,
                     CIsize = .95,
                     r = 2,
                     returnPostSample = TRUE,
+                    returnLLEachPar = FALSE,
                     output = "list",
                     SDDBFDensEstMethod = "density",
                     reparametrize = TRUE,
@@ -609,7 +612,10 @@ circGLM <- function(formula,
   res$all_chains <- coda::mcmc(as.data.frame(res[chainPos]),
                                start = burnin, thin = thin)
   
-  
+  # Remove a memory-heavy element if required. 
+  if (!returnLLEachPar) {
+    res$ll_each_th_curpars <- NULL
+  }
   
   
   # Choose how to return the output.
