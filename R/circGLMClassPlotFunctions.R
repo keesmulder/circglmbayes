@@ -161,7 +161,7 @@ plot_predict.circGLM <- function(m, x, d, th,
 
 
   # Check if there is a grouping, then return the appropriate plot.
-  if ((is.na(d) | missing(d)) || ncol(d) == 0) {
+  if ((all(is.na(d)) | missing(d)) || (ncol(d) == 0)) {
     p <- ggplot2::ggplot(data = pdat, ggplot2::aes_string(y = "th", x = "x")) +
       ggplot2::geom_point() +
       ggplot2::stat_function(fun = predfun,
