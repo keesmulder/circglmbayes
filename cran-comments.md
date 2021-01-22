@@ -1,28 +1,19 @@
 ## Test environments
-* ubuntu 14.04 (on travis-ci), R 3.4.0
-* local windows 10 machine, R 3.4.3
-* win-builder
+* Ubuntu 16.04.6 LTS (on travis-ci), R 4.0.2
+* local windows 10 machine, 4.0.3
+* win-builder (release & devel)
 
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
 
-When run locally on windows, there were 2 NOTEs:
+When run locally on windows, there was 1 NOTE:
 
-File 'circglmbayes/libs/x64/circglmbayes.dll':
-  Found no calls to: 'R_registerRoutines', 'R_useDynamicSymbols'
+    > checking compiled code ... NOTE
+      Note: information on .o files for i386 is not available
+      Note: information on .o files for x64 is not available
+      File 'C:/Dropbox/Research/circglmbayes.Rcheck/circglmbayes/libs/i386/circglmbayes.dll':
+        Found 'abort', possibly from 'abort' (C), 'runtime' (Fortran)
+        Found 'exit', possibly from 'exit' (C), 'stop' (Fortran)
+        Found 'printf', possibly from 'printf' (C)
 
-It is good practice to register native routines and to disable symbol
-search.
-
-
-This is a known false positive on Windows, as registration is in fact taken care of in RcppExports.R and this NOTE is not happening on ubuntu.
-
-
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: 'Kees Mulder <keestimmulder@gmail.com>'
-
-New submission
-
-
-This is safe to ignore. 
-
+It seems like this is a known false positive (e.g. https://stackoverflow.com/questions/64402688/information-on-o-files-for-x64-is-not-available-note-on-r-package-checks-using), and seems not to be a result of what is done by this package. 
