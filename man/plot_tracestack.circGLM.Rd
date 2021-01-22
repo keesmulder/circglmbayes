@@ -4,8 +4,14 @@
 \alias{plot_tracestack.circGLM}
 \title{Plot a stack of traceplots for a circGLM object}
 \usage{
-plot_tracestack.circGLM(m, coef = "Beta", labelFormat = "default",
-  ggTheme = ggplot2::theme_bw(), res = 10000, burnThinLabel = TRUE)
+plot_tracestack.circGLM(
+  m,
+  coef = "Beta",
+  labelFormat = "default",
+  ggTheme = ggplot2::theme_bw(),
+  res = 10000,
+  burnThinLabel = TRUE
+)
 }
 \arguments{
 \item{m}{A \code{circGLM} object.}

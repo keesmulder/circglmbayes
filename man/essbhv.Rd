@@ -4,7 +4,8 @@
 \name{essbhv}
 \alias{essbhv}
 \title{Basic Human Values data}
-\format{A data frame with 1690 rows and 10 variables: \describe{
+\format{
+A data frame with 1690 rows and 10 variables: \describe{
   \item{id}{ESS id number}
   \item{happy}{Happiness from 0 (extremely unhappy) to 10 (extremely happy).}
   \item{rlgdgr}{Self-reported level of how religious one is from 0 (not at all) to 10 (very religious).}
@@ -13,7 +14,8 @@
   \item{theta}{Angle on the Basic Human Values scale in radians from -pi to pi.}
   \item{thetapos}{theta plus pi. }
   \item{thetagrades}{thetapos converted to degrees.}
-  }}
+  }
+}
 \source{
 \href{http://www.europeansocialsurvey.org/data/}{ESS Data Portal}
 }

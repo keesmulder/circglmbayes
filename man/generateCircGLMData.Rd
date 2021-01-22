@@ -4,9 +4,16 @@
 \alias{generateCircGLMData}
 \title{Generate data that follows the circular GLM model}
 \usage{
-generateCircGLMData(n = 30, residkappa = 5, nconpred = 2,
-  ncatpred = 2, truebeta0 = pi/2, truebeta = rep(0.25, nconpred),
-  truedelta = rep(1, ncatpred), linkfun = function(x) 2 * atan(x))
+generateCircGLMData(
+  n = 30,
+  residkappa = 5,
+  nconpred = 2,
+  ncatpred = 2,
+  truebeta0 = pi/2,
+  truebeta = rep(0.25, nconpred),
+  truedelta = rep(1, ncatpred),
+  linkfun = function(x) 2 * atan(x)
+)
 }
 \arguments{
 \item{n}{Integer; the sample size to be generated.}

@@ -4,8 +4,11 @@
 \alias{IC_compare.circGLM}
 \title{Compare the information criteria of several circGLM models.}
 \usage{
-IC_compare.circGLM(..., ICs = c("n_par", "lppd", "AIC_Bayes", "DIC",
-  "DIC_alt", "WAIC1", "WAIC2", "p_DIC", "p_DIC_alt", "p_WAIC1", "p_WAIC2"))
+IC_compare.circGLM(
+  ...,
+  ICs = c("n_par", "lppd", "AIC_Bayes", "DIC", "DIC_alt", "WAIC1", "WAIC2", "p_DIC",
+    "p_DIC_alt", "p_WAIC1", "p_WAIC2")
+)
 }
 \arguments{
 \item{...}{The \code{circGLM} objects to be compared.}

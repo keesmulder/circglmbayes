@@ -4,9 +4,16 @@
 \alias{plot_predict.circGLM}
 \title{Create a prediction plot from a circGLM object}
 \usage{
-plot_predict.circGLM(m, x, d, th, linkfun = function(x) m$r * atan(x),
-  xlab = NA, ylab = expression(theta), colorPalette = c("#E69F00",
-  "#56B4E9"))
+plot_predict.circGLM(
+  m,
+  x,
+  d,
+  th,
+  linkfun = function(x) m$r * atan(x),
+  xlab = NA,
+  ylab = expression(theta),
+  colorPalette = c("#E69F00", "#56B4E9")
+)
 }
 \arguments{
 \item{m}{A \code{circGLM} object.}

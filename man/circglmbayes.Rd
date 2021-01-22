@@ -3,7 +3,6 @@
 \docType{package}
 \name{circglmbayes}
 \alias{circglmbayes}
-\alias{circglmbayes-package}
 \title{circglmbayes: A package for the Bayesian circular GLM.}
 \description{
 This package contains functions to perform a Bayesian circular GLM, which
