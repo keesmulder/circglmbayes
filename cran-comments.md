@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ## Test environments
 * Ubuntu 16.04.6 LTS (on travis-ci), R 4.0.2
 * local windows 10 machine, 4.0.3
