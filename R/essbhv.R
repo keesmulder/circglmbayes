@@ -29,7 +29,7 @@
 #'
 #' @keywords datasets
 #'
-#' @source \href{http://www.europeansocialsurvey.org/data/}{ESS Data Portal}
+#' @source \href{https://www.europeansocialsurvey.org/data/}{ESS Data Portal}
 #'
 #' @references ESS Round 7: European Social Survey Round 7 Data (2014). Data
 #'   file edition 2.1. NSD - Norwegian Centre for Research Data, Norway – Data
